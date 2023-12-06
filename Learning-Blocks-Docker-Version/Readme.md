@@ -25,3 +25,11 @@ pgadmin_listen_port=5050
 pgadmin_default_email=user
 pgadmin_default_password=change_me_password01
 ```
+
+### Start the application
+
+Start all the servers with Docker Compose.
+
+```shell
+docker compose up
+```

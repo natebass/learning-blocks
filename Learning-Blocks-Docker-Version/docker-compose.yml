@@ -3,6 +3,8 @@ services:
   fastapi:
     container_name: lb_api_01
     restart: unless-stopped
+    depends_on:
+      - db
     build:
       context: ./python_backend
       dockerfile: ./Dockerfile
@@ -18,4 +20,32 @@ services:
       - pgadmin_listen_port
       - pgadmin_default_email
       - pgadmin_default_password
- 
+  #    healthcheck:
+  #      test: [ "CMD", "curl", "-f", "http://localhost:8000/health" ]
+  #      interval: 5m
+  #      timeout: 5s
+  #      retries: 3
+  #      start_period: 15s
+  db:
+    image: postgres:16-bookworm
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    expose:
+      - 5432
+    environment:
+      - domain
+      - project_name
+      - postgres_server
+      - postgres_user
+      - postgres_password
+      - postgres_db
+      - pgadmin_listen_port
+      - pgadmin_default_email
+      - pgadmin_default_password
+      - POSTGRES_SERVER=localhost
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=a822323d9357037850b98dbc8772efdc3dbdf2029882080ac3579e1e21289f3a
+      - POSTGRES_DB=postgres
+      - db
+volumes:
+  postgres_data:

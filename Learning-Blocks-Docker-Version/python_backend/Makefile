@@ -11,6 +11,10 @@ coverage:
 	python -m pytest --cov-report=html
 
 # Run Alembic database migration upgrade.
+alembic:
+	alembic init
+
+# Run Alembic database migration upgrade.
 migrate:
 	alembic upgrade head
 
