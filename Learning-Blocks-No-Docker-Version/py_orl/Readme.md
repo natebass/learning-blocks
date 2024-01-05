@@ -1,18 +1,18 @@
 # Learning Blocks Backend
 
-This is an overview of how to run Learning Blocks without Docker. It describes setting up the project and running the
+This is an overview of how to run Learning Blocks without using Docker. It describes setting up the project and running the
 local server.
-> For more information, view the [Documentation Directory](/Documentation%20Directory)
+> See the [Documentation Directory](/Documentation%20Directory) for help.
 
 ## Getting started.
 
-Install PostgreSQL and the Python dependencies. For help,
-see [No_docker_getting_started.md](Documentation%20Directory/No_docker_getting_started.md).
+Install PostgreSQL and the Python dependencies. Instructions [here (No_docker_getting_started.md)](/Documentation%20Directory/No_docker_getting_started.md).
 
 ### Add environment variables
 
-Add the following environment variables to your path. You can also try to create a .env file, but I haven't tested that
-this works.
+Before starting the application, add the environment variables to your path. The required ones are project_name and postgres_*. All values can be changed.
+
+You can also try to create a .env file. We should support in the future reading the environment variables automatically from this file.
 
 #### .env
 

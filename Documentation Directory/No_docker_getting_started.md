@@ -16,9 +16,7 @@ pgAdmin: http://localhost:5050
 
 ## Project setup
 
-The project requires Python and PostgresSQL to be installed. For help, see For project setup,
-see [Documentation Directory/Stand_alone_FastAPI_setup.md](/Documentation%20Directory/Stand_alone_FastAPI_setup.md)
-and [Documentation Directory/Database_documentation.md](/Documentation%20Directory/Database_documentation.md).
+The project requires Python and PostgreSQL to be installed.
 
 ### Python
 
@@ -77,28 +75,16 @@ Make support is under development and might not work. The Makefile is still a go
 
 > More commands can be found in [Makefile](/Learning-Blocks-No-Docker-Version/py_orl/Makefile).
 
-### make local
+- `make local` Run the local server.
 
-Run the local server.
+- `make test` Run all tests.
 
-### make test
+- ` make coverage` Run test coverage.
 
-Run all tests.
+- `make migrate` Execute the latest database migrations.
 
-### make coverage
+- `make init` Initialize database with example data.
 
-Run test coverage.
-
-### make migrate
-
-Execute the latest database migrations.
-
-### make init
-
-Initialize database with example data.
-
-### make lint
-
-Check and optimize code formatting. 
+- `make lint` Check and optimize code formatting. 
 
 
