@@ -13,21 +13,18 @@ class PeopleInDBCreate(BaseModel):
     EnabledUser: bool
     DateLastModified: Optional[str] = None
     SchoolCode: Optional[str] = None
-    AnonymizedStudentID: str 
-    AnonymizedStudentNumber: str
-    sections: Optional[List[str]] = None
+    AnonymizedStudentID: Optional[str] = None 
+    AnonymizedStudentNumber: Optional[str] = None
     SchlAssociated: Optional[str] = None
     stu_associated: Optional[List[str]] = None
     Credentials: Optional[List[str]] = None
     Subjects: Optional[List[str]] = None
     SiteDuties: Optional[List[str]] = None
-    GradeLevels: Optional[List[str]] = None
     MetaData: Optional[Dict[str, List[str]]] = None
     Birthdate: Optional[str] = None
-    SourcedID: str
-    AnonymizedTeacherID: str
+    AnonymizedTeacherID: Optional[str] = None
     SiteDuties: Optional[List[str]] = None
-    GradeLevels: Optional[List[str]] = None
+    GradeLevels: Optional[str] = None
 
 
     class Config:
@@ -37,6 +34,7 @@ class BDDemoModel(BaseModel):
     
     BDcurrentAcademicIndicator: Dict[str, int] = Field(
         {
+           
             "Suspensions_Indicator": 0,
             "EL_Prgrs_Indicator": 0,
             "Grad_Rate_Indicator": 0,
@@ -327,7 +325,7 @@ class TeacherInDBCreate(BaseModel):
     Credentials: Optional[List[str]] = None
     Subjects: Optional[List[str]] = None
     SiteDuties: Optional[List[str]] = None
-    GradeLevels: Optional[List[str]] = None
+    GradeLevels: Optional[str] = None
     MetaData: Optional[BDDemoModel] = None
 
     class Config:
@@ -337,6 +335,8 @@ class TeacherInDBCreate(BaseModel):
 
 class StudentInDBCreate(BaseModel):
     ID: int
+    FirstName: str
+    LastName: str
     AnonymizedStudentID: str
     AnonymizedStudentNumber: str
     Sections: Optional[List[str]] = None
@@ -347,14 +347,20 @@ class StudentInDBCreate(BaseModel):
     SchoolCode: Optional[str] = None
     MetaData: Optional[BDDemoModel] = None
     SchoolName: Optional[str] = None
-    GradeLevels: Optional[List[str]] = None
+    GradeLevels: Optional[str] = None
+    EnabledUser: Optional[str] = None
+    DateLastModified: Optional[str] = None
+    StuAssociated: Optional[List[str]] = None  # Add this
 
 
 
- #Response schema for StudentInDB
+
+# Response schema for StudentInDB
 class StudentInDBResponse(BaseModel):
-    ID: int
-    AnonymizedStudentID: str
+    ID: Optional[int] = None
+    FirstName: Optional[str] = None
+    LastName: Optional[str] = None
+    AnonymizedStudentID: Optional[str] = None
     AnonymizedStudentNumber: Optional[str] = None
     Role: RoleEnum = "student"
     SourcedID: str
@@ -363,11 +369,13 @@ class StudentInDBResponse(BaseModel):
     SchlAssociated: Optional[str] = None
     SchoolCode: Optional[str] = None
     MetaData: Optional[BDDemoModel] = None
-    
+    StuAssociated: Optional[List[str]] = None  # Add this
+    GradeLevels: Optional[str] = None  # Add this
+    DateLastModified: Optional[str] = None  # Add this
+    EnabledUser: Optional[str] = None  # Add this
 
     class Config:
-      from_attributes = True
-      
+        from_attributes = True
 
 
 
@@ -377,14 +385,14 @@ class TeacherInDBResponse(BaseModel):
     ID:int
     AnonymizedTeacherID: str
     AnonymizedTeacherNumber: Optional[str] = None
-    role: RoleEnum = "teacher"
-    sourcedid: str
+    Role: RoleEnum = "teacher"
+    SourcedID: str
     StuAssociated: List[StudentInDBResponse] = []
     SchlAssociated: Optional[str] = None
     Credentials: Optional[List[str]] = None
     Subjects: Optional[List[str]] = None
     SiteDuties: Optional[List[str]] = None
-    GradeLevels: Optional[List[str]] = None
+    GradeLevels: Optional[str] = None
     EnabledUser: Optional[str] = None
     SchoolCode: Optional[str] = None
     MetaData: Optional[BDDemoModel] = None
@@ -402,7 +410,7 @@ class PeopleInDB(BaseModel):
     FirstName: str
     LastName: str
     Role: RoleEnum
-    SourcedId: str
+    SourcedID: str
     AnonymizedStudentID: Optional[str] = None
     AnonymizedStudentNumber: Optional[str] = None
     EnabledUser: Optional[str] = None
@@ -413,12 +421,28 @@ class PeopleInDB(BaseModel):
     class Config:
         orm_mode = True
 
+class PeopleCreateRequest(BaseModel):
+    ID: int
+    FirstName: str
+    LastName: str
+    Role: str
+    SourcedID: str
+    EnabledUser: bool
+    DateLastModified: Optional[str] = None
+    SchoolCode: Optional[str]
+    student: Optional[StudentInDBResponse] = None
+    teacher: Optional[TeacherInDBResponse] = None
+
+    class Config:
+        orm_mode = True
+
+
 class PeopleInDBResponse(BaseModel):
     ID: int
     FirstName: str
     LastName: str
     Role: str
-    SourcedId: str
+    SourcedID: str
     EnabledUser: bool
     DateLastModified: Optional[str] = None
     SchoolCode: Optional[str]
@@ -437,34 +461,31 @@ class SchoolsInDBBase(BaseModel):
     City: Optional[str] = None
     State: Optional[str] = None
     ZipCode: Optional[str] = None
-
+    GradeLevels: Optional[str] = None
 
     class Config:
         orm_mode = True
 
 # Schema for SchoolsInDB creation
 class SchoolsInDBCreate(SchoolsInDBBase):
-    MetaData : Optional[BDDemoModel] = None
+    MetaData: Optional[BDDemoModel] = None
     pass
 
 # Response schema for SchoolsInDB with list of associated people
 class SchoolsInDBResponse(SchoolsInDBBase):
-    
-    people: List[PeopleInDBResponse] = []  # List of people associated with the school
-    SchoolCode: str
-    SchoolName: str
-
+    people: List[PeopleInDBResponse] = Field(default_factory=list)  # List of associated people
     MetaData: Optional[BDDemoModel] = None
 
     class Config:
         orm_mode = True
+
 
 # Schema for updating PeopleInDB records
 class PeopleInDBUpdate(BaseModel):
     FirstName: Optional[str] = None
     LastName: Optional[str] = None
     Role: RoleEnum = "RoleEnum"
-    SourcedId: Optional[str] = None
+    SourcedID: Optional[str] = None
     EnabledUser: Optional[str] = None
     DateLastModified: Optional[str] = None
     SchoolCode: Optional[str] = None
@@ -474,6 +495,12 @@ class PeopleInDBUpdate(BaseModel):
 
 class StudentInDB(BaseModel):
     ID: int
+    FirstName: str
+    LastName: str
+    Role: RoleEnum
+    SourcedID: str
+    GradeLevels: Optional[str] = None
+    MetaData: Optional[Dict[str, List[str]]] = None
     AnonymizedStudentID: str
     AnonymizedStudentNumber: str
     Sections: Optional[List[str]] = None

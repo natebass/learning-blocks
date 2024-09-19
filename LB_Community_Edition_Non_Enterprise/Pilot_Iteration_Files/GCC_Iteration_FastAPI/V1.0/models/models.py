@@ -74,10 +74,11 @@ class StudentInDB(PeopleInDB):
     AnonymizedStudentNumber: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     MetaData: Mapped[Optional[Dict[str, List[str]]]] = mapped_column(JSON, nullable=True)
     Sections: Mapped[Optional[List[str]]] = mapped_column(String, nullable=True)  
-    SchlAssociated: Mapped[Optional[str]] = mapped_column(String,  nullable=True) 
+    SchlAssociated: Mapped[Optional[str]] = mapped_column(String,  nullable=True)
+    StuAssociated: Mapped[Optional[List[str]]] = mapped_column(String, nullable=True)
     Birthdate: Mapped[Optional[str]] = mapped_column(String, nullable=True)  
     SchoolCode: Mapped[Optional[str]] = mapped_column(String, ForeignKey("schools.SchoolCode"), nullable=True, index=True)
-    GradeLevels: Mapped[Optional[List[str]]] = mapped_column(String, nullable=True)  
+    GradeLevels: Mapped[Optional[str]] = mapped_column(String, nullable=True)  
     __mapper_args__ = {
         'polymorphic_identity': 'student',  # Identity for Student
     }
@@ -109,7 +110,7 @@ class TeacherInDB(PeopleInDB):
     Credentials: Mapped[Optional[List[str]]] = mapped_column(String, nullable=True)  # Changed to lowercase
     Subjects: Mapped[Optional[List[str]]] = mapped_column(String, nullable=True)  # Changed to lowercase
     SiteDuties: Mapped[Optional[List[str]]] = mapped_column(String, nullable=True)  # Changed to lowercase
-    GradeLevels: Mapped[Optional[List[str]]] = mapped_column(String, nullable=True)  # Changed to lowercase
+    GradeLevels: Mapped[Optional[str]] = mapped_column(String, nullable=True)  # Changed to lowercase
     MetaData: Mapped[Optional[Dict[str, List[str]]]] = mapped_column(JSON, nullable=True)  # Changed to lowercase
     Role: Mapped[RoleEnum] = mapped_column(SQLAEnum(RoleEnum), nullable=False, index=True)
     SourcedID: Mapped[str] = mapped_column(String, unique=True, nullable=False, index=True)
@@ -138,6 +139,7 @@ class SchoolsInDB(Base):
     ID: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     SchoolCode: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     SchoolName: Mapped[str] = mapped_column(String, nullable=False)
+    GradeLevels: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     Address: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     City: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     State: Mapped[Optional[str]] = mapped_column(String, nullable=True)

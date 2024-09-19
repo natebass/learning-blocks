@@ -1,3 +1,4 @@
+from typing import List
 import json
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
@@ -8,19 +9,27 @@ from databases.databases import get_db  # Ensure relative import is correct
 
 router = APIRouter()
 
-@router.post("/student", response_model=StudentInDBResponse)
+@router.post("/student", response_model=StudentInDBResponse, description="Add a new student.",
+            summary="Add a new student.",
+            response_description="Add a new student.")
 def create_school(student: StudentInDBCreate, db: Session = Depends(get_db)):
     try:
         db_student = StudentInDB(
-            school_code=student.school_code,
+            FirstName=student.FirstName,
+            LastName=student.LastName,
+            SchoolCode=student.SchoolCode,
             AnonymizedStudentID=student.AnonymizedStudentID,
             AnonymizedStudentNumber=student.AnonymizedStudentNumber,
-            role=student.role,
-            sourcedid=student.sourcedid,
+            Role=student.Role,
+            SourcedID=student.SourcedID,
             Sections=student.Sections,
-            schlassociated=student.SchlAssociated,
-            birthdate=student.Birthdate,
-            bddemo=student.bddemo.json()
+            SchlAssociated=student.SchlAssociated,
+            Birthdate=student.Birthdate,
+            GradeLevels=student.GradeLevels,
+            MetaData=json.dumps(student.MetaData.dict()) if student.MetaData else None,
+            EnabledUser=student.EnabledUser,
+            DateLastModified=student.DateLastModified ,
+            StuAssociated=student.StuAssociated
         )
         db.add(db_student)
         db.commit()
@@ -32,67 +41,137 @@ def create_school(student: StudentInDBCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
 
     
-@router.get("/students/{student_id}", response_model=StudentInDBResponse)
-def read_student(student_id: int, db: Session = Depends(get_db)):
+import json
+
+
+@router.get("/students", response_model=List[StudentInDBResponse], description="Retrieve all students",
+            summary="Retrieve all students",
+            response_description="Retrieve all students")
+def read_students(db: Session = Depends(get_db)):
     try:
-        db_student = db.query(StudentInDB).filter(StudentInDB.id == student_id).first()
+        db_students = db.query(StudentInDB).all()
+        response_students = []
+
+        for db_student in db_students:
+            # Ensure MetaData is a valid JSON string or None
+            try:
+                meta_data = json.loads(db_student.MetaData) if db_student.MetaData else None
+            except json.JSONDecodeError:
+                raise HTTPException(status_code=500, detail="MetaData is not a valid JSON string")
+
+            # Convert Sections if it's a string
+            if isinstance(db_student.Sections, str):
+                try:
+                    sections = json.loads(db_student.Sections)
+                except json.JSONDecodeError:
+                    # Fallback if Sections is not valid JSON, assuming it's a comma-separated string
+                    sections = db_student.Sections.split(",") if db_student.Sections else []
+            else:
+                sections = db_student.Sections if db_student.Sections else []
+
+            # Convert StuAssociated if it's a string
+            if isinstance(db_student.StuAssociated, str):
+                try:
+                    stu_associated = json.loads(db_student.StuAssociated)
+                except json.JSONDecodeError:
+                    stu_associated = db_student.StuAssociated.split(",") if db_student.StuAssociated else []
+            else:
+                stu_associated = db_student.StuAssociated if db_student.StuAssociated else []
+
+            
+            # Create the response object with the appropriate fields
+            response_student = StudentInDBResponse(
+                ID=db_student.ID,
+                FirstName=db_student.FirstName,
+                LastName=db_student.LastName,
+                SchoolCode=db_student.SchoolCode,
+                AnonymizedStudentID=db_student.AnonymizedStudentID,
+                AnonymizedStudentNumber=db_student.AnonymizedStudentNumber,
+                Role=db_student.Role,
+                SourcedID=db_student.SourcedID,
+                Sections=sections,  # Should now be a list
+                SchlAssociated=db_student.SchlAssociated,
+                Birthdate=db_student.Birthdate,
+                EnabledUser=db_student.EnabledUser,
+                GradeLevels=db_student.GradeLevels,  # Should now be a list
+                MetaData=meta_data,  # Should be a dictionary
+                DateLastModified=db_student.DateLastModified,
+                StuAssociated=stu_associated  # Should now be a list
+            )
+            
+            response_students.append(response_student)
+
+        return response_students
+    except HTTPException as e:
+        raise e  # Forward the HTTP exception as is
+    except Exception as e:
+        # Add more details to the error message for debugging
+        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
+    
+    from fastapi import HTTPException, Depends
+from sqlalchemy.orm import Session
+from typing import Optional
+import json
+
+@router.get("/students/{anonymized_student_id}", response_model=StudentInDBResponse,description="Retrieve a student's information using their AnonymizedStudentID.",
+            summary="Get student by AnonymizedStudentID",
+            response_description="The student details for the given AnonymizedStudentID.")
+def read_student(anonymized_student_id: str, db: Session = Depends(get_db)):
+    try:
+        # Query for a single student based on AnonymizedStudentID
+        db_student = db.query(StudentInDB).filter(StudentInDB.AnonymizedStudentID == anonymized_student_id).first()
+        
         if db_student is None:
             raise HTTPException(status_code=404, detail="Student not found")
+
+        # Ensure MetaData is a valid JSON string or None
+        try:
+            meta_data = json.loads(db_student.MetaData) if db_student.MetaData else None
+        except json.JSONDecodeError:
+            raise HTTPException(status_code=500, detail="MetaData is not a valid JSON string")
+
+        # Convert Sections if it's a string
+        if isinstance(db_student.Sections, str):
+            try:
+                sections = json.loads(db_student.Sections)
+            except json.JSONDecodeError:
+                sections = db_student.Sections.split(",") if db_student.Sections else []
+        else:
+            sections = db_student.Sections if db_student.Sections else []
+
+        # Convert StuAssociated if it's a string
+        if isinstance(db_student.StuAssociated, str):
+            try:
+                stu_associated = json.loads(db_student.StuAssociated)
+            except json.JSONDecodeError:
+                stu_associated = db_student.StuAssociated.split(",") if db_student.StuAssociated else []
+        else:
+            stu_associated = db_student.StuAssociated if db_student.StuAssociated else []
+
+
+        # Create the response object with the appropriate fields
         response_student = StudentInDBResponse(
-            id=db_student.id,
+            ID=db_student.ID,
+            FirstName=db_student.FirstName,
+            LastName=db_student.LastName,
+            SchoolCode=db_student.SchoolCode,
             AnonymizedStudentID=db_student.AnonymizedStudentID,
             AnonymizedStudentNumber=db_student.AnonymizedStudentNumber,
-            role=db_student.role,
-            sourcedid=db_student.sourcedid,
-            school_code=db_student.school_code,
-            BDDemoModel=db_student.BDDemo
+            Role=db_student.Role,
+            SourcedID=db_student.SourcedID,
+            Sections=sections,  # Should now be a list
+            SchlAssociated=db_student.SchlAssociated,
+            Birthdate=db_student.Birthdate,
+            EnabledUser=db_student.EnabledUser,
+            GradeLevels=db_student.GradeLevels,  # Should now be a list
+            MetaData=meta_data,  # Should be a dictionary
+            DateLastModified=db_student.DateLastModified,
+            StuAssociated=stu_associated  # Should now be a list
         )
         
         return response_student
+    except HTTPException as e:
+        raise e  # Forward the HTTP exception as is
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
-
-
-@router.put("/students/{student_id}/update_student_bddemo", response_model=StudentInDBResponse, summary="Update Student BDDemo")
-def update_bddemo(student_id: int, bddemo: BDDemoModel, db: Session = Depends(get_db)):
-    try:
-        # Find the student by ID
-        db_student = db.query(StudentInDB).filter_by(id=student_id).first()
-
-        if db_student is None:
-            raise HTTPException(status_code=404, detail="Student not found")
-
-        # Update the BDDemo column with new data using raw SQL
-        query = text("""
-            UPDATE students
-            SET BDDemo = :bddemo
-            WHERE id = :student_id
-            RETURNING id, AnonymizedStudentID, AnonymizedStudentNumber, role, sourcedid, BDDemo, Sections, SchlAssociated, Birthdate, school_code
-        """)
-        result = db.execute(query, {
-            "bddemo": bddemo.model_dump_json(),  # Convert BDDemoModel to JSON string
-            "student_id": student_id
-        })
-        updated_student = result.fetchone()
-
-        if not updated_student:
-            raise HTTPException(status_code=500, detail="Failed to update BDDemo.")
-
-        # Commit the transaction
-        db.commit()
-
-        # Construct the response data
-        response_student = StudentInDBResponse(
-            id=updated_student["id"],
-            AnonymizedStudentID=updated_student["AnonymizedStudentID"],
-            AnonymizedStudentNumber=updated_student["AnonymizedStudentNumber"],
-            role=updated_student["role"],
-            sourcedid=updated_student["sourcedid"],
-            school_code=updated_student["school_code"],
-            BDDemo=bddemo
-        )
-
-        return response_student
-    except Exception as e:
-        db.rollback()
+        # Add more details to the error message for debugging
         raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
