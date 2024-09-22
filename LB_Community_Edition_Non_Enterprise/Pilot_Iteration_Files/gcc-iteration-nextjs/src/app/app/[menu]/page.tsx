@@ -4,24 +4,29 @@ import { useSearchParams } from 'next/navigation'
 
 import DashboardManager from '@/feature/dashboard/DashboardManager'
 import AppContainer from '@/components/layout/AppContainer'
-import exampleDataAnalytics from '../../../../__tests__/mock/ExampleDataAnalytics.json'
-import exampleDataDemographic from '../../../../__tests__/mock/ExampleDataDemographic.json'
+import exampleDataDashboard from '../../../../__tests__/mock/ExampleDataDashboard.json'
+import links from '../../../../__tests__/mock/links02.json'
+import { useState } from 'react'
 
 export default function Page({ params }: { params: { menu: string } }) {
   let searchParams = useSearchParams()
   let queryKey = searchParams.get('q') || '1efa02'
-  let currentSubMenu = searchParams.get('n') || 'example01'
-  let data = {
-    analytics: exampleDataAnalytics,
-    demographics: exampleDataDemographic,
+  let [subMenu, setSubMenu] = useState<string>(
+    searchParams.get('n')! || getSubMenu(params.menu)!,
+  )
+  let data = exampleDataDashboard
+
+  function getSubMenu(selectedMenu: string) {
+    return links.find((link) => link.title === selectedMenu)?.subMenuLinks[0]
   }
 
   return (
-    <AppContainer selectedMenu={params.menu} selectedSubMenu={currentSubMenu}>
-      <DashboardManager
-        data={data ? data : [{}]}
-        selectedSubMenu={currentSubMenu}
-      />
+    <AppContainer
+      selectedMenu={params.menu}
+      selectedSubMenu={subMenu}
+      onClickSubMenu={setSubMenu}
+    >
+      <DashboardManager data={data ? data : [{}]} selectedSubMenu={subMenu} />
     </AppContainer>
   )
 }

@@ -43,9 +43,9 @@ function CardC79({ data, getCardTheme, selectCategory }: AnalyticCardProps) {
               <Image
                 alt={`Hover for more info about ${data.analyticTitle}`}
                 className={styles.helpIcon}
-                height={24}
                 src="menu_help.svg"
                 width={24}
+                height={24}
               />
             </div>
           </div>
@@ -54,6 +54,7 @@ function CardC79({ data, getCardTheme, selectCategory }: AnalyticCardProps) {
               alt={`Chart displaying ${data.analyticLevelAmount} level for ${data.analyticDescription}.`}
               src={parseAnalyticArrowGraphImage(data.analyticLevelAmount)}
               width="120"
+              height={100}
             />
           </div>
           <div className={styles.categoriesContainer}>

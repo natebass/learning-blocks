@@ -26,15 +26,15 @@ function DashboardD84() {
   function getAnalyticsChart(type: string, levelAmount: number): string {
     if (type === 'chart') {
       if (levelAmount <= 20) {
-        return 'chart_analytics_very_low.png'
+        return '/chart_analytics_very_low.png'
       } else if (levelAmount <= 40) {
-        return 'chart_analytics_low.png'
+        return '/chart_analytics_low.png'
       } else if (levelAmount <= 60) {
-        return 'chart_analytics_medium.png'
+        return '/chart_analytics_medium.png'
       } else if (levelAmount <= 80) {
-        return 'chart_analytics_high.png'
+        return '/chart_analytics_high.png'
       } else if (levelAmount <= 100) {
-        return 'chart_analytics_very_high.png'
+        return '/chart_analytics_very_high.png'
       } else {
         return ''
       }
@@ -42,15 +42,15 @@ function DashboardD84() {
       return ''
     } else {
       if (levelAmount <= 20) {
-        return 'analytics_red.png'
+        return '/analytics_red.png'
       } else if (levelAmount <= 40) {
-        return 'analytics_orange.png'
+        return '/analytics_orange.png'
       } else if (levelAmount <= 60) {
-        return 'analytics_yellow.png'
+        return '/analytics_yellow.png'
       } else if (levelAmount <= 80) {
-        return 'analytics_green.png'
+        return '/analytics_green.png'
       } else if (levelAmount <= 100) {
-        return 'analytics_blue.png'
+        return '/analytics_blue.png'
       } else {
         return ''
       }
@@ -103,7 +103,8 @@ function DashboardD84() {
                       'chart',
                       it.analytics_level_amount,
                     )}`}
-                    width="120"
+                    height={100}
+                    width={120}
                   />
                 ) : it.analytics_title === 'Unduplicated Count' ? (
                   <div style={{ fontSize: '64px' }}>
@@ -113,7 +114,8 @@ function DashboardD84() {
                   <Image
                     alt={`Chart displaying ${it.analytics_level_text} level for ${it.analytics_title}.`}
                     src={`/${getAnalyticsChart('', it.analytics_level_amount)}`}
-                    width="100"
+                    height={100}
+                    width={120}
                   />
                 )}
               </div>

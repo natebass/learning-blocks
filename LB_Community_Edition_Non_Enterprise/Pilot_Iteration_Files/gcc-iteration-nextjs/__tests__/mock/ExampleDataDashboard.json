@@ -1,0 +1,349 @@
+{
+    "demographics": [
+        {
+            "key": "R100",
+            "demographicTitle": "American Indian or Alaska Native",
+            "demographicAggregate": 1087
+        },
+        {
+            "key": "R201",
+            "demographicTitle": "Chinese",
+            "demographicAggregate": 878
+        },
+        {
+            "key": "R202",
+            "demographicTitle": "Japanese",
+            "demographicAggregate": 866
+        },
+        {
+            "key": "R203",
+            "demographicTitle": "Korean",
+            "demographicAggregate": 872
+        },
+        {
+            "key": "R204",
+            "demographicTitle": "Vietnamese",
+            "demographicAggregate": 883
+        },
+        {
+            "key": "R205",
+            "demographicTitle": "Asian Indian",
+            "demographicAggregate": 871
+        },
+        {
+            "key": "R206",
+            "demographicTitle": "Laotian",
+            "demographicAggregate": 867
+        },
+        {
+            "key": "R207",
+            "demographicTitle": "Cambodian",
+            "demographicAggregate": 871
+        },
+        {
+            "key": "R208",
+            "demographicTitle": "Hmong",
+            "demographicAggregate": 866
+        },
+        {
+            "key": "R299",
+            "demographicTitle": "Other Asian",
+            "demographicAggregate": 1016
+        },
+        {
+            "key": "R301",
+            "demographicTitle": "Hawaiian",
+            "demographicAggregate": 865
+        },
+        {
+            "key": "R302",
+            "demographicTitle": "Guamanian",
+            "demographicAggregate": 864
+        },
+        {
+            "key": "R303",
+            "demographicTitle": "Samoan",
+            "demographicAggregate": 867
+        },
+        {
+            "key": "R304",
+            "demographicTitle": "Tahitian",
+            "demographicAggregate": 870
+        },
+        {
+            "key": "R399",
+            "demographicTitle": "Other Pacific Islander",
+            "demographicAggregate": 876
+        },
+        {
+            "key": "R400",
+            "demographicTitle": "Filipino",
+            "demographicAggregate": 968
+        },
+        {
+            "key": "R600",
+            "demographicTitle": "Black or African American",
+            "demographicAggregate": 1019
+        },
+        {
+            "key": "R700",
+            "demographicTitle": "White",
+            "demographicAggregate": 2043
+        },
+        {
+            "key": "G1",
+            "demographicTitle": "Male",
+            "demographicAggregate": 1413
+        },
+        {
+            "key": "G2",
+            "demographicTitle": "Female",
+            "demographicAggregate": 1370
+        },
+        {
+            "key": "G3",
+            "demographicTitle": "Other/Unknown",
+            "demographicAggregate": 2
+        },
+        {
+            "key": "T1",
+            "demographicTitle": "Students Enrolled",
+            "demographicAggregate": 2785
+        }
+    ],
+    "analytics": [
+        {
+            "key": "A9e41",
+            "analyticTitle": "Chronic Absenteeism",
+            "analyticLevelAmount": 49.631298,
+            "analyticLevelText": null,
+            "analyticDescription": "Who is chronically absent (less than 10% attendance).",
+            "analyticCategories": [
+                {
+                    "key": "Very Low",
+                    "analyticCategoryStudentAmount": 586
+                },
+                {
+                    "key": "Low",
+                    "analyticCategoryStudentAmount": 557
+                },
+                {
+                    "key": "Medium",
+                    "analyticCategoryStudentAmount": 552
+                },
+                {
+                    "key": "High",
+                    "analyticCategoryStudentAmount": 564
+                },
+                {
+                    "key": "Very High",
+                    "analyticCategoryStudentAmount": 526
+                }
+            ]
+        },
+        {
+            "key": "Aaa59",
+            "analyticTitle": "Suspension Rate",
+            "analyticLevelAmount": 48.607635,
+            "analyticLevelText": null,
+            "analyticDescription": "Cohort data.",
+            "analyticCategories": [
+                {
+                    "key": "Very Low",
+                    "analyticCategoryStudentAmount": 619
+                },
+                {
+                    "key": "Low",
+                    "analyticCategoryStudentAmount": 566
+                },
+                {
+                    "key": "Medium",
+                    "analyticCategoryStudentAmount": 530
+                },
+                {
+                    "key": "High",
+                    "analyticCategoryStudentAmount": 557
+                },
+                {
+                    "key": "Very High",
+                    "analyticCategoryStudentAmount": 513
+                }
+            ]
+        },
+        {
+            "key": "A4793",
+            "analyticTitle": "Graduation Rate",
+            "analyticLevelAmount": 48.14223,
+            "analyticLevelText": null,
+            "analyticDescription": "Graduation rate.",
+            "analyticCategories": [
+                {
+                    "key": "Very Low",
+                    "analyticCategoryStudentAmount": 615
+                },
+                {
+                    "key": "Low",
+                    "analyticCategoryStudentAmount": 585
+                },
+                {
+                    "key": "Medium",
+                    "analyticCategoryStudentAmount": 549
+                },
+                {
+                    "key": "High",
+                    "analyticCategoryStudentAmount": 543
+                },
+                {
+                    "key": "Very High",
+                    "analyticCategoryStudentAmount": 493
+                }
+            ]
+        },
+        {
+            "key": "A7924",
+            "analyticTitle": "LTEL",
+            "analyticLevelAmount": 49.87074,
+            "analyticLevelText": null,
+            "analyticDescription": "LTEL List (students who arent on track to keeping up with their english as a secondary language).",
+            "analyticCategories": [
+                {
+                    "key": "Very Low",
+                    "analyticCategoryStudentAmount": 564
+                },
+                {
+                    "key": "Low",
+                    "analyticCategoryStudentAmount": 559
+                },
+                {
+                    "key": "Medium",
+                    "analyticCategoryStudentAmount": 568
+                },
+                {
+                    "key": "High",
+                    "analyticCategoryStudentAmount": 571
+                },
+                {
+                    "key": "Very High",
+                    "analyticCategoryStudentAmount": 523
+                }
+            ]
+        },
+        {
+            "key": "A2fcb",
+            "analyticTitle": "College and Career",
+            "analyticLevelAmount": 49.20768,
+            "analyticLevelText": null,
+            "analyticDescription": "College and career indicators.",
+            "analyticCategories": [
+                {
+                    "key": "Very Low",
+                    "analyticCategoryStudentAmount": 583
+                },
+                {
+                    "key": "Low",
+                    "analyticCategoryStudentAmount": 562
+                },
+                {
+                    "key": "Medium",
+                    "analyticCategoryStudentAmount": 570
+                },
+                {
+                    "key": "High",
+                    "analyticCategoryStudentAmount": 559
+                },
+                {
+                    "key": "Very High",
+                    "analyticCategoryStudentAmount": 511
+                }
+            ]
+        },
+        {
+            "key": "Ae5f9",
+            "analyticTitle": "Unduplicated Count",
+            "analyticLevelAmount": 49.53393,
+            "analyticLevelText": null,
+            "analyticDescription": "Unduplicated Count.",
+            "analyticCategories": [
+                {
+                    "key": "Very Low",
+                    "analyticCategoryStudentAmount": 575
+                },
+                {
+                    "key": "Low",
+                    "analyticCategoryStudentAmount": 592
+                },
+                {
+                    "key": "Medium",
+                    "analyticCategoryStudentAmount": 518
+                },
+                {
+                    "key": "High",
+                    "analyticCategoryStudentAmount": 581
+                },
+                {
+                    "key": "Very High",
+                    "analyticCategoryStudentAmount": 519
+                }
+            ]
+        },
+        {
+            "key": "A418f",
+            "analyticTitle": "English Language Arts",
+            "analyticLevelAmount": 49.96805,
+            "analyticLevelText": null,
+            "analyticDescription": "English score.",
+            "analyticCategories": [
+                {
+                    "key": "Very Low",
+                    "analyticCategoryStudentAmount": 567
+                },
+                {
+                    "key": "Low",
+                    "analyticCategoryStudentAmount": 553
+                },
+                {
+                    "key": "Medium",
+                    "analyticCategoryStudentAmount": 566
+                },
+                {
+                    "key": "High",
+                    "analyticCategoryStudentAmount": 546
+                },
+                {
+                    "key": "Very High",
+                    "analyticCategoryStudentAmount": 553
+                }
+            ]
+        },
+        {
+            "key": "A0d7f",
+            "analyticTitle": "Mathematics",
+            "analyticLevelAmount": 49.025105,
+            "analyticLevelText": null,
+            "analyticDescription": "Math score.",
+            "analyticCategories": [
+                {
+                    "key": "Very Low",
+                    "analyticCategoryStudentAmount": 603
+                },
+                {
+                    "key": "Low",
+                    "analyticCategoryStudentAmount": 535
+                },
+                {
+                    "key": "Medium",
+                    "analyticCategoryStudentAmount": 605
+                },
+                {
+                    "key": "High",
+                    "analyticCategoryStudentAmount": 532
+                },
+                {
+                    "key": "Very High",
+                    "analyticCategoryStudentAmount": 510
+                }
+            ]
+        }
+    ],
+    "students": []
+}

@@ -1,9 +1,12 @@
-import AppNavigationBar from '@/components/layout/AppNavigationBar'
+import AppNavbar from './appnavbar/AppNavbar'
+import AppNavbar02 from './appnavbar/AppNavbar02'
+import links from '../../../__tests__/mock/links02.json'
 
 interface AppContainerProps {
   selectedMenu: string
-  selectedSubMenu: string
+  selectedSubMenu?: string
   setCurrentSubMenu: any
+  onClickSubMenu?: any
   children: any
 }
 
@@ -14,14 +17,24 @@ export default function AppContainer({
   children,
   selectedMenu,
   selectedSubMenu,
+  setCurrentSubMenu,
+  onClickSubMenu,
 }: AppContainerProps) {
   return (
     <div>
-      <AppNavigationBar
-        selectedMenu={selectedMenu}
-        selectedSubMenu={selectedSubMenu}
-      />
+      <div>
+        <AppNavbar selectedMenu={selectedMenu} />
+        <AppNavbar02
+          selectedSubMenu={selectedSubMenu}
+          links={getSubMenuLinks(selectedMenu)}
+          onClickSubMenuLink={onClickSubMenu}
+        />
+      </div>
       <div>{children}</div>
     </div>
   )
+}
+
+function getSubMenuLinks(selectedMenu: string) {
+  return links.find((link) => link.title === selectedMenu)?.subMenuLinks
 }

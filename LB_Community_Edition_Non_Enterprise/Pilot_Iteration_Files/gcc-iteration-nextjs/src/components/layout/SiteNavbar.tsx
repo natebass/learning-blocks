@@ -42,12 +42,8 @@ export default function SiteNavbar({
           className="sm:hidden"
         />
         <NavbarBrand>
-          <Link
-            className="visited:text-inherit"
-            disableAnimation={true}
-            href="/"
-          >
-            <p className="font-bold text-inherit">Learning Blocks</p>
+          <Link className="visited:text-black" disableAnimation={true} href="/">
+            <p className="font-bold text-black">Learning Blocks</p>
           </Link>
         </NavbarBrand>
       </NavbarContent>
