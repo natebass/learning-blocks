@@ -1,3 +1,5 @@
+'use client'
+
 import { Navbar, NavbarContent, NavbarItem } from '@nextui-org/react'
 
 export function SiteFooter() {
