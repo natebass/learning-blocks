@@ -1,12 +1,9 @@
-import './globals.css'
+import { siteConfig } from '@/utility/constants'
+import { fontMono, fontSans } from '@/utility/fonts'
 import type { Metadata, Viewport } from 'next'
-
-import React from 'react'
+import "./globals.css";
 import clsx from 'clsx'
 
-import { AppNextUIProvider } from '@/utility/providers'
-import { siteConfig } from '@/utility/constants'
-import { fontSans } from '@/utility/fonts'
 
 export const metadata: Metadata = {
   title: {
@@ -18,31 +15,22 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
+    {media: '(prefers-color-scheme: light)', color: 'white'},
+    {media: '(prefers-color-scheme: dark)', color: 'black'},
   ],
 }
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const bodyStyle = 'min-h-screen text-foreground bg-background font-sans antialiased'
+  const bodyClassName = `${bodyStyle} ${fontSans.variable} ${fontMono.variable} antialiased`
+
   return (
-    <html suppressHydrationWarning lang="en">
-      {/* Suppress hyrdration warning was taken from nextui new project template. */}
-      <head />
-      <body
-        className={clsx(
-          'min-h-screen text-foreground bg-background font-sans antialiased',
-          fontSans.variable,
-        )}
-      >
-        {/* BUG: Typescript warning the props are missing children. */}
-        <AppNextUIProvider
-          themeProps={{ attribute: 'class', children, defaultTheme: 'light' }}
-        >
-          {children}
-        </AppNextUIProvider>
-      </body>
+    <html lang="en">
+    <body className={clsx(bodyClassName, fontSans.variable)}>
+    {children}
+    </body>
     </html>
   )
 }

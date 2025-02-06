@@ -1,17 +1,15 @@
-import { Navbar, NavbarContent, NavbarItem } from '@nextui-org/react'
-
 export function SiteFooter() {
   return (
-    <Navbar className="font-semibold">
-      <NavbarContent justify="start">
-        <NavbarItem>Terms of Use</NavbarItem>
-        <NavbarItem>Privacy Policy</NavbarItem>
-        <NavbarItem>HIPPA</NavbarItem>
-      </NavbarContent>
-      <NavbarContent justify="end">
-        <NavbarItem>2024 © Open Sacramento</NavbarItem>
-      </NavbarContent>
-    </Navbar>
+    <div className="font-semibold flex justify-between items-center">
+      <div className="flex space-x-4">
+        <div>Terms of Use</div>
+        <div>Privacy Policy</div>
+        <div>HIPPA</div>
+      </div>
+      <div>
+        <div>2024 © Open Sacramento</div>
+      </div>
+    </div>
   )
 }
 

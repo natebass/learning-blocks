@@ -1,25 +1,8 @@
 ﻿'use client'
 
 import React from 'react'
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Link,
-  DropdownItem,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  NavbarMenu,
-  NavbarMenuItem,
-  Button,
-  Image,
-  NavbarMenuToggle,
-} from '@nextui-org/react'
-
+import Link from 'next/link' // Import the Next.js Link component
 import ProfileDropdown from '@/components/ui/dropdown/ProfileDropdown'
-import SiteNavMenuDropdown from '@/components/ui/dropdown/SiteNavMenuDropdown'
 import { siteConfig } from '@/utility/constants'
 
 interface SiteNavbarProps {
@@ -32,97 +15,97 @@ export default function SiteNavbar({
   const menuItems = siteConfig.navMenuItems
 
   // eslint-disable-next-line no-unused-vars
-  const [isMenuOpen, _] = React.useState(false)
+  const [isMenuOpen, setMenuOpen] = React.useState(false)
 
   return (
-    <Navbar>
-      <NavbarContent className="gap-8" justify="start">
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          className="sm:hidden"
-        />
-        <NavbarBrand>
-          <Link
-            className="visited:text-inherit"
-            disableAnimation={true}
-            href="/"
+    <nav className="bg-white shadow-md">
+      <div className="container mx-auto p-4 flex items-center justify-between">
+        <div className="flex items-center">
+          {/* Mobile menu toggle */}
+          <button
+            onClick={() => setMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            className="sm:hidden text-gray-500 focus:outline-none"
           >
-            <p className="font-bold text-inherit">Learning Blocks</p>
+            {isMenuOpen ? '✖' : '☰'}
+          </button>
+
+          {/* Brand Logo */}
+          <Link href="/" className="font-bold text-lg text-gray-800 hover:text-gray-900">
+              Learning Blocks
           </Link>
-        </NavbarBrand>
-      </NavbarContent>
+        </div>
 
-      {!siteSelector && (
-        <NavbarContent className="hidden lg:flex gap-4">
-          <NavbarItem>
-            <Link color="foreground" href="/app/dashboard">
-              Demo
+        {!siteSelector && (
+          <div className="hidden lg:flex gap-4 items-center">
+            {/* Demo Link */}
+            <Link href="/app/dashboard"className="text-gray-600 hover:text-gray-800">Demo
             </Link>
-          </NavbarItem>
-        </NavbarContent>
-      )}
+          </div>
+        )}
 
-      <NavbarContent as="div" justify="end">
-        <NavbarItem className="hidden sm:flex">
-          <Image
-            alt="Learning Blocks"
-            height={24}
-            src="/menu_accessible_light.png"
-            width={24}
-          />
-        </NavbarItem>
-        <NavbarItem className="hidden sm:flex">
-          <Image
-            alt="Learning Blocks"
-            height={24}
-            src="/menu_world_light.png"
-            width={24}
-          />
-        </NavbarItem>
-        <NavbarItem className="hidden sm:flex">
-          <Image
-            alt="Learning Blocks"
-            height={24}
-            src="/menu_help_circle_light.png"
-            width={24}
-          />
-        </NavbarItem>
-        <NavbarItem className="hidden sm:flex">
+        {/* Right content */}
+        <div className="flex items-center justify-end gap-4">
+          {/* Icons */}
+          <Link href="#"className="hidden sm:inline-block">
+              <img
+                src="/menu_accessible_light.png"
+                alt="Accessible Menu"
+                width={24}
+                height={24}
+              />
+          </Link>
+          <Link href="#"className="hidden sm:inline-block">
+              <img
+                src="/menu_world_light.png"
+                alt="World Menu"
+                width={24}
+                height={24}
+              />
+          </Link>
+          <Link href="#" className="hidden sm:inline-block">
+              <img
+                src="/menu_help_circle_light.png"
+                alt="Help Icon"
+                width={24}
+                height={24}
+              />
+          </Link>
+
+          {/* Right button or dropdown */}
           {siteSelector ? (
-            <ProfileDropdown />
+            <ProfileDropdown/>
           ) : (
-            <Button
-              className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
-              radius="full"
-              as={Link}
-              href="/signin"
-            >
+            <Link href="/signin"
+                  className="rounded-full bg-gradient-to-tr from-pink-500 to-yellow-500 px-4 py-2 text-white shadow-lg text-sm font-semibold">
               Sign In
-            </Button>
-          )}
-        </NavbarItem>
-      </NavbarContent>
-
-      <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              className="w-full"
-              color={
-                index === 2
-                  ? 'primary'
-                  : index === menuItems.length - 1
-                    ? 'danger'
-                    : 'foreground'
-              }
-              href="/app"
-              size="lg"
-            >
-              {item}
             </Link>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
-    </Navbar>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="sm:hidden bg-white shadow-md">
+          {menuItems.map((item, index) => (
+            <div key={`${item}-${index}`} className="px-4 py-2 border-b">
+              <Link href="/app">
+                <a
+                  className={`block w-full ${
+                    index === 2
+                      ? 'text-primary'
+                      : index === menuItems.length - 1
+                        ? 'text-red-500'
+                        : 'text-gray-600'
+                  } hover:text-gray-800`}
+                >
+                  {item}
+                </a>
+              </Link>
+            </div>
+          ))}
+        </div>
+      )}
+    </nav>
   )
 }
