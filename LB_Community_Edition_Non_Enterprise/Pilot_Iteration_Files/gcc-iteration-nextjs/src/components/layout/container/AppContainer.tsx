@@ -1,10 +1,12 @@
-import AppNavigationBar from '@/components/layout/AppNavigationBar'
+import AppNavigationBar from '@/components/layout/navbar/AppNavigationBar'
+import { ReactNode } from 'react'
+import { SubMenu } from "@/utility/models/page";
 
 interface AppContainerProps {
   selectedMenu: string
-  selectedSubMenu: string
-  setCurrentSubMenu: any
-  children: any
+  selectedSubMenu: SubMenu
+  setCurrentSubMenu: ()=>void
+  children: ReactNode
 }
 
 /**

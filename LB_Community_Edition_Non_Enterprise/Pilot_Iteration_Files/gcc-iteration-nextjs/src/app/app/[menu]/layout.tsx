@@ -1,5 +1,5 @@
-import SiteNavbar from '@/components/layout/SiteNavbar'
-import SiteFooter from '@/components/layout/SiteFooter'
+import SiteNavbar from '@/components/layout/navbar/SiteNavbar'
+import SiteFooter from '@/components/layout/footer/SiteFooter'
 
 export default function Layout({
   children,

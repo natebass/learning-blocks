@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation'
 
 import DashboardManager from '@/feature/dashboard/DashboardManager'
-import AppContainer from '@/components/layout/AppContainer'
+import AppContainer from '@/components/layout/container/AppContainer'
 
 export default function Page({ params }: { params: { menu: string } }) {
   let searchParams = useSearchParams()

@@ -1,0 +1,147 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+/*
+contact page layout
+ */
+.contact-heading-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  width: 43px;
+  border-bottom: 4px solid $neutral-900;
+}
+
+.contact-sub-heading {
+  @include h1-semi-bold;
+  margin: 10px 0;
+
+  @media (max-width: $screen-sm) {
+    @include h1-small-semi-bold;
+  }
+}
+
+.contact-underline-alt::after {
+  border-bottom: 4px solid $neutral-50;
+}
+
+.contact-section-paragraph {
+  @include subheading-regular;
+  margin: 0;
+
+  @media (max-width: $screen-sm) {
+    @include p3-regular;
+    max-width: 100%;
+  }
+}
+
+.contact-light-section {
+  padding: 7%;
+  background-color: $secondary-50;
+
+  @media (max-width: $screen-md) {
+    padding: 16px;
+  }
+}
+
+.contact-heading-container {
+  position: relative;
+
+  @media (max-width: $screen-md) {
+    width: 100%;
+  }
+}
+
+.contact-dark-heading-container {
+  position: relative;
+}
+
+.contact-section-mission {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $neutral-900;
+  // height: 80vh;
+
+  .contact-mission-padding {
+    padding: 80px;
+
+    @media (max-width: $screen-lg) {
+      padding: 40px;
+    }
+  }
+
+  @media (min-width: 1700px) {
+    background-size: 40% 80%;
+  }
+
+  @media (max-width: $screen-lg) {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
+
+.contact-mission-container {
+  min-width: 50vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+  background-color: $neutral-900;
+  color: $neutral-50;
+
+  @media (max-width: $screen-lg) {
+    width: auto;
+    margin: auto;
+  }
+}
+
+.contact-section-mission .form-holder {
+  @media (max-width: $screen-lg) {
+    padding: 40px;
+  }
+}
+
+.contact-section-mission .form-holder button {
+  @media (max-width: $screen-lg) {
+    margin: auto;
+  }
+}
+
+.contactActionLinksAnchor {
+  cursor: pointer;
+  color: var(--secondary-secondary-500, #ffc107);
+  // font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 32px;
+  text-decoration-line: underline;
+}
+
+.form-holder {
+  background-color: $secondary-900;
+  min-width: 50vh;
+  color: var(--Neutral-Neutral-50, #f7f7f8);
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 166.667% */
+  width: 100%;
+  height: auto;
+  padding: 80px 88px 80px 88px;
+
+  @media (max-width: $screen-lg) {
+    min-width: 100%;
+    margin: auto;
+    padding: 0;
+  }
+}
+
+.form-input {
+  margin-bottom: 30px;
+}

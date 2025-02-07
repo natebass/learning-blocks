@@ -52,7 +52,7 @@ const isLoggedIn = () => {
  * - `axios` for API interactions
  * - LocalStorage to persist the access token
  */
-const useAuth = () => {
+const useAuth2 = () => {
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
   const showToast = useCustomToast()
@@ -133,4 +133,4 @@ const useAuth = () => {
 }
 
 export { isLoggedIn }
-export default useAuth
+export default useAuth2

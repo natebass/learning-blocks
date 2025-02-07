@@ -1,0 +1,154 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+/*
+Pitch page layout.
+ */
+
+
+.pitch-instructions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.pitch-instructions-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pitch-dark-heading-container::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  width: 43px;
+  border-bottom: 4px solid $neutral-50;
+}
+
+.pitch-heading-paragraph {
+  @include subheading-regular;
+  margin: 0;
+  color: $neutral-50;
+
+  @media (max-width: $screen-sm) {
+    @include p2-regular;
+  }
+}
+
+.pitch-instructions-steps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.pitch-instructions-step-container {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+
+  @media (max-width: $screen-xl) {
+    gap: 16px;
+  }
+}
+
+.pitch-step-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pitch-step-image {
+  width: 10vw;
+  height: 10vw;
+  max-width: 72px;
+  max-height: 72px;
+}
+
+.pitch-step-header {
+  @include h3-bold;
+  margin: 0;
+  color: $neutral-50;
+
+  @media (max-width: $screen-sm) {
+    @include h5-semi-bold;
+    font-weight: 700;
+  }
+}
+
+.pitch-step-paragraph {
+  @include p3-regular;
+  margin: 0;
+  color: $neutral-50;
+
+  @media (max-width: $screen-sm) {
+    @include p2-regular;
+  }
+}
+
+
+.pitch-sidebar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  @media (max-width: $screen-xs) {
+    gap: 0;
+  }
+}
+
+.get-started {
+  position: relative;
+  background-image: url("/img/about/rectangle.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  margin: auto;
+
+  @media (max-width: $screen-sm) {
+    width: 90vw;
+  }
+}
+
+.get-started img {
+  opacity: 0;
+}
+
+.get-started-anchor {
+  @include h3-bold;
+  color: black;
+  width: 80%;
+  position: absolute;
+  top: 40%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+
+  @media (max-width: $screen-sm) {
+    font-size: 1.7em;
+    line-height: 1.2em;
+  }
+
+  @media (max-width: $screen-xs) {
+    font-size: 1.5em;
+  }
+}
+
+.get-started-anchor a {
+  color: $primary-500;
+}
+
+.pitch-anchors-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.pitch-anchor {
+  color: $secondary-500;
+  @include subheading-bold;
+  margin: 0;
+  padding-top: 16px;
+  border-top: 1px $neutral-50 solid;
+}

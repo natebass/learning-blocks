@@ -1,9 +1,7 @@
-import { useAlternateSidebar } from '@/components/ui/sidebar/hooks/AlternateSidebarProvider.tsx'
-import AltSidebarS5e5 from '@/feature/flowbite-ui/sidebar/AltSidebarS5e5.tsx'
-import AltSidebarS733 from '@/feature/flowbite-ui/sidebar/AltSidebarS733.tsx'
-import AltSidebarS81f from '@/feature/flowbite-ui/sidebar/AltSidebarS81f.tsx'
-import FloatingSidebar from '@/feature/flowbite-ui/sidebar/FloatingSidebar.tsx'
+"use client"
+
 import { useEffect, useRef } from 'react'
+import { useAlternateSidebar } from "@/components/hooks/AlternateSidebarProvider";
 
 export default function AlternateSidebar() {
   const {isOpen, layoutKey, close} = useAlternateSidebar()
@@ -24,16 +22,16 @@ export default function AlternateSidebar() {
   }, [close])
 
   return (
-    <FloatingSidebar isOpen={isOpen}>
+    <div className={`${isOpen}`}>
       <div ref={sidebarRef}>
         {layoutKey === 'accessibility' ? (
-          <AltSidebarS81f/>
+          <div>a</div>
         ) : layoutKey === 'language' ? (
-          <AltSidebarS5e5/>
+          <div>a</div>
         ) : layoutKey === 'settings' ? (
-          <AltSidebarS733/>
+          <div>a</div>
         ) : null}
       </div>
-    </FloatingSidebar>
+    </div>
   )
 }

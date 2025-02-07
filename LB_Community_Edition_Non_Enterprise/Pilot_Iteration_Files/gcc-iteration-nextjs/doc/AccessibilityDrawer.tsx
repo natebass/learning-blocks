@@ -1,13 +1,5 @@
 'use client'
 import React, { useState } from 'react'
-import {
-  Dialog,
-  DialogBackdrop,
-  DialogPanel,
-  DialogTitle,
-  TransitionChild,
-} from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
 
 export default function AccessibilityDrawer() {
   const [open, setOpen] = useState(true)

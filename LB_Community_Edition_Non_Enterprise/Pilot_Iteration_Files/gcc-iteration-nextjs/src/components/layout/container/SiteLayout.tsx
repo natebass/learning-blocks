@@ -1,9 +1,11 @@
-import AlternateSidebar from '@/components/ui/sidebar/AlternateSidebar.tsx'
-import { useAlternateSidebar } from '@/components/ui/sidebar/hooks/AlternateSidebarProvider.tsx'
-import PublicFooter from '@/feature/flowbite-ui/footer/PublicFooter.tsx'
-import PublicNavbarOld from '@/feature/flowbite-ui/navbar/old/PublicNavbarOld.tsx'
+"use client"
+
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
+import { AlternateSidebarProvider } from "@/components/hooks/AlternateSidebarProvider";
+import AlternateSidebar from "@/components/layout/sidebar/AlternateSidebar";
+import SiteFooter from "@/components/layout/footer/SiteFooter";
+import SiteNavbar from "@/components/layout/navbar/SiteNavbar";
 
 interface PublicLayoutProps {
   isLoading?: boolean
@@ -32,22 +34,24 @@ interface PublicLayoutProps {
  * @param {Object} props - Component props
  * @param {React.ReactNode} props.children - Child components to render
  */
-export default function PublicLayout({
+export default function SiteLayout({
   children,
   ...props
 }: PublicLayoutProps) {
-  const { openAlternateSidebar } = useAlternateSidebar()
   const className = twMerge('bg-white', props.className)
+
   return (
-    <div {...props} className={`flex min-h-screen flex-col ${className}`}>
-      <PublicNavbarOld openAlternateSidebar={openAlternateSidebar} />
-      <AlternateSidebar />
-      <div className="flex grow">
-        <div className="flex w-full flex-col">
-          {children}
-          <PublicFooter className="mx-auto max-w-screen-xl" />
+    <AlternateSidebarProvider>
+      <div {...props} className={`flex min-h-screen flex-col ${className}`}>
+        <SiteNavbar/>
+        <AlternateSidebar/>
+        <div className="flex grow">
+          <div className="flex w-full flex-col">
+            {children}
+            <SiteFooter/>
+          </div>
         </div>
       </div>
-    </div>
+    </AlternateSidebarProvider>
   )
 }

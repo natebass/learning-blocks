@@ -1,6 +1,6 @@
 export function SiteFooter() {
   return (
-    <div className="font-semibold flex justify-between items-center">
+    <div className="mx-auto max-w-screen-xl font-semibold flex justify-between items-center">
       <div className="flex space-x-4">
         <div>Terms of Use</div>
         <div>Privacy Policy</div>

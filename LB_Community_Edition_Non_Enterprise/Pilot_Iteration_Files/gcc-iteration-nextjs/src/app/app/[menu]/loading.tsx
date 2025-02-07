@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation'
 
-import AppContainer from '@/components/layout/AppContainer'
+import AppContainer from '@/components/layout/container/AppContainer'
 import LoadingSkeleton from '@/components/ui/skeleton/LoadingSkeleton'
 
 export default function Loader({ params }: { params: { menu: string } }) {
