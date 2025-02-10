@@ -1,4 +1,4 @@
-﻿"use-client"
+﻿"use client"
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -6,7 +6,7 @@ import { capitalize } from 'lodash'
 
 import { SubMenu } from '@/utility/models/page'
 
-import links from '../../../../__tests__/mock/links01.json'
+import links from '../../../../../__tests__/mock/links01.json'
 
 import styles from './AppNavigationBar.module.css'
 import { SearchIcon } from '@/utility/Icons'

@@ -1,4 +1,4 @@
-import AppNavigationBar from '@/components/layout/navbar/AppNavigationBar'
+import AppNavigationBar from '@/components/layout/navbar/old/AppNavigationBar'
 import { ReactNode } from 'react'
 import { SubMenu } from "@/utility/models/page";
 
