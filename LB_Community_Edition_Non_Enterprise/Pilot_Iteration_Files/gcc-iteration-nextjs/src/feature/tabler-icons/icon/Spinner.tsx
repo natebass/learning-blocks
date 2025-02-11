@@ -7,8 +7,8 @@ interface SpinnerProps {
 }
 
 export const Spinner: React.FC<SpinnerProps> = ({
-  width = 24,
-  height = 24,
+  width = 100,
+  height = 101,
   className = '',
 }) => {
   return (
@@ -16,8 +16,6 @@ export const Spinner: React.FC<SpinnerProps> = ({
       width={width}
       height={height}
       className={className}
-      width="100"
-      height="101"
       viewBox="0 0 100 101"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"

@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
-import { LayoutGrid } from "@/feature/tabler-icons/icon";
+import { navItems } from "@/constantsEN";
 
 const BottomNavbar = () => {
   const [selectedItem, setSelectedItem] = useState('Dashboard');
-
-  const navItems = [{title: 'Dashboard', image: <LayoutGrid/>}];
-
   return (
-    <div className="bg-gray-100">
-      <div className="container mx-auto  p-4 flex justify-between items-center">
-        <div className="flex space-x-4">
+    <div className="bottom-navbar">
+      <div className="bottom-navbar-container">
+        <div className="bottom-navbar-nav-items">
           {navItems.map((item) => (
             <button
               key={item.title}
-              className={`flex items-center px-4 py-2 rounded-md font-semibold ${
-                selectedItem === item.title ? 'bg-[#003049] text-white' : 'text-[#003049] text-opacity-90 hover:bg-gray-200'
-              }`}
+              className={`bottom-navbar-nav-item-button ${selectedItem === item.title ? 'selected' : ''}`}
               onClick={() => setSelectedItem(item.title)}
             >
               {item.image}
@@ -23,19 +18,12 @@ const BottomNavbar = () => {
             </button>
           ))}
         </div>
-        <div className="flex items-center">
-          <input
-            type="text"
-            placeholder="Search"
-            className="border border-gray-300 rounded-md px-3 py-2 mr-2"
-          />
-          <button className="bg-[#cccccc] text-white rounded-md px-4 py-2">
-            Q
-          </button>
+        <div className="bottom-navbar-search-container">
+          <input type="text" placeholder="Search" className="search-input"/>
+          <button className="bottom-navbar-search-button">Q</button>
         </div>
       </div>
     </div>
-
   );
 };
 

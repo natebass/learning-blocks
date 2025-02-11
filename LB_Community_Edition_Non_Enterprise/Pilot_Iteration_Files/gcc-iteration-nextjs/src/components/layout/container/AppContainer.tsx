@@ -10,7 +10,7 @@ interface AppContainerProps {
 }
 
 /**
- * This container is the content between the navigation bar and the footer. It contains it's own sub navigation bar.
+ * This container is the content between the navigation bar and the footer. It contains its own sub navigation bar.
  */
 export default function AppContainer({
   children,
