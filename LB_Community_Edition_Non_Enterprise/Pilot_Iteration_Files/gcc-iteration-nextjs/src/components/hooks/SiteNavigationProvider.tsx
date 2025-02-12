@@ -1,6 +1,53 @@
-import { buildNavigationStructure, TEST_NAV } from '@/siteConfig.ts'
-import { useSearch } from '@tanstack/react-router'
+'use client'
 import { createContext, ReactNode, useContext, useMemo } from 'react'
+
+type SiteNavigationContextType = {
+  currentSecondary: string
+  currentPrimary: string
+  primaryLinks: []
+  secondaryLinks: []
+  setPrimaryNavigationKey: (key: string | null) => void
+  setPrimarySecondaryKey: (key: string | null) => void
+}
+const SiteNavigationContext = createContext<SiteNavigationContextType | undefined>(undefined)
+/**
+ * Context provider for managing the state of page navigation.
+ * @param children - The child components that will have access to the SiteNavigation context.
+ */
+export const SiteNavigationProvider = ({children,}: { children: ReactNode }) => {
+  const searchParams = useSearchParams
+  const menu = buildNavigationStructure(TEST_NAV)
+  const primaryLinks = menu.primaryLinks
+  const secondaryLinks = menu.secondaryLinks
+  // Calculate the `currentPrimary` and `currentSecondary` from the `m` search param
+  const currentPrimary = useMemo(() => search.m || null, [search])
+  const currentSecondary = useMemo(() => {
+    // Optionally derive a secondary key based on `m` or other logic
+    return search.m ? `${search.m}-secondary` : null
+  }, [search])
+  return (
+    <SiteNavigationContext.Provider value={{primaryLinks, secondaryLinks, currentPrimary, currentSecondary, setPrimaryNavigationKey: () => {}}}>{children}
+      {children}
+    </SiteNavigationContext.Provider>
+  )
+}
+/**
+ * A custom hook to access the dashboard SiteNavigation context.
+ * Throws an error if the hook is used outside the `SiteNavigationProvider`.
+ * Example usage:
+ * ```tsx
+ * const { isOpen, toggleSiteNavigation } = useSiteNavigation();
+ * ```
+ * @throws {Error} If the hook is used outside a `SiteNavigationProvider`.
+ */
+export const useSiteNavigation = () => {
+  const context = useContext(SiteNavigationContext)
+  if (!context)
+    throw new Error(
+      'useSiteNavigation must be used within a SiteNavigationProvider',
+    )
+  return {...context}
+}
 
 export interface NavigationItem {
   title: string
@@ -48,7 +95,8 @@ export class NavigationBuilder {
 
   private selectedItem?: string
 
-  constructor(private navigationKey?: NavigationKey) {}
+  constructor(private navigationKey?: NavigationKey) {
+  }
 
   addPrimaryLink(title: string, menuId: string, badge?: string | number): this {
     this.navigation.primaryLinks.push({
@@ -75,7 +123,7 @@ export class NavigationBuilder {
   }
 
   addDropdownLink(title: string, submenu: NavigationItem[]): this {
-    this.navigation.dropdownLinks.push({ title, type: 'dropdown', submenu })
+    this.navigation.dropdownLinks.push({title, type: 'dropdown', submenu})
     return this
   }
 
@@ -106,69 +154,4 @@ export class NavigationBuilder {
       selectedItem: this.selectedItem,
     }
   }
-}
-
-type SiteNavigationContextType = {
-  currentSecondary: string
-  currentPrimary: string
-  primaryLinks: []
-  secondaryLinks: []
-  setPrimaryNavigationKey: (key: string | null) => void
-}
-const SiteNavigationContext = createContext<
-  SiteNavigationContextType | undefined
->(undefined)
-/**
- * Context provider for managing the state of page navigation.
- * @param children - The child components that will have access to the SiteNavigation context.
- */
-export const SiteNavigationProvider = ({
-  children,
-}: {
-  children: ReactNode
-}) => {
-  const search = useSearch({ strict: false }) // Use TanStack Router's useSearch to get the current search params
-  const menu = buildNavigationStructure(TEST_NAV)
-  const primaryLinks = menu.primaryLinks
-  const secondaryLinks = menu.secondaryLinks
-
-  // Calculate the `currentPrimary` and `currentSecondary` from the `m` search param
-  const currentPrimary = useMemo(() => search.m || null, [search])
-  const currentSecondary = useMemo(() => {
-    // Optionally derive a secondary key based on `m` or other logic
-    return search.m ? `${search.m}-secondary` : null
-  }, [search])
-
-  const providerValue = useMemo(
-    () => ({
-      currentPrimary,
-      currentSecondary,
-      primaryLinks,
-      secondaryLinks,
-    }),
-    [currentPrimary, currentSecondary, primaryLinks, secondaryLinks],
-  )
-
-  return (
-    <SiteNavigationContext.Provider value={providerValue}>
-      {children}
-    </SiteNavigationContext.Provider>
-  )
-}
-/**
- * A custom hook to access the dashboard SiteNavigation context.
- * Throws an error if the hook is used outside the `SiteNavigationProvider`.
- * Example usage:
- * ```tsx
- * const { isOpen, toggleSiteNavigation } = useSiteNavigation();
- * ```
- * @throws {Error} If the hook is used outside a `SiteNavigationProvider`.
- */
-export const useSiteNavigation = () => {
-  const context = useContext(SiteNavigationContext)
-  if (!context)
-    throw new Error(
-      'useSiteNavigation must be used within a SiteNavigationProvider',
-    )
-  return { ...context }
 }

@@ -128,17 +128,17 @@
   transition: background-color 0.2s, color 0.2s; /* Smooth transitions */
 }
 
-.bottom-navbar-nav-item-button.selected {
+.bottom-navbar-nav-item-button.bottom-navbar-selected {
   background-color: #003049;
   color: white;
 }
 
-.bottom-navbar-nav-item-button:not(.selected) {
+.bottom-navbar-nav-item-button:not(.bottom-navbar-selected) {
   color: #003049;
   opacity: 0.9; /* Equivalent to text-opacity-90 */
 }
 
-.bottom-navbar-nav-item-button:not(.selected):hover {
+.bottom-navbar-nav-item-button:not(.bottom-navbar-selected):hover {
   background-color: #e5e7eb; /* Equivalent to hover:bg-gray-200 - approximate */
 }
 

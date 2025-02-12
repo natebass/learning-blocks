@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { navItems } from "@/constantsEN";
+import { useSiteNavigation } from "@/components/hooks/SiteNavigationProvider";
 
 const BottomNavbar = () => {
-  const [selectedItem, setSelectedItem] = useState('Dashboard');
+  const {currentSecondary, secondaryLinks, setPrimaryNavigationKey} = useSiteNavigation()
+
   return (
     <div className="bottom-navbar">
       <div className="bottom-navbar-container">
         <div className="bottom-navbar-nav-items">
-          {navItems.map((item) => (
+          {secondaryLinks.map((item) => (
             <button
               key={item.title}
-              className={`bottom-navbar-nav-item-button ${selectedItem === item.title ? 'selected' : ''}`}
+              className={`bottom-navbar-nav-item-button ${currentSecondary === item.title ? 'bottom-navbar-selected' : ''}`}
               onClick={() => setSelectedItem(item.title)}
             >
               {item.image}

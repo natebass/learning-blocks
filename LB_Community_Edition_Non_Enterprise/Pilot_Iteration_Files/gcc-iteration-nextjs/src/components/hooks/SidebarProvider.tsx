@@ -1,16 +1,16 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useState, } from 'react'
 
 type SidebarContextType = {
-    isOpen: boolean
-    toggleSidebar: () => void
+  isOpen: boolean
+  toggleSidebar: () => void
 }
 
 export const SidebarContext = createContext<SidebarContextType | undefined>(
-    undefined,
+  undefined,
 )
 
 export interface SidebarProviderProps {
-    children: ReactNode
+  children: ReactNode
 }
 
 /**
@@ -20,29 +20,29 @@ export interface SidebarProviderProps {
  * @param children - The child components that will have access to the sidebar context.
  */
 export const SidebarProvider = ({children}: SidebarProviderProps) => {
-    const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
-    useEffect(() => {
-        const storedState = localStorage.getItem('dashboardSidebarIsOpen')
-        setIsOpen(storedState === 'true')
-    }, [])
+  useEffect(() => {
+    const storedState = localStorage.getItem('dashboardSidebarIsOpen')
+    setIsOpen(storedState === 'true')
+  }, [])
 
-    const toggleSidebar = useCallback(() => {
-        setIsOpen((prevState) => {
-            const newState = !prevState
-            localStorage.setItem('dashboardSidebarIsOpen', String(newState))
-            return newState
-        })
-    }, [])
+  const toggleSidebar = useCallback(() => {
+    setIsOpen((prevState) => {
+      const newState = !prevState
+      localStorage.setItem('dashboardSidebarIsOpen', String(newState))
+      return newState
+    })
+  }, [])
 
-    const value = {
-        isOpen,
-        toggleSidebar,
-    }
+  const value = {
+    isOpen,
+    toggleSidebar,
+  }
 
-    return (
-        <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>
-    )
+  return (
+    <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>
+  )
 }
 
 /**
@@ -55,9 +55,9 @@ export const SidebarProvider = ({children}: SidebarProviderProps) => {
  * @throws {Error} If the hook is used outside of a `DashboardSidebarProvider`.
  */
 export const useSidebar = () => {
-    const context = useContext(SidebarContext)
-    if (!context) {
-        throw new Error('useSidebar must be used within a SidebarProvider')
-    }
-    return context
+  const context = useContext(SidebarContext)
+  if (!context) {
+    throw new Error('useSidebar must be used within a SidebarProvider')
+  }
+  return context
 }
