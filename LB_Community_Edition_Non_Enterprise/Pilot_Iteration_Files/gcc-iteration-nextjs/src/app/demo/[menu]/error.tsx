@@ -1,7 +1,8 @@
 'use client'
 
 import { Button } from '@nextui-org/react'
-import { useEffect } from 'react'
+import { JSX, useEffect } from 'react'
+import { Refresh } from "@/feature/tabler-icons/icon/Refresh";
 
 /**
  * Error component. Error boundaries must be Client Components
@@ -34,7 +35,8 @@ export default function Error({
           () => reset()
         }
       >
-        Try again
+        <button className="p-1 border-dashed border-amber-400 border-4">Attempt to recover by trying<br/>to re-render the
+          segment<Refresh className="inline"/></button>
       </Button>
     </div>
   )

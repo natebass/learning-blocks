@@ -6,8 +6,6 @@ import SiteLayout from "@/components/layout/container/SiteLayout";
  */
 export default async function Page() {
   return (
-      <SiteLayout>
-        <LandingPage02/>
-      </SiteLayout>
+<div></div>
   )
 }

@@ -13,6 +13,7 @@ const BottomNavbar = () => {
               key={item.title}
               className={`bottom-navbar-nav-item-button ${currentSecondary === item.title ? 'bottom-navbar-selected' : ''}`}
               onClick={() => setSelectedItem(item.title)}
+
             >
               {item.image}
               {item.title}
