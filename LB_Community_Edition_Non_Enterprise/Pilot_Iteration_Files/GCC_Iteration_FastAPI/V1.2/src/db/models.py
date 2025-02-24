@@ -13,6 +13,9 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import select
 from typing import List, Optional
 from sqlmodel import SQLModel, Field, Relationship
+from sqlalchemy import Integer, String, Enum as SQLAlchemyEnum, DateTime
+from uuid import uuid4
+
 
 
 # Polymorphic model for teachers
@@ -38,6 +41,42 @@ class RoleEnum(str, Enum):
     teacher = "teacher"
     vendor = "vendor"
 
+class LocationEnum(str, Enum):
+    school = "school"
+    district = "district"
+    state = "state"
+
+class CCIEnum(str, Enum):
+    college = "college"
+    career = "career"
+    college_career = "college_career"
+
+class IndicatorCategoryEnum(str, Enum):
+    SED = "Socioeconomically Disadvantaged"
+    EL = "English Learner"
+    SWD = "Students with Disabilities"
+    FosterYouth = "Foster Youth"
+    Homeless = "Homeless"
+    Migrant = "Migrant"
+    White = "White"
+    Hispanic = "Hispanic"
+    AmericanIndianOrAlaskaNative = "American Indian or Alaska Native"
+    Asian = "Asian"
+    BlackOrAfricanAmerican = "Black or African American"
+    NativeHawaiianOrOtherPacificIslander = "Native Hawaiian or Other Pacific Islander"
+    TwoOrMoreRaces = "Two or More Races, Not Hispanic"
+
+class ColorEnum(str, Enum):
+    red = "red"
+    orange = "orange"
+    yellow = "yellow"
+    green = "green"
+    blue = "blue"
+
+class TrueFalseEnum(str, Enum):
+    true = "true"
+    false = "false"
+
 class TimestampMixin:
     created_at: Optional[datetime] = Field(default_factory=lambda: datetime.now(datetime.timezone.utc))
     updated_at: Optional[datetime] = Field(default_factory=lambda: datetime.now(datetime.timezone.utc), sa_column_kwargs={"onupdate": lambda: datetime.now(datetime.timezone.utc)})
@@ -54,249 +93,61 @@ class BaseWithPolymorphism(SQLModel):
             "polymorphic_on": cls.__table__.c.role,
             "polymorphic_identity": cls.__name__.lower(),
         }
-# Define a model for the 'PerformanceColor' metadata
-class CCPerformanceColorData(TimestampMixin, SQLModel, table=True):
-    __tablename__ = "CC_performance_color_data"
+# ✅ Abstract Base Class (No Table)
+class ReadinessData:
+  
 
-    ID: str = Field(default=None, primary_key=True, index=True)
-    SchoolCode: str = Field(nullable=False, foreign_key="schools.SchoolCode", index=True)
-    Academic_Year: Optional[str] = None
-    State_College_Career_Readiness_Performance_Color: Optional[int] = None
-    School_College_Career_Readiness_Performance_Color: Optional[int] = None
-    School_College_Career_Readiness_Performance_Color_SED: Optional[int] = None
-    School_College_Career_Readiness_Performance_Color_EL: Optional[int] = None
-    School_College_Career_Readiness_Performance_Color_White: Optional[int] = None
-    School_College_Career_Readiness_Performance_Color_Hispanic: Optional[int] = None
-    School_College_Career_Readiness_Performance_Color_NA: Optional[int] = None
-    School_College_Career_Readiness_Performance_Color_Asi: Optional[int] = None
-    School_College_Career_Readiness_Performance_Color_AA: Optional[int] = None
-    School_College_Career_Readiness_Performance_Color_PAC: Optional[int] = None
-    School_College_Career_Readiness_Performance_Color_Fil: Optional[int] = None
-    School_College_Career_Readiness_Performance_Color_Two: Optional[int] = None
-    School_College_Career_Readiness_Performance_Color_McVento: Optional[int] = None
-    # Define the relationship with the SchoolsInDB table
-    school: "SchoolsInDB" = Relationship(back_populates="performance_color_data")
+    ReadinessLocation: LocationEnum = Field(nullable=False, index=True) 
+    ReadinessCCI: CCIEnum = Field(  nullable=False, index=True)
+    ReadinessIndicatorCategory: IndicatorCategoryEnum = Field( nullable=False, index=True)
 
 
-# Define a model for the 'ReadinessStatus' metadata
-class ReadinessStatusData(TimestampMixin, SQLModel, table=True):
-    __tablename__ = "readiness_status_data"
-    # Predefined keys for the readiness status data
-    ID: str = Field(default=None, primary_key=True, index=True)
-    SchoolCode: str = Field(nullable=False, foreign_key="schools.SchoolCode", index=True)
-    Academic_Year: Optional[str] = None
-    State_College_Career_Readiness_Status: Optional[int] = None
-    School_College_Career_Readiness_Status: Optional[int] = None
-    State_College_Career_Readiness_Rate: Optional[int] = None
-    School_College_Career_Readiness_Rate: Optional[int] = None
-    School_College_Career_Readiness_Rate_SED: Optional[int] = None
-    School_College_Career_Readiness_Rate_EL: Optional[int] = None
-    School_College_Career_Readiness_Rate_White: Optional[int] = None
-    School_College_Career_Readiness_Rate_Hispanic: Optional[int] = None
-    School_College_Career_Readiness_Rate_AA: Optional[int] = None
-    School_College_Career_Readiness_Rate_Asi: Optional[int] = None
-    School_College_Career_Readiness_Rate_PAC: Optional[int] = None
-    School_College_Career_Readiness_Rate_Fil: Optional[int] = None
-    School_College_Career_Readiness_Rate_Two: Optional[int] = None
-    School_College_Career_Readiness_Rate_McVento: Optional[int] = None
-    # Relationship to students (Optional list of students)
-    school: "SchoolsInDB" = Relationship(back_populates="readiness_status_data")
 
-    students: List["StudentInDB"] = Relationship(back_populates="readiness_status_data")
-
-    def add_valid_students(self, session: sessionmaker, student_ids: List[int]):
-        """Filter and add valid students to the readiness status data."""
-        # Query the StudentInDB table to get the students with valid IDs
-        valid_students = (
-            session.execute(select(StudentInDB).filter(StudentInDB.ID.in_(student_ids)))
-            .scalars()
-            .all()
-        )
-
-        # Update the students relationship field
-        self.students = valid_students
-
-
-# Define a model for the 'ReadinessStatus' metadata
-class ReadinessNumerator(TimestampMixin, SQLModel, table=True):
-    __tablename__ = "readiness_numerator_data"
-    # Predefined keys for the readiness status data
-    ID: str = Field(default=None, primary_key=True, index=True)
-    SchoolCode: str = Field(nullable=False, foreign_key="schools.SchoolCode", index=True)
-    Academic_Year: Optional[str] = None
-    
-    # Adding the new fields for the readiness status numerators
-    State_College_Career_Readiness_Numerator: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Numerator: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Numerator_SED: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Numerator_EL: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Numerator_White: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Numerator_Hispanic: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Numerator_AA: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Numerator_Asi: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Numerator_PAC: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Numerator_Fil: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Numerator_Two: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Numerator_McVento: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Numerator_At_Risk: Optional[int] = Field(default=0)
-    
-    # Relationship to students (Optional list of students)
-    school: "SchoolsInDB" = Relationship(back_populates="readiness_numerator_data")
-    students: List["StudentInDB"] = Relationship(back_populates="readiness_numerator_data")
-
-    def add_valid_students(self, session: sessionmaker, student_ids: List[int]):
-        """Filter and add valid students to the readiness status data."""
-        # Query the StudentInDB table to get the students with valid IDs
-        valid_students = (
-            session.execute(select(StudentInDB).filter(StudentInDB.ID.in_(student_ids)))
-            .scalars()
-            .all()
-        )
-
-        # Update the students relationship field
-        self.students = valid_students
-
-    class Config:
-        arbitrary_types_allowed = True
-# Define a model for the 'ReadinessDenominator' metadata
-class ReadinessDenominatorData(TimestampMixin, SQLModel, table=True):
-    __tablename__ = "readiness_denominator_data"
-    # Predefined keys for the readiness denominator data
-    ID: str = Field(default=None, primary_key=True, index=True)
-    SchoolCode: str = Field(nullable=False, foreign_key="schools.SchoolCode", index=True)
-    Academic_Year: Optional[str] = None
-    
-    # Adding the new fields for the readiness denominator numerators
-    State_College_Career_Readiness_Denominator: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Denominator: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Denominator_SED: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Denominator_EL: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Denominator_White: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Denominator_Hispanic: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Denominator_AA: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Denominator_Asi: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Denominator_PAC: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Denominator_Fil: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Denominator_Two: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Denominator_McVento: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Denominator_At_Risk: Optional[int] = Field(default=0)
-    
-    # Relationship to students (Optional list of students)
-    school: "SchoolsInDB" = Relationship(back_populates="readiness_denominator_data")
-    students: List["StudentInDB"] = Relationship(back_populates="readiness_denominator_data")
-
-    def add_valid_students(self, session: sessionmaker, student_ids: List[int]):
-        """Filter and add valid students to the readiness denominator data."""
-        # Query the StudentInDB table to get the students with valid IDs
-        valid_students = (
-            session.execute(select(StudentInDB).filter(StudentInDB.ID.in_(student_ids)))
-            .scalars()
-            .all()
-        )
-
-        # Update the students relationship field
-        self.students = valid_students
-
-    class Config:
-        arbitrary_types_allowed = True
-
-
-# Define a model for the 'ReadinessChange' metadata
-class ReadinessChangeData(TimestampMixin, SQLModel, table=True):
-    __tablename__ = "readiness_change_data"
-    # Predefined keys for the readiness change data
-    ID: str = Field(default=None, primary_key=True, index=True)
-    SchoolCode: str = Field(nullable=False, foreign_key="schools.SchoolCode", index=True)
-    Academic_Year: Optional[str] = None
-    StudentInDB: Optional[str] = Field(nullable=False, foreign_key="students.ID", index=True)  
-    # Adding fields for the readiness change data
-    State_College_Career_Readiness_Change: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Change: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Change_SED: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Change_EL: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Change_White: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Change_Hispanic: Optional[int] = Field(default=0)
-    School_College_Readiness_Change_AA: Optional[int] = Field(default=0)
-    School_College_Readiness_Change_Asi: Optional[int] = Field(default=0)
-    School_College_Readiness_Change_PAC: Optional[int] = Field(default=0)
-    School_College_Readiness_Change_Fil: Optional[int] = Field(default=0)
-    School_College_Readiness_Change_Two: Optional[int] = Field(default=0)
-    School_College_Readiness_Change_McVento: Optional[int] = Field(default=0)
-    School_College_Readiness_Change_At_Risk: Optional[int] = Field(default=0)
-    
-    # Relationship to students (Optional list of students)
-    school: "SchoolsInDB" = Relationship(back_populates="readiness_change_data")
-    students: List["StudentInDB"] = Relationship(back_populates="readiness_change_data")
-
-    def add_valid_students(self, session: sessionmaker, student_ids: List[int]):
-        """Filter and add valid students to the readiness change data."""
-        # Query the StudentInDB table to get the students with valid IDs
-        valid_students = (
-            session.execute(select(StudentInDB).filter(StudentInDB.ID.in_(student_ids)))
-            .scalars()
-            .all()
-        )
-
-        # Update the students relationship field
-        self.students = valid_students
-
-    class Config:
-        arbitrary_types_allowed = True
-# Define a model for the 'ReadinessTotal' metadata
-class ReadinessTotalData(TimestampMixin, SQLModel, table=True):
+# ✅ Subclasses with Unique Tables
+class ReadinessTotalData(ReadinessData, SQLModel, table=True):
     __tablename__ = "readiness_total_data"
-    # Predefined keys for the readiness total data
-    ID: str = Field(default=None, primary_key=True, index=True)
-    SchoolCode: str = Field(nullable=False, foreign_key="schools.SchoolCode", index=True)
-    Academic_Year: Optional[str] = None
-    
-    # Adding fields for the readiness total data
-    State_College_Career_Readiness_Total: Optional[int] = Field(default=0)
-    School_College_Readiness_Total: Optional[int] = Field(default=0)
-    School_Career_Readiness_Total: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Total_AA: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Total_Asi: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Total_HIS: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Total_PAC: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Total_White: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Total_Two: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Total_McVento: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Total_SED: Optional[int] = Field(default=0)
-    School_College_Career_Readiness_Total_EL: Optional[int] = Field(default=0)
-    
-    # Relationship to students (Optional list of students)
-    school: "SchoolsInDB" = Relationship(back_populates="readiness_total_data")
-    students: List["StudentInDB"] = Relationship(back_populates="readiness_total_data")
+    TotalID: int = Field(default=None, primary_key=True, index=True)
+    TotalRate: str = Field(unique=True, nullable=False)
 
-    def add_valid_students(self, session: sessionmaker, student_ids: List[int]):
-        """Filter and add valid students to the readiness total data."""
-        # Query the StudentInDB table to get the students with valid IDs
-        valid_students = (
-            session.execute(select(StudentInDB).filter(StudentInDB.ID.in_(student_ids)))
-            .scalars()
-            .all()
-        )
 
-        # Update the students relationship field
-        self.students = valid_students
+class ReadinessNumerator(ReadinessData, SQLModel, table=True):
+    __tablename__ = "readiness_numerator"
+    NumeratorID: int = Field(default=None, primary_key=True, index=True)
+    NumeratorRate: str = Field(unique=True, nullable=False)
 
-    class Config:
-        arbitrary_types_allowed = True
-# Define a model for the 'ReadinessTotal' metadata
+class CCPerformanceColorData(ReadinessData, SQLModel, table=True):
+    __tablename__ = "cc_performance_color_data"
+    PerformanceID: int = Field(default=None, primary_key=True, index=True)
+    PerformColor: str = Field( nullable=False)
+
+class ReadinessStatusData(ReadinessData, SQLModel, table=True):
+    __tablename__ = "readiness_status_data"
+    StatusID: int = Field(default=None, primary_key=True, index=True)
+    StatusRate: str = Field( nullable=False)
+
+class ReadinessDenominatorData(ReadinessData, SQLModel, table=True):
+    __tablename__ = "readiness_denominator_data"
+    DenominatorID: int = Field(default=None, primary_key=True, index=True)
+    DenominatorRate: str = Field( nullable=False)
+
+class ReadinessChangeData(ReadinessData, SQLModel, table=True):
+    __tablename__ = "readiness_change_data"
+    ChangeID: int = Field(default=None, primary_key=True, index=True)
+    ChangeRate: str = Field( nullable=False)
 
 
 class StudentSectionAssociation(TimestampMixin, SQLModel, table=True):
     __tablename__ = "student_section_association"
 
-    school_id: int = Field(foreign_key="schools.ID", primary_key=True)
-    student_id: int = Field(foreign_key="students.ID", primary_key=True)
-    section_id: int = Field(foreign_key="sections.ID", primary_key=True)
-    teacher_id: int = Field(foreign_key="teachers.ID", primary_key=True)
-
+    school_id: int = Field(foreign_key="schools.SchoolID", primary_key=True)
+    student_id: int = Field(foreign_key="students.StudentID", primary_key=True)
+    section_id: int = Field(foreign_key="sections.SectionID", primary_key=True)
+    teacher_id: int = Field(foreign_key="teachers.TeacherID", primary_key=True)
+ 
 class SchoolsInDB(TimestampMixin, SQLModel, table=True):
     __tablename__ = "schools"
 
-    ID: int = Field(default=None, primary_key=True, index=True)
+    SchoolID: int = Field(default=None, primary_key=True, index=True)
     SchoolCode: str = Field(unique=True, nullable=False)
     SchoolName: str = Field(nullable=False)
     GradeLevels: Optional[str] = Field(default=None)
@@ -307,7 +158,6 @@ class SchoolsInDB(TimestampMixin, SQLModel, table=True):
     school: Optional["SchoolsInDB"] = Relationship(back_populates="people")
     Sections: Optional[List[str]] = Field(default=None, sa_column=Column(pg.ARRAY(String)))
  
-    # Define the relationships with ReadinessStatusData and PerformanceColorData
     school_readiness_status_data: List["ReadinessStatusData"] = Relationship(back_populates="school")
     school_performance_color_data: List["CCPerformanceColorData"] = Relationship(back_populates="school")
     school_readiness_change_data: List["ReadinessChangeData"] = Relationship(back_populates="school")
@@ -323,18 +173,18 @@ class SchoolsInDB(TimestampMixin, SQLModel, table=True):
 class SectionsInDB(TimestampMixin,SQLModel, table=True):
     __tablename__ = "sections"
 
-    ID: int = Field(default=None, primary_key=True, index=True)
+    SectionID: int = Field(default=None, primary_key=True, index=True)
     CourseName: str = Field(nullable=False)
     SchoolCode: str = Field(nullable=False, foreign_key="schools.SchoolCode", index=True)
     MetaData: Optional[Dict[str, BaseModel]] = Field(default=None, sa_column=Column(JSON))
     students: List["StudentInDB"] = Relationship(back_populates="sections")
-
+ 
 
 
 class PeopleInDB(TimestampMixin, BaseWithPolymorphism, table=True):
     __tablename__ = "people"
 
-    ID: int = Field(default=None, primary_key=True, index=True)
+    PeopleID: int = Field(default=None, primary_key=True, index=True)
     FirstName: str = Field(index=True)
     LastName: str = Field(index=True)
 
@@ -347,7 +197,7 @@ class PeopleInDB(TimestampMixin, BaseWithPolymorphism, table=True):
     AnonymizedStudentID: Optional[str] = Field(default=None)
     AnonymizedStudentNumber: Optional[str] = Field(default=None)
     AnonymizedTeacherID: Optional[str] = Field(default=None, unique=True)
-
+ 
     # Relationship field
     school: Optional["SchoolsInDB"] = Relationship(back_populates="people")
 
@@ -363,14 +213,14 @@ class StudentInDB(TimestampMixin, BaseWithPolymorphism, table=True):
     __tablename__ = "students"
 
     # Regular fields
-    ID: int = Field(default=None, primary_key=True, foreign_key="people.ID", index=True)
+    StudentID: int = Field(default=None, primary_key=True, foreign_key="people.PeopleID", index=True)
     AnonymizedStudentID: str = Field(nullable=False)
     AnonymizedStudentNumber: Optional[str] = Field(default=None)
     MetaData: Optional[Dict[str, BaseModel]] = Field(default=None, sa_column=Column(JSON))
     Sections: Optional[List[str]] = Field(default=None, sa_column=Column(pg.ARRAY(String)))
     sections: List["SectionsInDB"] = Relationship(back_populates="students")   
     Interventions: Optional[List[str]] = Field(default=None, sa_column=Column(pg.ARRAY(String)))    
-
+ 
     
     # Define the relationships with ReadinessStatusData and PerformanceColorData
     student_readiness_status_data: List["ReadinessStatusData"] = Relationship(back_populates="school")
@@ -389,7 +239,7 @@ class TeacherInDB(TimestampMixin, BaseWithPolymorphism, table=True):
     __tablename__ = "teachers"
 
     # Regular fields
-    ID: int = Field(default=None, primary_key=True, foreign_key="people.ID", index=True)
+    TeacherID: int = Field(default=None, primary_key=True, foreign_key="people.PeopleID", index=True)
     AnonymizedTeacherID: str = Field(nullable=False, unique=True)
     StuAssociated: Optional[Dict[str, Dict[str, Optional[str]]]] = Field(
         default=None, sa_column=Column(JSON)
@@ -400,7 +250,7 @@ class TeacherInDB(TimestampMixin, BaseWithPolymorphism, table=True):
     MetaData: Optional[Dict[str, BaseModel]] = Field(default=None, sa_column=Column(JSON))
     Sections: Optional[List[str]] = Field(default=None, sa_column=Column(pg.ARRAY(String)))
     sections: List["SectionsInDB"] = Relationship(back_populates="teachers")
-
+ 
     # Relationships and additional methods
     school: Optional["SchoolsInDB"] = Relationship(back_populates="people")
     
@@ -422,11 +272,11 @@ class class_section(TimestampMixin, BaseWithPolymorphism, table=True):
     __tablename__ = "class_section"
 
     # Regular fields
-    ID: int = Field(default=None, primary_key=True, index=True)
+    ClassSectionID: int = Field(default=None, primary_key=True, index=True)
     SectionName: str = Field(nullable=False)
     MetaData: Optional[Dict[str, BaseModel]] = Field(default=None, sa_column=Column(JSON))
     school: Optional["SchoolsInDB"] = Relationship(back_populates="people")
-
+ 
     __mapper_args__ = {
         "polymorphic_identity": "class_section",
     }
@@ -435,11 +285,11 @@ class Vendor(TimestampMixin, BaseWithPolymorphism, table=True):
     __tablename__ = "vendors"
 
     # Regular fields
-    ID: int = Field(default=None, primary_key=True, foreign_key="people.ID", index=True)
+    VendorID: int = Field(default=None, primary_key=True, foreign_key="people.PeopleID", index=True)
     VendorName: str = Field(nullable=False)
     VendorURL: str = Field(nullable=False)
     MetaData: Optional[Dict[str, BaseModel]] = Field(default=None, sa_column=Column(JSON))
-
+ 
     # Relationships
     school: Optional["SchoolsInDB"] = Relationship(back_populates="people")
 
@@ -454,7 +304,7 @@ class InterventionCategories(TimestampMixin, BaseWithPolymorphism, table=True):
         __tablename__ = "intervention_categories"
 
         # Regular fields
-        ID: int = Field(default=None, primary_key=True, index=True)
+        InterventionCategoriesID: int = Field(default=None, primary_key=True, index=True)
         CategoryName: str = Field(nullable=False)
         MetaData: Optional[Dict[str, BaseModel]] = Field(default=None, sa_column=Column(JSON))
 
@@ -469,14 +319,16 @@ class InterventionSession(TimestampMixin, BaseWithPolymorphism, table=True):
         __tablename__ = "interventions"
 
         # Regular fields
-        ID: int = Field(default=None, primary_key=True, index=True)
-        Intervention_Category: Optional[int] = Field(default=None, foreign_key="intervention_categories.id", primary_key=True)
+        InterventionSessionID: int = Field(default=None, primary_key=True, index=True)
+        Intervention_Category: Optional[int] = Field(default=None, foreign_key="intervention_categories.InterventionCategoriesID", primary_key=True)
         InterventionSessionName: str = Field(nullable=False)
         MetaData: Optional[Dict[str, BaseModel]] = Field(default=None, sa_column=Column(JSON))
-        Vendor: Optional[int] = Field(nullable=False, foreign_key="vendors.ID", index=True)
-        Teacher: Optional[int] = Field(nullable=False, foreign_key="teachers.ID", index=True)   
-        student_id: Optional[int] = Field(default=None, foreign_key="student.id", primary_key=True)
+        Vendor: Optional[int] = Field(nullable=False, foreign_key="vendors.VendorID", index=True)
+        Teacher: Optional[int] = Field(nullable=False, foreign_key="teachers.TeacherID", index=True)   
+        student_id: Optional[int] = Field(default=None, foreign_key="students.StudentID", primary_key=True)
         school: Optional["SchoolsInDB"] = Relationship(back_populates="people")
+        created_at: Optional[datetime] = Field(default_factory=lambda: datetime.now(datetime.timezone.utc))
+        updated_at: Optional[datetime] = Field(default_factory=lambda: datetime.now(datetime.timezone.utc), sa_column_kwargs={"onupdate": lambda: datetime.now(datetime.timezone.utc)})
 
         __mapper_args__ = {
             "polymorphic_identity": "interventions",
