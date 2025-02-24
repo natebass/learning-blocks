@@ -2,44 +2,64 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "command": "npm run dev",
+      "cwd": "${workspaceRoot}",
       "name": "Launch via NPM",
       "request": "launch",
-      "runtimeArgs": [
-        "run",
-        "test"
-      ],
-      "runtimeExecutable": "npm",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "type": "node"
+      "type": "node-terminal",
+      "presentation": {
+        "hidden": true
+      }
     },
     {
-      "name": "Launch Edge",
-      "request": "launch",
       "type": "msedge",
+      "name": "Launch Microsoft Edge",
+      "request": "launch",
+      "runtimeArgs": ["--remote-debugging-port=9222"],
       "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}"
+      "presentation": {
+        "hidden": true
+      }
     },
     {
-      "name": "Launch Chrome",
+      "type": "msedge",
+      "name": "Launch Microsoft Edge in headless mode",
       "request": "launch",
-      "type": "chrome",
+      "runtimeArgs": ["--headless", "--remote-debugging-port=9222"],
       "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}"
+      "presentation": {
+        "hidden": true
+      }
     },
     {
-      "type": "firefox",
-      "request": "launch",
-      "reAttach": true,
-      "name": "Debug with Firefox (open browser only)",
+      "type": "vscode-edge-devtools.debug",
+      "name": "Open Edge DevTools",
+      "request": "attach",
       "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}",
-      "pathMappings": [
-        {
-          "url": "webpack://_n_e/components2",
-          "path": "${workspaceFolder}/components2"
-        }
+      "presentation": {
+        "hidden": true
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Regular",
+      "configurations": ["Launch via NPM", "Launch Microsoft Edge"]
+    },
+    {
+      "name": "DevTools",
+      "configurations": [
+        "Launch via NPM",
+        "Launch Microsoft Edge",
+        "Open Edge DevTools"
+      ]
+    },
+    {
+      "name": "[Deprecated] Launch Edge Headless and attach DevTools",
+      "configurations": [
+        "Launch via NPM",
+        "Launch Microsoft Edge in headless mode",
+        "Open Edge DevTools"
       ]
     }
   ]
