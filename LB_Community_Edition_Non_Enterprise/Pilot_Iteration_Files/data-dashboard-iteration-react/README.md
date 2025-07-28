@@ -5,8 +5,8 @@ Welcome to your new TanStack app!
 To run this application:
 
 ```bash
-pnpm install
-pnpm start  
+npm install
+npm start  
 ```
 
 # Building For Production
@@ -14,7 +14,7 @@ pnpm start
 To build this application for production:
 
 ```bash
-pnpm build
+npm build
 ```
 
 ## Testing
@@ -22,7 +22,7 @@ pnpm build
 This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
 
 ```bash
-pnpm test
+npm test
 ```
 
 ## Styling
@@ -35,9 +35,9 @@ This project uses [Biome](https://biomejs.dev/) for linting and formatting. The 
 scripts are available:
 
 ```bash
-pnpm lint
-pnpm format
-pnpm check
+npm lint
+npm format
+npm check
 ```
 
 ## Routing
