@@ -57,9 +57,9 @@ function LoginComponent() {
                   className="block w-full rounded-md border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Enter your username"
                 />
-                {field.state.meta.touchedErrors ? (
+                {field.state.meta.errors ? (
                   <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-                    {field.state.meta.touchedErrors.join(", ")}
+                    {field.state.meta.errors.join(", ")}
                   </p>
                 ) : null}
               </div>
