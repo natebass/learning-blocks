@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import GaugeChart from "../../integrations/apache-echarts/GaugeChart";
-import "../../integrations/apache-echarts/gauge-chart.css";
 
 export const Route = createFileRoute("/_home/")({
 	component: App,

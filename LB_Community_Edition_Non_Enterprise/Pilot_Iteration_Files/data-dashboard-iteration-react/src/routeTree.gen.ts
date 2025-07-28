@@ -9,13 +9,21 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LogoutRouteImport } from './routes/logout'
 import { Route as HomeRouteImport } from './routes/_home'
 import { Route as HomeIndexRouteImport } from './routes/_home/index'
-import { Route as HomeDemoTanstackQueryRouteImport } from './routes/_home/demo.tanstack-query'
-import { Route as HomeDemoTableRouteImport } from './routes/_home/demo.table'
-import { Route as HomeDemoFormSimpleRouteImport } from './routes/_home/demo.form.simple'
-import { Route as HomeDemoFormAddressRouteImport } from './routes/_home/demo.form.address'
+import { Route as HomeDemoRouteImport } from './routes/_home/_demo'
+import { Route as AuthLoginRouteImport } from './routes/_auth/login'
+import { Route as HomeDemoDemoTanstackQueryRouteImport } from './routes/_home/_demo/demo.tanstack-query'
+import { Route as HomeDemoDemoTableRouteImport } from './routes/_home/_demo/demo.table'
+import { Route as HomeDemoDemoFormSimpleRouteImport } from './routes/_home/_demo/demo.form.simple'
+import { Route as HomeDemoDemoFormAddressRouteImport } from './routes/_home/_demo/demo.form.address'
 
+const LogoutRoute = LogoutRouteImport.update({
+  id: '/logout',
+  path: '/logout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HomeRoute = HomeRouteImport.update({
   id: '/_home',
   getParentRoute: () => rootRouteImport,
@@ -25,53 +33,72 @@ const HomeIndexRoute = HomeIndexRouteImport.update({
   path: '/',
   getParentRoute: () => HomeRoute,
 } as any)
-const HomeDemoTanstackQueryRoute = HomeDemoTanstackQueryRouteImport.update({
-  id: '/demo/tanstack-query',
-  path: '/demo/tanstack-query',
+const HomeDemoRoute = HomeDemoRouteImport.update({
+  id: '/_demo',
   getParentRoute: () => HomeRoute,
 } as any)
-const HomeDemoTableRoute = HomeDemoTableRouteImport.update({
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/_auth/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeDemoDemoTanstackQueryRoute =
+  HomeDemoDemoTanstackQueryRouteImport.update({
+    id: '/demo/tanstack-query',
+    path: '/demo/tanstack-query',
+    getParentRoute: () => HomeDemoRoute,
+  } as any)
+const HomeDemoDemoTableRoute = HomeDemoDemoTableRouteImport.update({
   id: '/demo/table',
   path: '/demo/table',
-  getParentRoute: () => HomeRoute,
+  getParentRoute: () => HomeDemoRoute,
 } as any)
-const HomeDemoFormSimpleRoute = HomeDemoFormSimpleRouteImport.update({
+const HomeDemoDemoFormSimpleRoute = HomeDemoDemoFormSimpleRouteImport.update({
   id: '/demo/form/simple',
   path: '/demo/form/simple',
-  getParentRoute: () => HomeRoute,
+  getParentRoute: () => HomeDemoRoute,
 } as any)
-const HomeDemoFormAddressRoute = HomeDemoFormAddressRouteImport.update({
+const HomeDemoDemoFormAddressRoute = HomeDemoDemoFormAddressRouteImport.update({
   id: '/demo/form/address',
   path: '/demo/form/address',
-  getParentRoute: () => HomeRoute,
+  getParentRoute: () => HomeDemoRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/logout': typeof LogoutRoute
+  '/login': typeof AuthLoginRoute
   '/': typeof HomeIndexRoute
-  '/demo/table': typeof HomeDemoTableRoute
-  '/demo/tanstack-query': typeof HomeDemoTanstackQueryRoute
-  '/demo/form/address': typeof HomeDemoFormAddressRoute
-  '/demo/form/simple': typeof HomeDemoFormSimpleRoute
+  '/demo/table': typeof HomeDemoDemoTableRoute
+  '/demo/tanstack-query': typeof HomeDemoDemoTanstackQueryRoute
+  '/demo/form/address': typeof HomeDemoDemoFormAddressRoute
+  '/demo/form/simple': typeof HomeDemoDemoFormSimpleRoute
 }
 export interface FileRoutesByTo {
+  '/logout': typeof LogoutRoute
+  '/login': typeof AuthLoginRoute
   '/': typeof HomeIndexRoute
-  '/demo/table': typeof HomeDemoTableRoute
-  '/demo/tanstack-query': typeof HomeDemoTanstackQueryRoute
-  '/demo/form/address': typeof HomeDemoFormAddressRoute
-  '/demo/form/simple': typeof HomeDemoFormSimpleRoute
+  '/demo/table': typeof HomeDemoDemoTableRoute
+  '/demo/tanstack-query': typeof HomeDemoDemoTanstackQueryRoute
+  '/demo/form/address': typeof HomeDemoDemoFormAddressRoute
+  '/demo/form/simple': typeof HomeDemoDemoFormSimpleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_home': typeof HomeRouteWithChildren
+  '/logout': typeof LogoutRoute
+  '/_auth/login': typeof AuthLoginRoute
+  '/_home/_demo': typeof HomeDemoRouteWithChildren
   '/_home/': typeof HomeIndexRoute
-  '/_home/demo/table': typeof HomeDemoTableRoute
-  '/_home/demo/tanstack-query': typeof HomeDemoTanstackQueryRoute
-  '/_home/demo/form/address': typeof HomeDemoFormAddressRoute
-  '/_home/demo/form/simple': typeof HomeDemoFormSimpleRoute
+  '/_home/_demo/demo/table': typeof HomeDemoDemoTableRoute
+  '/_home/_demo/demo/tanstack-query': typeof HomeDemoDemoTanstackQueryRoute
+  '/_home/_demo/demo/form/address': typeof HomeDemoDemoFormAddressRoute
+  '/_home/_demo/demo/form/simple': typeof HomeDemoDemoFormSimpleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/logout'
+    | '/login'
     | '/'
     | '/demo/table'
     | '/demo/tanstack-query'
@@ -79,6 +106,8 @@ export interface FileRouteTypes {
     | '/demo/form/simple'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/logout'
+    | '/login'
     | '/'
     | '/demo/table'
     | '/demo/tanstack-query'
@@ -87,19 +116,31 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_home'
+    | '/logout'
+    | '/_auth/login'
+    | '/_home/_demo'
     | '/_home/'
-    | '/_home/demo/table'
-    | '/_home/demo/tanstack-query'
-    | '/_home/demo/form/address'
-    | '/_home/demo/form/simple'
+    | '/_home/_demo/demo/table'
+    | '/_home/_demo/demo/tanstack-query'
+    | '/_home/_demo/demo/form/address'
+    | '/_home/_demo/demo/form/simple'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   HomeRoute: typeof HomeRouteWithChildren
+  LogoutRoute: typeof LogoutRoute
+  AuthLoginRoute: typeof AuthLoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/logout': {
+      id: '/logout'
+      path: '/logout'
+      fullPath: '/logout'
+      preLoaderRoute: typeof LogoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_home': {
       id: '/_home'
       path: ''
@@ -114,57 +155,85 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeIndexRouteImport
       parentRoute: typeof HomeRoute
     }
-    '/_home/demo/tanstack-query': {
-      id: '/_home/demo/tanstack-query'
+    '/_home/_demo': {
+      id: '/_home/_demo'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof HomeDemoRouteImport
+      parentRoute: typeof HomeRoute
+    }
+    '/_auth/login': {
+      id: '/_auth/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_home/_demo/demo/tanstack-query': {
+      id: '/_home/_demo/demo/tanstack-query'
       path: '/demo/tanstack-query'
       fullPath: '/demo/tanstack-query'
-      preLoaderRoute: typeof HomeDemoTanstackQueryRouteImport
-      parentRoute: typeof HomeRoute
+      preLoaderRoute: typeof HomeDemoDemoTanstackQueryRouteImport
+      parentRoute: typeof HomeDemoRoute
     }
-    '/_home/demo/table': {
-      id: '/_home/demo/table'
+    '/_home/_demo/demo/table': {
+      id: '/_home/_demo/demo/table'
       path: '/demo/table'
       fullPath: '/demo/table'
-      preLoaderRoute: typeof HomeDemoTableRouteImport
-      parentRoute: typeof HomeRoute
+      preLoaderRoute: typeof HomeDemoDemoTableRouteImport
+      parentRoute: typeof HomeDemoRoute
     }
-    '/_home/demo/form/simple': {
-      id: '/_home/demo/form/simple'
+    '/_home/_demo/demo/form/simple': {
+      id: '/_home/_demo/demo/form/simple'
       path: '/demo/form/simple'
       fullPath: '/demo/form/simple'
-      preLoaderRoute: typeof HomeDemoFormSimpleRouteImport
-      parentRoute: typeof HomeRoute
+      preLoaderRoute: typeof HomeDemoDemoFormSimpleRouteImport
+      parentRoute: typeof HomeDemoRoute
     }
-    '/_home/demo/form/address': {
-      id: '/_home/demo/form/address'
+    '/_home/_demo/demo/form/address': {
+      id: '/_home/_demo/demo/form/address'
       path: '/demo/form/address'
       fullPath: '/demo/form/address'
-      preLoaderRoute: typeof HomeDemoFormAddressRouteImport
-      parentRoute: typeof HomeRoute
+      preLoaderRoute: typeof HomeDemoDemoFormAddressRouteImport
+      parentRoute: typeof HomeDemoRoute
     }
   }
 }
 
+interface HomeDemoRouteChildren {
+  HomeDemoDemoTableRoute: typeof HomeDemoDemoTableRoute
+  HomeDemoDemoTanstackQueryRoute: typeof HomeDemoDemoTanstackQueryRoute
+  HomeDemoDemoFormAddressRoute: typeof HomeDemoDemoFormAddressRoute
+  HomeDemoDemoFormSimpleRoute: typeof HomeDemoDemoFormSimpleRoute
+}
+
+const HomeDemoRouteChildren: HomeDemoRouteChildren = {
+  HomeDemoDemoTableRoute: HomeDemoDemoTableRoute,
+  HomeDemoDemoTanstackQueryRoute: HomeDemoDemoTanstackQueryRoute,
+  HomeDemoDemoFormAddressRoute: HomeDemoDemoFormAddressRoute,
+  HomeDemoDemoFormSimpleRoute: HomeDemoDemoFormSimpleRoute,
+}
+
+const HomeDemoRouteWithChildren = HomeDemoRoute._addFileChildren(
+  HomeDemoRouteChildren,
+)
+
 interface HomeRouteChildren {
+  HomeDemoRoute: typeof HomeDemoRouteWithChildren
   HomeIndexRoute: typeof HomeIndexRoute
-  HomeDemoTableRoute: typeof HomeDemoTableRoute
-  HomeDemoTanstackQueryRoute: typeof HomeDemoTanstackQueryRoute
-  HomeDemoFormAddressRoute: typeof HomeDemoFormAddressRoute
-  HomeDemoFormSimpleRoute: typeof HomeDemoFormSimpleRoute
 }
 
 const HomeRouteChildren: HomeRouteChildren = {
+  HomeDemoRoute: HomeDemoRouteWithChildren,
   HomeIndexRoute: HomeIndexRoute,
-  HomeDemoTableRoute: HomeDemoTableRoute,
-  HomeDemoTanstackQueryRoute: HomeDemoTanstackQueryRoute,
-  HomeDemoFormAddressRoute: HomeDemoFormAddressRoute,
-  HomeDemoFormSimpleRoute: HomeDemoFormSimpleRoute,
 }
 
 const HomeRouteWithChildren = HomeRoute._addFileChildren(HomeRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   HomeRoute: HomeRouteWithChildren,
+  LogoutRoute: LogoutRoute,
+  AuthLoginRoute: AuthLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

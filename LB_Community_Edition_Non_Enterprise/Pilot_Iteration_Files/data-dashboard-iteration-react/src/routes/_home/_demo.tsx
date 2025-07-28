@@ -2,7 +2,7 @@ import { createFileRoute, Outlet, redirect, Link } from "@tanstack/react-router"
 import AppH5A from "@/components/layout/AppH5A";
 import { useAuth } from "@/hooks/use-auth";
 
-export const Route = createFileRoute("/_home")({
+export const Route = createFileRoute("/_home/_demo")({
 	beforeLoad: ({ context, location }) => {
 		// @ts-ignore
 		if (!context.auth.isAuthenticated) {
@@ -11,13 +11,13 @@ export const Route = createFileRoute("/_home")({
 				search: {
 					redirect: location.href,
 				},
-			});
+			})
 		}
 	},
-	component: HomeLayout,
+	component: DemoLayout,
 });
 
-function HomeLayout() {
+function DemoLayout() {
 	const auth = useAuth();
 	return (
 		<AppH5A>
@@ -28,5 +28,5 @@ function HomeLayout() {
 			<hr />
 			<Outlet />
 		</AppH5A>
-	);
+	)
 }

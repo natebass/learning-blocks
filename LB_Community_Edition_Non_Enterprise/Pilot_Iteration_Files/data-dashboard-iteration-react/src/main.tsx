@@ -1,8 +1,8 @@
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
+import { AuthProvider, useAuth } from "./hooks/use-auth.tsx";
 import * as AppQueryProvider from "./integrations/tanstack-query/root-provider.tsx";
-import * as AuthProvider from "./hooks/auth-provider.tsx";
 import { routeTree } from "./routeTree.gen";
 import "./globals.css";
 import reportWebVitals from "./reportWebVitals.ts";
@@ -10,8 +10,7 @@ import reportWebVitals from "./reportWebVitals.ts";
 const router = createRouter({
 	routeTree,
 	context: {
-		...AppQueryProvider.getContext(),
-		...AuthProvider.getContext(),
+		auth: undefined!,
 	},
 	defaultPreload: "intent",
 	scrollRestoration: true,
@@ -25,13 +24,25 @@ declare module "@tanstack/react-router" {
 	}
 }
 
+function InnerApp() {
+	const auth = useAuth();
+	return <RouterProvider router={router} context={{ auth }} />;
+}
+
+function App() {
+	return (
+		<AuthProvider router={router}>
+			<InnerApp />
+		</AuthProvider>
+	);
+}
 const rootElement = document.getElementById("app");
 if (rootElement && !rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
 	root.render(
 		<StrictMode>
 			<AppQueryProvider.Provider>
-				<RouterProvider router={router} />
+				<App />
 			</AppQueryProvider.Provider>
 		</StrictMode>,
 	);

@@ -20,10 +20,10 @@ import {
 	useReactTable,
 } from "@tanstack/react-table";
 import React from "react";
-import type { Person } from "../../data/demo-table-data";
-import { makeData } from "../../data/demo-table-data";
+import type { Person } from "../../../data/demo-table-data";
+import { makeData } from "../../../data/demo-table-data";
 
-export const Route = createFileRoute("/_home/demo/table")({
+export const Route = createFileRoute("/_home/_demo/demo/table")({
 	component: TableDemo,
 });
 
@@ -45,7 +45,7 @@ const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
 	// Store the itemRank info
 	addMeta({
 		itemRank,
-	});
+	})
 
 	// Return if the item should be filtered in/out
 	return itemRank.passed;
@@ -60,7 +60,7 @@ const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
 		dir = compareItems(
 			rowA.columnFiltersMeta[columnId]?.itemRank!,
 			rowB.columnFiltersMeta[columnId]?.itemRank!,
-		);
+		)
 	}
 
 	// Provide an alphanumeric fallback for when the item ranks are equal
@@ -72,7 +72,7 @@ function TableDemo() {
 
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
 		[],
-	);
+	)
 	const [globalFilter, setGlobalFilter] = React.useState("");
 
 	const columns = React.useMemo<ColumnDef<Person, any>[]>(
@@ -104,7 +104,7 @@ function TableDemo() {
 			},
 		],
 		[],
-	);
+	)
 
 	const [data, setData] = React.useState<Person[]>(() => makeData(5_000));
 	const refreshData = () => setData((_old) => makeData(50_000)); //stress test
@@ -129,7 +129,7 @@ function TableDemo() {
 		debugTable: true,
 		debugHeaders: true,
 		debugColumns: false,
-	});
+	})
 
 	//apply the fuzzy sort if the fullName column is being filtered
 	React.useEffect(() => {
@@ -190,7 +190,7 @@ function TableDemo() {
 												</>
 											)}
 										</th>
-									);
+									)
 								})}
 							</tr>
 						))}
@@ -210,10 +210,10 @@ function TableDemo() {
 													cell.getContext(),
 												)}
 											</td>
-										);
+										)
 									})}
 								</tr>
-							);
+							)
 						})}
 					</tbody>
 				</table>
@@ -317,7 +317,7 @@ function TableDemo() {
 				)}
 			</pre>
 		</div>
-	);
+	)
 }
 
 function Filter({ column }: { column: Column<any, unknown> }) {
@@ -331,7 +331,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
 			placeholder={`Search...`}
 			className="w-full px-2 py-1 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-md border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
 		/>
-	);
+	)
 }
 
 // A typical debounced input react component
@@ -365,5 +365,5 @@ function DebouncedInput({
 			value={value}
 			onChange={(e) => setValue(e.target.value)}
 		/>
-	);
+	)
 }

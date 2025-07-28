@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 
-import { useAppForm } from "../../hooks/demo.form";
+import { useAppForm } from "../../../hooks/demo.form";
 
-export const Route = createFileRoute("/_home/demo/form/simple")({
+export const Route = createFileRoute("/_home/_demo/demo/form/simple")({
 	component: SimpleForm,
 });
 
@@ -26,7 +26,7 @@ function SimpleForm() {
 			// Show success message
 			alert("Form submitted successfully!");
 		},
-	});
+	})
 
 	return (
 		<div
@@ -61,5 +61,5 @@ function SimpleForm() {
 				</form>
 			</div>
 		</div>
-	);
+	)
 }

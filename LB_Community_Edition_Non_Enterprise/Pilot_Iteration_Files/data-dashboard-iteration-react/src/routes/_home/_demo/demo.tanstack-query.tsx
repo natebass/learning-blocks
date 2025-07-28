@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/_home/demo/tanstack-query")({
+export const Route = createFileRoute("/_home/_demo/demo/tanstack-query")({
 	component: TanStackQueryDemo,
 });
 
@@ -11,7 +11,7 @@ function TanStackQueryDemo() {
 		queryFn: () =>
 			Promise.resolve([{ name: "John Doe" }, { name: "Jane Doe" }]),
 		initialData: [],
-	});
+	})
 
 	return (
 		<div className="p-4">
@@ -22,5 +22,5 @@ function TanStackQueryDemo() {
 				))}
 			</ul>
 		</div>
-	);
+	)
 }
