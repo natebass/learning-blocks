@@ -9,21 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as LogoutRouteImport } from './routes/logout'
 import { Route as HomeRouteImport } from './routes/_home'
 import { Route as HomeIndexRouteImport } from './routes/_home/index'
 import { Route as HomeDemoRouteImport } from './routes/_home/_demo'
+import { Route as AuthLogoutRouteImport } from './routes/_auth/logout'
 import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as HomeDemoDemoTanstackQueryRouteImport } from './routes/_home/_demo/demo.tanstack-query'
 import { Route as HomeDemoDemoTableRouteImport } from './routes/_home/_demo/demo.table'
 import { Route as HomeDemoDemoFormSimpleRouteImport } from './routes/_home/_demo/demo.form.simple'
 import { Route as HomeDemoDemoFormAddressRouteImport } from './routes/_home/_demo/demo.form.address'
 
-const LogoutRoute = LogoutRouteImport.update({
-  id: '/logout',
-  path: '/logout',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const HomeRoute = HomeRouteImport.update({
   id: '/_home',
   getParentRoute: () => rootRouteImport,
@@ -36,6 +31,11 @@ const HomeIndexRoute = HomeIndexRouteImport.update({
 const HomeDemoRoute = HomeDemoRouteImport.update({
   id: '/_demo',
   getParentRoute: () => HomeRoute,
+} as any)
+const AuthLogoutRoute = AuthLogoutRouteImport.update({
+  id: '/_auth/logout',
+  path: '/logout',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
   id: '/_auth/login',
@@ -65,8 +65,8 @@ const HomeDemoDemoFormAddressRoute = HomeDemoDemoFormAddressRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/logout': typeof LogoutRoute
   '/login': typeof AuthLoginRoute
+  '/logout': typeof AuthLogoutRoute
   '/': typeof HomeIndexRoute
   '/demo/table': typeof HomeDemoDemoTableRoute
   '/demo/tanstack-query': typeof HomeDemoDemoTanstackQueryRoute
@@ -74,8 +74,8 @@ export interface FileRoutesByFullPath {
   '/demo/form/simple': typeof HomeDemoDemoFormSimpleRoute
 }
 export interface FileRoutesByTo {
-  '/logout': typeof LogoutRoute
   '/login': typeof AuthLoginRoute
+  '/logout': typeof AuthLogoutRoute
   '/': typeof HomeIndexRoute
   '/demo/table': typeof HomeDemoDemoTableRoute
   '/demo/tanstack-query': typeof HomeDemoDemoTanstackQueryRoute
@@ -85,8 +85,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_home': typeof HomeRouteWithChildren
-  '/logout': typeof LogoutRoute
   '/_auth/login': typeof AuthLoginRoute
+  '/_auth/logout': typeof AuthLogoutRoute
   '/_home/_demo': typeof HomeDemoRouteWithChildren
   '/_home/': typeof HomeIndexRoute
   '/_home/_demo/demo/table': typeof HomeDemoDemoTableRoute
@@ -97,8 +97,8 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/logout'
     | '/login'
+    | '/logout'
     | '/'
     | '/demo/table'
     | '/demo/tanstack-query'
@@ -106,8 +106,8 @@ export interface FileRouteTypes {
     | '/demo/form/simple'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/logout'
     | '/login'
+    | '/logout'
     | '/'
     | '/demo/table'
     | '/demo/tanstack-query'
@@ -116,8 +116,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_home'
-    | '/logout'
     | '/_auth/login'
+    | '/_auth/logout'
     | '/_home/_demo'
     | '/_home/'
     | '/_home/_demo/demo/table'
@@ -128,19 +128,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   HomeRoute: typeof HomeRouteWithChildren
-  LogoutRoute: typeof LogoutRoute
   AuthLoginRoute: typeof AuthLoginRoute
+  AuthLogoutRoute: typeof AuthLogoutRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/logout': {
-      id: '/logout'
-      path: '/logout'
-      fullPath: '/logout'
-      preLoaderRoute: typeof LogoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_home': {
       id: '/_home'
       path: ''
@@ -161,6 +154,13 @@ declare module '@tanstack/react-router' {
       fullPath: ''
       preLoaderRoute: typeof HomeDemoRouteImport
       parentRoute: typeof HomeRoute
+    }
+    '/_auth/logout': {
+      id: '/_auth/logout'
+      path: '/logout'
+      fullPath: '/logout'
+      preLoaderRoute: typeof AuthLogoutRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_auth/login': {
       id: '/_auth/login'
@@ -232,8 +232,8 @@ const HomeRouteWithChildren = HomeRoute._addFileChildren(HomeRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   HomeRoute: HomeRouteWithChildren,
-  LogoutRoute: LogoutRoute,
   AuthLoginRoute: AuthLoginRoute,
+  AuthLogoutRoute: AuthLogoutRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -11,7 +11,7 @@ function TanStackQueryDemo() {
 		queryFn: () =>
 			Promise.resolve([{ name: "John Doe" }, { name: "Jane Doe" }]),
 		initialData: [],
-	})
+	});
 
 	return (
 		<div className="p-4">
@@ -22,5 +22,5 @@ function TanStackQueryDemo() {
 				))}
 			</ul>
 		</div>
-	)
+	);
 }
