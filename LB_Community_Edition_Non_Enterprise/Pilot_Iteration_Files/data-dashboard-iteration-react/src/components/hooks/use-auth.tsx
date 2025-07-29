@@ -52,10 +52,10 @@ export function AuthProvider({
 		return undefined;
 	});
 
-	const [currentOrg, setCurrentOrg] = React.useState<string | undefined>(
+	const [currentOrg, _setCurrentOrg] = React.useState<string | undefined>(
 		undefined,
 	);
-	const [previousOrgs, setPreviousOrgs] = React.useState<string[] | undefined>(
+	const [previousOrgs, _setPreviousOrgs] = React.useState<string[] | undefined>(
 		undefined,
 	);
 

@@ -1,7 +1,7 @@
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { AuthProvider, useAuth } from "./hooks/use-auth.tsx";
+import { AuthProvider, useAuth } from "@/components/hooks/use-auth.tsx";
 import * as AppQueryProvider from "./integrations/tanstack-query/root-provider.tsx";
 import { routeTree } from "./routeTree.gen";
 import "./globals.css";

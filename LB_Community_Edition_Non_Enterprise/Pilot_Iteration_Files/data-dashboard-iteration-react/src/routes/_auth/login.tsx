@@ -1,7 +1,7 @@
-import { createFileRoute, useNavigate, redirect } from "@tanstack/react-router";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
-import { loginSchema, useLoginForm } from "@/forms/auth";
-import { useAuth } from "../../hooks/use-auth";
+import { loginSchema, useLoginForm } from "@/components/forms/auth";
+import { useAuth } from "@/components/hooks/use-auth";
 
 export const Route = createFileRoute("/_auth/login")({
 	beforeLoad: ({ context }) => {
