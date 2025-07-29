@@ -306,9 +306,12 @@ The `NavigateOptions` object accepts the following properties:
   `document.startTransition()`, same as if `true` was passed.
 - If the browser does not support this api, this option will be ignored.
 -
+
 See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition)
 for more information on how this function works.
+
 -
+
 See [Google](https://developer.chrome.com/docs/web-platform/view-transitions/same-document#view-transition-types)
 for more information on viewTransition types
 
@@ -426,7 +429,10 @@ Omit<
 ## Examples
 
 ```tsx
-import { NotFoundRoute, createRouter } from '@tanstack/react-router'
+import {
+	NotFoundRoute,
+	createRouter
+} from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { routeTree } from './routeTree.gen'
 
@@ -585,10 +591,14 @@ A new [`Route`](../RouteType.md) instance.
 ## Examples
 
 ```tsx
-import { RootRoute, createRouter, Outlet } from '@tanstack/react-router'
+import {
+	RootRoute,
+	createRouter,
+	Outlet
+} from '@tanstack/react-router'
 
 const rootRoute = new RootRoute({
-	component: () => <Outlet/>,
+	component: () => <Outlet />,
 	// ... root route options
 })
 
@@ -1480,7 +1490,7 @@ const router = new Router({
 })
 
 export default function App() {
-	return <RouterProvider router={router}/>
+	return <RouterProvider router={router} />
 }
 ```
 
@@ -1747,9 +1757,12 @@ The `RouterOptions` type accepts an object with the following properties and met
   was passed.
 - If the browser does not support this api, this option will be ignored.
 -
+
 See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition)
 for more information on how this function works.
+
 -
+
 See [Google](https://developer.chrome.com/docs/web-platform/view-transitions/same-document#view-transition-types)
 for more information on viewTransition types
 
@@ -2153,8 +2166,8 @@ Commits a new location object to the browser history.
         - If an object is provided, it will be passed to the `scrollIntoView` method as
           options.
         -
-        See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView)
-        for more information on `ScrollIntoViewOptions`.
+      See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView)
+      for more information on `ScrollIntoViewOptions`.
     - `ignoreBlocker`
         - Type: `boolean`
         - Optional
@@ -2387,7 +2400,7 @@ The `Await` component accepts the following props:
 import { Await } from '@tanstack/react-router'
 
 function Component() {
-	const {deferredPromise} = route.useLoaderData()
+	const { deferredPromise } = route.useLoaderData()
 
 	return (
 		<Await promise={deferredPromise}>
@@ -2500,7 +2513,7 @@ function Component() {
 		<CatchNotFound
 			fallback={(error) => <p>Not found error! {JSON.stringify(error)}</p>}
 		>
-			<ComponentThatMightThrowANotFoundError/>
+			<ComponentThatMightThrowANotFoundError />
 		</CatchNotFound>
 	)
 }
@@ -2533,7 +2546,10 @@ The component to render if the JS is loaded in the client.
 
 ```tsx
 // src/routes/dashboard.tsx
-import { ClientOnly, createFileRoute } from '@tanstack/react-router'
+import {
+	ClientOnly,
+	createFileRoute
+} from '@tanstack/react-router'
 import {
 	Charts,
 	FallbackCharts,
@@ -2548,8 +2564,8 @@ function Dashboard() {
 	return (
 		<div>
 			<p>Dashboard</p>
-			<ClientOnly fallback={<FallbackCharts/>}>
-				<Charts/>
+			<ClientOnly fallback={<FallbackCharts />}>
+				<Charts />
 			</ClientOnly>
 		</div>
 	)
@@ -2724,7 +2740,7 @@ interface MyRouterContext {
 }
 
 const rootRoute = createRootRouteWithContext<MyRouterContext>()({
-	component: () => <Outlet/>,
+	component: () => <Outlet />,
 })
 
 const indexRoute = createRoute({
@@ -2768,10 +2784,14 @@ A new [`Route`](../RouteType.md) instance.
 ## Examples
 
 ```tsx
-import { createRootRoute, createRouter, Outlet } from '@tanstack/react-router'
+import {
+	createRootRoute,
+	createRouter,
+	Outlet
+} from '@tanstack/react-router'
 
 const rootRoute = createRootRoute({
-	component: () => <Outlet/>,
+	component: () => <Outlet />,
 	// ... root route options
 })
 
@@ -2821,7 +2841,7 @@ interface MyRouterContext {
 }
 
 const rootRoute = createRootRouteWithContext<MyRouterContext>()({
-	component: () => <Outlet/>,
+	component: () => <Outlet />,
 	// ... root route options
 })
 
@@ -2938,7 +2958,7 @@ const router = createRouter({
 })
 
 export default function App() {
-	return <RouterProvider router={router}/>
+	return <RouterProvider router={router} />
 }
 ```
 
@@ -2987,15 +3007,15 @@ import { defer } from '@tanstack/react-router'
 const route = createRoute({
 	loader: () => {
 		const deferredPromise = defer(fetch('/api/data'))
-		return {deferredPromise}
+		return { deferredPromise }
 	},
 	component: MyComponent,
 })
 
 function MyComponent() {
-	const {deferredPromise} = Route.useLoaderData()
+	const { deferredPromise } = Route.useLoaderData()
 
-	const data = useAwaited({promise: deferredPromise})
+	const data = useAwaited({ promise: deferredPromise })
 
 	// or
 
@@ -3322,7 +3342,7 @@ function Component() {
 	return (
 		<div>
 			<MatchRoute to="/posts/$postId" params={{postId: '123'}} pending>
-				{(match) => <Spinner show={!!match} wait="delay-50"/>}
+				{(match) => <Spinner show={!!match} wait="delay-50" />}
 			</MatchRoute>
 		</div>
 	)
@@ -3372,19 +3392,23 @@ not-found error object.
 ## Examples
 
 ```tsx
-import { notFound, createFileRoute, rootRouteId } from '@tanstack/react-router'
+import {
+	notFound,
+	createFileRoute,
+	rootRouteId
+} from '@tanstack/react-router'
 
 const Route = new createFileRoute('/posts/$postId')({
 	// throwing a not-found object
-	loader: ({context: {post}}) => {
+	loader: ({ context: { post } }) => {
 		if (!post) {
 			throw notFound()
 		}
 	},
 	// or if you want to show a not-found on the whole page
-	loader: ({context: {team}}) => {
+	loader: ({ context: { team } }) => {
 		if (!team) {
-			throw notFound({routeId: rootRouteId})
+			throw notFound({ routeId: rootRouteId })
 		}
 	},
 	// ... other route options
@@ -3468,7 +3492,10 @@ If `true` is passed in, all search params will be retained.
 
 ```tsx
 import { z } from 'zod'
-import { createRootRoute, retainSearchParams } from '@tanstack/react-router'
+import {
+	createRootRoute,
+	retainSearchParams
+} from '@tanstack/react-router'
 import { zodValidator } from '@tanstack/zod-adapter'
 
 const searchSchema = z.object({
@@ -3485,7 +3512,10 @@ export const Route = createRootRoute({
 
 ```tsx
 import { z } from 'zod'
-import { createFileRoute, retainSearchParams } from '@tanstack/react-router'
+import {
+	createFileRoute,
+	retainSearchParams
+} from '@tanstack/react-router'
 import { zodValidator } from '@tanstack/zod-adapter'
 
 const searchSchema = z.object({
@@ -3533,7 +3563,10 @@ The `rootRouteWithContext` function accepts a single generic argument:
 ## Examples
 
 ```tsx
-import { rootRouteWithContext, createRouter } from '@tanstack/react-router'
+import {
+	rootRouteWithContext,
+	createRouter
+} from '@tanstack/react-router'
 import { QueryClient } from '@tanstack/react-query'
 
 interface MyRouterContext {
@@ -3541,7 +3574,7 @@ interface MyRouterContext {
 }
 
 const rootRoute = rootRouteWithContext<MyRouterContext>()({
-	component: () => <Outlet/>,
+	component: () => <Outlet />,
 	// ... root route options
 })
 
@@ -3579,7 +3612,10 @@ const router = createRouter({
 
 ```tsx
 import { z } from 'zod'
-import { createFileRoute, stripSearchParams } from '@tanstack/react-router'
+import {
+	createFileRoute,
+	stripSearchParams
+} from '@tanstack/react-router'
 import { zodValidator } from '@tanstack/zod-adapter'
 
 const defaultValues = {
@@ -3603,7 +3639,10 @@ export const Route = createFileRoute('/')({
 
 ```tsx
 import { z } from 'zod'
-import { createRootRoute, stripSearchParams } from '@tanstack/react-router'
+import {
+	createRootRoute,
+	stripSearchParams
+} from '@tanstack/react-router'
 import { zodValidator } from '@tanstack/zod-adapter'
 
 const searchSchema = z.object({
@@ -3622,7 +3661,10 @@ export const Route = createRootRoute({
 
 ```tsx
 import { z } from 'zod'
-import { createFileRoute, stripSearchParams } from '@tanstack/react-router'
+import {
+	createFileRoute,
+	stripSearchParams
+} from '@tanstack/react-router'
 import { zodValidator } from '@tanstack/zod-adapter'
 
 const searchSchema = z.object({
@@ -3666,9 +3708,9 @@ The `useAwaited` hook accepts a single argument, an `options` object.
 import { useAwaited } from '@tanstack/react-router'
 
 function Component() {
-	const {deferredPromise} = route.useLoaderData()
+	const { deferredPromise } = route.useLoaderData()
 
-	const data = useAwaited({promise: myDeferredPromise})
+	const data = useAwaited({ promise: myDeferredPromise })
 	// ...
 }
 ```
@@ -4911,7 +4953,7 @@ this, you can **throw a `redirect()`** from `beforeLoad`:
 ```tsx
 // src/routes/_authenticated.tsx
 export const Route = createFileRoute('/_authenticated')({
-	beforeLoad: async ({location}) => {
+	beforeLoad: async ({ location }) => {
 		if (!isAuthenticated()) {
 			throw redirect({
 				to: '/login',
@@ -4953,10 +4995,10 @@ rendering the `<Outlet />` that would normally render the child routes:
 export const Route = createFileRoute('/_authenticated')({
 	component: () => {
 		if (!isAuthenticated()) {
-			return <Login/>
+			return <Login />
 		}
 
-		return <Outlet/>
+		return <Outlet />
 	},
 })
 ```
@@ -4995,7 +5037,7 @@ interface MyRouterContext {
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
-	component: () => <Outlet/>,
+	component: () => <Outlet />,
 })
 ```
 
@@ -5027,13 +5069,13 @@ import { router } from './router'
 
 function InnerApp() {
 	const auth = useAuth()
-	return <RouterProvider router={router} context={{auth}}/>
+	return <RouterProvider router={router} context={{ auth }} />
 }
 
 function App() {
 	return (
 		<AuthProvider>
-			<InnerApp/>
+			<InnerApp />
 		</AuthProvider>
 	)
 }
@@ -5046,10 +5088,13 @@ signed-in.
 - `src/routes/dashboard.route.tsx`
 
 ```tsx
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import {
+	createFileRoute,
+	redirect
+} from '@tanstack/react-router'
 
 export const Route = createFileRoute('/dashboard')({
-	beforeLoad: ({context, location}) => {
+	beforeLoad: ({ context, location }) => {
 		if (!context.auth.isAuthenticated) {
 			throw redirect({
 				to: '/login',
@@ -5825,7 +5870,7 @@ interface BasicLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 const BasicLinkComponent = React.forwardRef<HTMLAnchorElement, BasicLinkProps>(
 	(props, ref) => {
 		return (
-			<a ref={ref} {...props} className={'block px-3 py-2 text-blue-700'}/>
+			<a ref={ref} {...props} className={'block px-3 py-2 text-blue-700'} />
 		)
 	},
 )
@@ -5842,7 +5887,7 @@ export const CustomLink: LinkComponent<typeof BasicLinkComponent> = (props) => {
 You can then use your newly created `Link` component as any other `Link`
 
 ```tsx
-<CustomLink to={'/dashboard/invoices/$invoiceId'} params={{invoiceId: 0}}/>
+<CustomLink to={'/dashboard/invoices/$invoiceId'} params={{invoiceId: 0}} />
 ```
 
 [//]: # 'ExamplesUsingThirdPartyLibs'
@@ -6504,8 +6549,8 @@ Once we have these deps in place, the route will always reload when the deps cha
 ```tsx
 // /routes/posts.tsx
 export const Route = createFileRoute('/posts')({
-	loaderDeps: ({search: {offset, limit}}) => ({offset, limit}),
-	loader: ({deps: {offset, limit}}) =>
+	loaderDeps: ({ search: { offset, limit } }) => ({ offset, limit }),
+	loader: ({ deps: { offset, limit } }) =>
 		fetchPosts({
 			offset,
 			limit,
@@ -6573,8 +6618,8 @@ indicating if the route should reload.
 ```tsx
 // /routes/posts.tsx
 export const Route = createFileRoute('/posts')({
-	loaderDeps: ({search: {offset, limit}}) => ({offset, limit}),
-	loader: ({deps}) => fetchPosts(deps),
+	loaderDeps: ({ search: { offset, limit } }) => ({ offset, limit }),
+	loader: ({ deps }) => fetchPosts(deps),
 	// Do not cache this route's data after it's unloaded
 	gcTime: 0,
 	// Only reload the route when the user navigates to it or when deps change
@@ -6661,7 +6706,7 @@ import { createFileRoute } from '@tanstack/react-router'
 // This can be a powerful tool for dependency injection across your router
 // and routes.
 export const Route = createFileRoute('/posts')({
-	loader: ({context: {fetchPosts}}) => fetchPosts(),
+	loader: ({ context: { fetchPosts } }) => fetchPosts(),
 })
 ```
 
@@ -6689,7 +6734,7 @@ the function's parameters. Here's an example:
 ```tsx
 // routes/posts.$postId.tsx
 export const Route = createFileRoute('/posts/$postId')({
-	loader: ({params: {postId}}) => fetchPostById(postId),
+	loader: ({ params: { postId } }) => fetchPostById(postId),
 })
 ```
 
@@ -6712,7 +6757,7 @@ export const Route = createFileRoute('/posts')({
 	beforeLoad: () => ({
 		fetchPosts: () => console.info('foo'),
 	}),
-	loader: ({context: {fetchPosts}}) => {
+	loader: ({ context: { fetchPosts } }) => {
 		console.info(fetchPosts()) // 'foo'
 
 		// ...
@@ -6751,10 +6796,10 @@ export const Route = createFileRoute('/users/user')({
 		search as {
 			userId: string
 		},
-	loaderDeps: ({search: {userId}}) => ({
+	loaderDeps: ({ search: { userId } }) => ({
 		userId,
 	}),
-	loader: async ({deps: {userId}}) => getUser(userId),
+	loader: async ({ deps: { userId } }) => getUser(userId),
 })
 ```
 
@@ -6768,9 +6813,9 @@ export const Route = createFileRoute('/posts')({
 		offset: z.number().int().nonnegative().catch(0),
 	}),
 	// Pass the offset to your loader deps via the loaderDeps function
-	loaderDeps: ({search: {offset}}) => ({offset}),
+	loaderDeps: ({ search: { offset } }) => ({ offset }),
 	// Use the offset from context in the loader function
-	loader: async ({deps: {offset}}) =>
+	loader: async ({ deps: { offset } }) =>
 		fetchPosts({
 			offset,
 		}),
@@ -6788,7 +6833,7 @@ when the route's params change. Here is an example using it with a fetch call:
 ```tsx
 // routes/posts.tsx
 export const Route = createFileRoute('/posts')({
-	loader: ({abortController}) =>
+	loader: ({ abortController }) =>
 		fetchPosts({
 			// Pass this to an underlying fetch call or anything that supports signals
 			signal: abortController.signal,
@@ -6806,7 +6851,7 @@ data loading library, or use it to execute the appropriate data loading logic:
 ```tsx
 // routes/posts.tsx
 export const Route = createFileRoute('/posts')({
-	loader: async ({preload}) =>
+	loader: async ({ preload }) =>
 		fetchPosts({
 			maxAge: preload ? 10_000 : 0, // Preloads should hang around a bit longer
 		}),
@@ -6862,7 +6907,7 @@ during the route loading.
 // routes/posts.tsx
 export const Route = createFileRoute('/posts')({
 	loader: () => fetchPosts(),
-	onError: ({error}) => {
+	onError: ({ error }) => {
 		// Log the error
 		console.error(error)
 	},
@@ -6877,7 +6922,7 @@ caught by the router's CatchBoundary.
 ```tsx
 // routes/posts.tsx
 export const Route = createFileRoute('/posts')({
-	onCatch: ({error, errorInfo}) => {
+	onCatch: ({ error, errorInfo }) => {
 		// Log the error
 		console.error(error)
 	},
@@ -6897,7 +6942,7 @@ props:
 // routes/posts.tsx
 export const Route = createFileRoute('/posts')({
 	loader: () => fetchPosts(),
-	errorComponent: ({error}) => {
+	errorComponent: ({ error }) => {
 		// Render an error message
 		return <div>{error.message}</div>
 	},
@@ -6911,7 +6956,7 @@ boundaries normal children:
 // routes/posts.tsx
 export const Route = createFileRoute('/posts')({
 	loader: () => fetchPosts(),
-	errorComponent: ({error, reset}) => {
+	errorComponent: ({ error, reset }) => {
 		return (
 			<div>
 				{error.message}
@@ -6937,7 +6982,7 @@ reset:
 // routes/posts.tsx
 export const Route = createFileRoute('/posts')({
 	loader: () => fetchPosts(),
-	errorComponent: ({error, reset}) => {
+	errorComponent: ({ error, reset }) => {
 		const router = useRouter()
 
 		return (
@@ -6966,18 +7011,21 @@ with the default `ErrorComponent`:
 
 ```tsx
 // routes/posts.tsx
-import { createFileRoute, ErrorComponent } from '@tanstack/react-router'
+import {
+	createFileRoute,
+	ErrorComponent
+} from '@tanstack/react-router'
 
 export const Route = createFileRoute('/posts')({
 	loader: () => fetchPosts(),
-	errorComponent: ({error}) => {
+	errorComponent: ({ error }) => {
 		if (error instanceof MyCustomError) {
 			// Render a custom error message
 			return <div>{error.message}</div>
 		}
 
 		// Fallback to the default ErrorComponent
-		return <ErrorComponent error={error}/>
+		return <ErrorComponent error={error} />
 	},
 })
 ```
@@ -7176,7 +7224,10 @@ in your loader response:
 
 ```tsx
 // src/routes/posts.$postId.tsx
-import { createFileRoute, defer } from '@tanstack/react-router'
+import {
+	createFileRoute,
+	defer
+} from '@tanstack/react-router'
 
 export const Route = createFileRoute('/posts/$postId')({
 	loader: async () => {
@@ -7202,7 +7253,10 @@ component:
 
 ```tsx
 // src/routes/posts.$postId.tsx
-import { createFileRoute, Await } from '@tanstack/react-router'
+import {
+	createFileRoute,
+	Await
+} from '@tanstack/react-router'
 
 export const Route = createFileRoute('/posts/$postId')({
 	// ...
@@ -7210,7 +7264,7 @@ export const Route = createFileRoute('/posts/$postId')({
 })
 
 function PostIdComponent() {
-	const {deferredSlowData, fastData} = Route.useLoaderData()
+	const { deferredSlowData, fastData } = Route.useLoaderData()
 
 	// do something with fastData
 
@@ -7226,7 +7280,8 @@ function PostIdComponent() {
 
 > [!TIP]
 > If your component is code-split, you can use
-> the [getRouteApi function](../code-splitting.md#manually-accessing-route-apis-in-other-files-with-the-getrouteapi-helper)
+>
+the [getRouteApi function](../code-splitting.md#manually-accessing-route-apis-in-other-files-with-the-getrouteapi-helper)
 > to avoid having to import the `Route` configuration to get access to the typed
 `useLoaderData()` hook.
 
@@ -7259,10 +7314,13 @@ components.
 ```tsx
 // src/routes/posts.$postId.tsx
 import { createFileRoute } from '@tanstack/react-router'
-import { slowDataOptions, fastDataOptions } from '~/api/query-options'
+import {
+	slowDataOptions,
+	fastDataOptions
+} from '~/api/query-options'
 
 export const Route = createFileRoute('/posts/$postId')({
-	loader: async ({context: {queryClient}}) => {
+	loader: async ({ context: { queryClient } }) => {
 		// Kick off the fetching of some slower data, but do not await it
 		queryClient.prefetchQuery(slowDataOptions())
 
@@ -7278,7 +7336,10 @@ Then in your component, you can use the library's hooks to access the data:
 // src/routes/posts.$postId.tsx
 import { createFileRoute } from '@tanstack/react-router'
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { slowDataOptions, fastDataOptions } from '~/api/query-options'
+import {
+	slowDataOptions,
+	fastDataOptions
+} from '~/api/query-options'
 
 export const Route = createFileRoute('/posts/$postId')({
 	// ...
@@ -7292,7 +7353,7 @@ function PostIdComponent() {
 
 	return (
 		<Suspense fallback={<div>Loading...</div>}>
-			<SlowDataComponent/>
+			<SlowDataComponent />
 		</Suspense>
 	)
 }
@@ -7439,10 +7500,10 @@ export const Route = createRootRoute({
 	component: () => (
 		<html>
 		<head>
-			<HeadContent/>
+			<HeadContent />
 		</head>
 		<body>
-		<Outlet/>
+		<Outlet />
 		</body>
 		</html>
 	),
@@ -7459,8 +7520,8 @@ import { HeadContent } from '@tanstack/react-router'
 const rootRoute = createRootRoute({
 	component: () => (
 		<>
-			<HeadContent/>
-			<Outlet/>
+			<HeadContent />
+			<Outlet />
 		</>
 	),
 })
@@ -7503,10 +7564,10 @@ import { createFileRoute, Scripts } from '@tanstack/react-router'
 export const Router = createFileRoute('/')({
 	component: () => (
 		<html>
-		<head/>
+		<head />
 		<body>
-		<Outlet/>
-		<Scripts/>
+		<Outlet />
+		<Scripts />
 		</body>
 		</html>
 	),
@@ -7514,13 +7575,16 @@ export const Router = createFileRoute('/')({
 ```
 
 ```tsx
-import { Scripts, createRootRoute } from '@tanstack/react-router'
+import {
+	Scripts,
+	createRootRoute
+} from '@tanstack/react-router'
 
 export const Route = createRootRoute({
 	component: () => (
 		<>
-			<Outlet/>
-			<Scripts/>
+			<Outlet />
+			<Scripts />
 		</>
 	),
 })
@@ -7594,7 +7658,7 @@ export const Route = createFileRoute('/posts')({
 		return (
 			<div>
 				{postsCache.map((post) => (
-					<Post key={post.id} post={post}/>
+					<Post key={post.id} post={post} />
 				))}
 			</div>
 		)
@@ -7627,13 +7691,13 @@ export const Route = createFileRoute('/posts')({
 	component: () => {
 		// Read the data from the cache and subscribe to updates
 		const {
-			data: {posts},
+			data: { posts },
 		} = useSuspenseQuery(postsQueryOptions)
 
 		return (
 			<div>
 				{posts.map((post) => (
-					<Post key={post.id} post={post}/>
+					<Post key={post.id} post={post} />
 				))}
 			</div>
 		)
@@ -7654,7 +7718,7 @@ clicking the `retry` button.
 ```tsx
 export const Route = createFileRoute('/')({
 	loader: () => queryClient.ensureQueryData(postsQueryOptions),
-	errorComponent: ({error, reset}) => {
+	errorComponent: ({ error, reset }) => {
 		const router = useRouter()
 		const queryErrorResetBoundary = useQueryErrorResetBoundary()
 
@@ -7853,12 +7917,12 @@ anywhere
 ```tsx
 const dashboardLinkOptions = linkOptions({
 	to: '/dashboard',
-	search: {search: ''},
+	search: { search: '' },
 })
 
 export const Route = createFileRoute('/dashboard')({
 	component: DashboardComponent,
-	validateSearch: (input) => ({search: input.search}),
+	validateSearch: (input) => ({ search: input.search }),
 	beforeLoad: () => {
 		// can used in redirect
 		throw redirect(dashboardLinkOptions)
@@ -7871,7 +7935,7 @@ function DashboardComponent() {
 	return (
 		<div>
 			{/** can be used in navigate */}
-			<button onClick={() => navigate(dashboardLinkOptions)}/>
+			<button onClick={() => navigate(dashboardLinkOptions)} />
 
 			{/** can be used in Link */}
 			<Link {...dashboardLinkOptions} />
@@ -7924,9 +7988,9 @@ function DashboardComponent() {
 					)
 				})}
 			</div>
-			<hr/>
+			<hr />
 
-			<Outlet/>
+			<Outlet />
 		</>
 	)
 }
@@ -8896,7 +8960,7 @@ const link = (
 			return (
 				<>
 					<span>My Blog Post</span>
-					<icon className={isActive ? 'active' : 'inactive'}/>
+					<icon className={isActive ? 'active' : 'inactive'} />
 				</>
 			)
 		}}
@@ -8994,7 +9058,7 @@ side-effect (e.g. useEffect), but this is unnecessary. Instead, you can render t
 
 ```tsx
 function Component() {
-	return <Navigate to="/posts/$postId" params={{postId: 'my-first-post'}}/>
+	return <Navigate to="/posts/$postId" params={{postId: 'my-first-post'}} />
 }
 ```
 
@@ -9027,7 +9091,7 @@ function Component() {
 			<Link to="/users">
 				Users
 				<MatchRoute to="/users" pending>
-					<Spinner/>
+					<Spinner />
 				</MatchRoute>
 			</Link>
 		</div>
@@ -9046,7 +9110,7 @@ function Component() {
 				Users
 				<MatchRoute to="/users" pending>
 					{(match) => {
-						return <Spinner show={match}/>
+						return <Spinner show={match} />
 					}}
 				</MatchRoute>
 			</Link>
@@ -9063,7 +9127,7 @@ function Component() {
 	const matchRoute = useMatchRoute()
 
 	useEffect(() => {
-		if (matchRoute({to: '/users', pending: true})) {
+		if (matchRoute({ to: '/users', pending: true })) {
 			console.info('The /users route is matched and pending')
 		}
 	})
@@ -9198,7 +9262,7 @@ export const Route = createFileRoute('/settings')({
 		return (
 			<div>
 				<p>Settings page</p>
-				<Outlet/>
+				<Outlet />
 			</div>
 		)
 	},
@@ -9213,12 +9277,12 @@ don't exist:
 
 ```tsx
 export const Route = createFileRoute('/posts/$postId')({
-	loader: async ({params: {postId}}) => {
+	loader: async ({ params: { postId } }) => {
 		const post = await getPost(postId)
 		if (!post) throw notFound()
-		return {post}
+		return { post }
 	},
-	component: ({post}) => {
+	component: ({ post }) => {
 		return (
 			<div>
 				<h1>{post.title}</h1>
@@ -9266,7 +9330,7 @@ not-found error, you can **throw a `notFound()`**.
 
 ```tsx
 export const Route = createFileRoute('/posts/$postId')({
-	loader: async ({params: {postId}}) => {
+	loader: async ({ params: { postId } }) => {
 		// Returns `null` if the post doesn't exist
 		const post = await getPost(postId)
 		if (!post) {
@@ -9275,7 +9339,7 @@ export const Route = createFileRoute('/posts/$postId')({
 			// notFound({ throw: true })
 		}
 		// Post is guaranteed to be defined here because we threw an error
-		return {post}
+		return { post }
 	},
 })
 ```
@@ -9307,7 +9371,7 @@ export const Route = createFileRoute('/_pathlessLayout')({
 		return (
 			<div>
 				<p>This is a pathless layout route!</p>
-				<Outlet/>
+				<Outlet />
 			</div>
 		)
 	},
@@ -9317,7 +9381,7 @@ export const Route = createFileRoute('/_pathlessLayout')({
 export const Route = createFileRoute('/_pathless/route-a')({
 	loader: async () => {
 		// This will make LayoutRoute handle the not-found error
-		throw notFound({routeId: '/_pathlessLayout'})
+		throw notFound({ routeId: '/_pathlessLayout' })
 		//                      ^^^^^^^^^ This will autocomplete from the registered router
 	},
 	// This WILL NOT render
@@ -9336,10 +9400,10 @@ You can also target the root route by passing the exported `rootRouteId` variabl
 import { rootRouteId } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/posts/$postId')({
-	loader: async ({params: {postId}}) => {
+	loader: async ({ params: { postId } }) => {
 		const post = await getPost(postId)
-		if (!post) throw notFound({routeId: rootRouteId})
-		return {post}
+		if (!post) throw notFound({ routeId: rootRouteId })
+		return { post }
 	},
 })
 ```
@@ -9365,21 +9429,21 @@ the `data` option in the `notFound` function and validate it in `notFoundCompone
 
 ```tsx
 export const Route = createFileRoute('/posts/$postId')({
-	loader: async ({params: {postId}}) => {
+	loader: async ({ params: { postId } }) => {
 		const post = await getPost(postId)
 		if (!post)
 			throw notFound({
 				// Forward some data to the notFoundComponent
 				// data: someIncompleteLoaderData
 			})
-		return {post}
+		return { post }
 	},
 	// `data: unknown` is passed to the component via the `data` option when calling `notFound`
-	notFoundComponent: ({data}) => {
+	notFoundComponent: ({ data }) => {
 		// ❌ useLoaderData is not valid here: const { post } = Route.useLoaderData()
 
 		// ✅:
-		const {postId} = Route.useParams()
+		const { postId } = Route.useParams()
 		const search = Route.useSearch()
 		const context = Route.useRouteContext()
 
@@ -9469,7 +9533,10 @@ route a component that renders a title, then an `<Outlet />` for our top-level r
 render.
 
 ```tsx
-import { createRootRoute, Outlet } from '@tanstack/react-router'
+import {
+	createRootRoute,
+	Outlet
+} from '@tanstack/react-router'
 
 export const Route = createRootRoute({
 	component: RootComponent,
@@ -9479,7 +9546,7 @@ function RootComponent() {
 	return (
 		<div>
 			<h1>My App</h1>
-			<Outlet/> {/* This is where child routes will render */}
+			<Outlet /> {/* This is where child routes will render */}
 		</div>
 	)
 }
@@ -9514,7 +9581,7 @@ Let's create a post route file that uses a path param to match the post ID:
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/posts/$postId')({
-	loader: async ({params}) => {
+	loader: async ({ params }) => {
 		return fetchPost(params.postId)
 	},
 })
@@ -9535,7 +9602,7 @@ would be `{ postId: '123' }`:
 
 ```tsx
 export const Route = createFileRoute('/posts/$postId')({
-	loader: async ({params}) => {
+	loader: async ({ params }) => {
 		return fetchPost(params.postId)
 	},
 })
@@ -9545,7 +9612,7 @@ The `params` object is also passed to the `beforeLoad` option:
 
 ```tsx
 export const Route = createFileRoute('/posts/$postId')({
-	beforeLoad: async ({params}) => {
+	beforeLoad: async ({ params }) => {
 		// do something with params.postId
 	},
 })
@@ -9562,13 +9629,14 @@ export const Route = createFileRoute('/posts/$postId')({
 })
 
 function PostComponent() {
-	const {postId} = Route.useParams()
+	const { postId } = Route.useParams()
 	return <div>Post {postId}</div>
 }
 ```
 
 > 🧠 Quick tip: If your component is code-split, you can use
-> the [getRouteApi function](../code-splitting.md#manually-accessing-route-apis-in-other-files-with-the-getrouteapi-helper)
+>
+the [getRouteApi function](../code-splitting.md#manually-accessing-route-apis-in-other-files-with-the-getrouteapi-helper)
 > to avoid having to import the `Route` configuration to get access to the typed
 `useParams()` hook.
 
@@ -9641,7 +9709,7 @@ export const Route = createFileRoute('/posts/post-{$postId}')({
 })
 
 function PostComponent() {
-	const {postId} = Route.useParams()
+	const { postId } = Route.useParams()
 	// postId will be the value after 'post-'
 	return <div>Post ID: {postId}</div>
 }
@@ -9656,7 +9724,7 @@ export const Route = createFileRoute('/on-disk/storage-{$postId}/$')({
 })
 
 function StorageComponent() {
-	const {_splat} = Route.useParams()
+	const { _splat } = Route.useParams()
 	// _splat, will be value after 'storage-'
 	// i.e. my-drive/documents/foo.txt
 	return <div>Storage Location: /{_splat}</div>
@@ -9676,7 +9744,7 @@ export const Route = createFileRoute('/files/{$fileName}.txt')({
 })
 
 function FileComponent() {
-	const {fileName} = Route.useParams()
+	const { fileName } = Route.useParams()
 	// fileName will be the value before 'txt'
 	return <div>File Name: {fileName}</div>
 }
@@ -9691,7 +9759,7 @@ export const Route = createFileRoute('/files/{$fileName}[.]txt')({
 })
 
 function FileComponent() {
-	const {_splat} = Route.useParams()
+	const { _splat } = Route.useParams()
 	// _splat will be the value before '.txt'
 	return <div>File Splat: {_splat}</div>
 }
@@ -9710,7 +9778,7 @@ export const Route = createFileRoute('/users/user-{$userId}person')({
 })
 
 function UserComponent() {
-	const {userId} = Route.useParams()
+	const { userId } = Route.useParams()
 	// userId will be the value between 'user-' and 'person'
 	return <div>User ID: {userId}</div>
 }
@@ -9769,7 +9837,7 @@ values may be `undefined`:
 
 ```tsx
 function PostsComponent() {
-	const {category} = Route.useParams()
+	const { category } = Route.useParams()
 
 	return <div>{category ? `Posts in ${category}` : 'All Posts'}</div>
 }
@@ -9781,9 +9849,9 @@ Optional parameters are available in loaders and may be `undefined`:
 
 ```tsx
 export const Route = createFileRoute('/posts/{-$category}')({
-	loader: async ({params}) => {
+	loader: async ({ params }) => {
 		// params.category might be undefined
-		return fetchPosts({category: params.category})
+		return fetchPosts({ category: params.category })
 	},
 })
 ```
@@ -9794,7 +9862,7 @@ Optional parameters work in `beforeLoad` handlers as well:
 
 ```tsx
 export const Route = createFileRoute('/posts/{-$category}')({
-	beforeLoad: async ({params}) => {
+	beforeLoad: async ({ params }) => {
 		if (params.category) {
 			// Validate category exists
 			await validateCategory(params.category)
@@ -9817,7 +9885,7 @@ export const Route = createFileRoute('/files/prefix{-$name}.txt')({
 })
 
 function FileComponent() {
-	const {name} = Route.useParams()
+	const { name } = Route.useParams()
 	return <div>File: {name || 'default'}</div>
 }
 ```
@@ -9834,7 +9902,7 @@ export const Route = createFileRoute('/{-$year}/{-$month}/{-$day}')({
 })
 
 function DateComponent() {
-	const {year, month, day} = Route.useParams()
+	const { year, month, day } = Route.useParams()
 
 	if (!year) return <div>Select a year</div>
 	if (!month) return <div>Year: {year}</div>
@@ -9865,8 +9933,8 @@ export const Route = createFileRoute('/docs/{-$version}/$')({
 })
 
 function DocsComponent() {
-	const {version} = Route.useParams()
-	const {_splat} = Route.useParams()
+	const { version } = Route.useParams()
+	const { _splat } = Route.useParams()
 
 	return (
 		<div>
@@ -9915,7 +9983,7 @@ TypeScript provides full type safety for optional parameters:
 ```tsx
 function PostsComponent() {
 	// TypeScript knows category might be undefined
-	const {category} = Route.useParams() // category: string | undefined
+	const { category } = Route.useParams() // category: string | undefined
 
 	// Safe navigation
 	const categoryUpper = category?.toUpperCase()
@@ -9926,14 +9994,14 @@ function PostsComponent() {
 // Navigation is type-safe and flexible
 <Link
 	to="/posts/{-$category}"
-	params={{category: 'tech'}} // ✅ Valid - string
+	params={{ category: 'tech' }} // ✅ Valid - string
 >
 	Tech Posts
 </Link>
 
 <Link
 	to="/posts/{-$category}"
-	params={{category: 123}} // ✅ Valid - number (auto-stringified)
+	params={{ category: 123 }} // ✅ Valid - number (auto-stringified)
 >
 	Category 123
 </Link>
@@ -9957,11 +10025,11 @@ export const Route = createFileRoute('/{-$locale}/about')({
 })
 
 function AboutComponent() {
-	const {locale} = Route.useParams()
+	const { locale } = Route.useParams()
 	const currentLocale = locale || 'en' // Default to English
 
 	const content = {
-		en: {title: 'About Us', description: 'Learn more about our company.'},
+		en: { title: 'About Us', description: 'Learn more about our company.' },
 		fr: {
 			title: 'À Propos',
 			description: 'En savoir plus sur notre entreprise.',
@@ -9995,7 +10063,7 @@ Combine optional parameters for more sophisticated i18n routing:
 ```tsx
 // Route: /{-$locale}/blog/{-$category}/$slug
 export const Route = createFileRoute('/{-$locale}/blog/{-$category}/$slug')({
-	beforeLoad: async ({params}) => {
+	beforeLoad: async ({ params }) => {
 		const locale = params.locale || 'en'
 		const category = params.category
 
@@ -10005,19 +10073,19 @@ export const Route = createFileRoute('/{-$locale}/blog/{-$category}/$slug')({
 			throw new Error('Invalid locale')
 		}
 
-		return {locale, category}
+		return { locale, category }
 	},
-	loader: async ({params, context}) => {
-		const {locale} = context
-		const {slug, category} = params
+	loader: async ({ params, context }) => {
+		const { locale } = context
+		const { slug, category } = params
 
-		return fetchBlogPost({slug, category, locale})
+		return fetchBlogPost({ slug, category, locale })
 	},
 	component: BlogPostComponent,
 })
 
 function BlogPostComponent() {
-	const {locale, category, slug} = Route.useParams()
+	const { locale, category, slug } = Route.useParams()
 	const data = Route.useLoaderData()
 
 	return (
@@ -10142,7 +10210,7 @@ export const Route = createFileRoute('/{-$locale}/')({
 })
 
 function HomeComponent() {
-	const {locale} = Route.useParams()
+	const { locale } = Route.useParams()
 	const isRTL = ['ar', 'he', 'fa'].includes(locale || '')
 
 	return (
@@ -10166,7 +10234,7 @@ Handle SEO for i18n routes properly:
 ```tsx
 export const Route = createFileRoute('/{-$locale}/products/$id')({
 	component: ProductComponent,
-	head: ({params, loaderData}) => {
+	head: ({ params, loaderData }) => {
 		const locale = params.locale || 'en'
 		const product = loaderData
 
@@ -10224,14 +10292,14 @@ function validateLocale(locale: string | undefined): locale is Locale {
 }
 
 export const Route = createFileRoute('/{-$locale}/shop/{-$category}')({
-	beforeLoad: async ({params}) => {
-		const {locale} = params
+	beforeLoad: async ({ params }) => {
+		const { locale } = params
 
 		// Type-safe locale validation
 		if (locale && !validateLocale(locale)) {
 			throw redirect({
 				to: '/shop/{-$category}',
-				params: {category: params.category},
+				params: { category: params.category },
 			})
 		}
 
@@ -10244,8 +10312,8 @@ export const Route = createFileRoute('/{-$locale}/shop/{-$category}')({
 })
 
 function ShopComponent() {
-	const {locale, category} = Route.useParams()
-	const {isDefaultLocale} = Route.useRouteContext()
+	const { locale, category } = Route.useParams()
+	const { isDefaultLocale } = Route.useRouteContext()
 
 	// TypeScript knows locale is Locale | undefined
 	// and we have validated it in beforeLoad
@@ -10255,7 +10323,7 @@ function ShopComponent() {
 			<h1>Shop {category ? `- ${category}` : ''}</h1>
 			<p>Language: {locale || 'en'}</p>
 			{!isDefaultLocale && (
-				<Link to="/shop/{-$category}" params={{category}}>
+				<Link to="/shop/{-$category}" params={{ category }}>
 					View in English
 				</Link>
 			)}
@@ -10390,7 +10458,7 @@ Or, you can use the `routeOptions.preloadStaleTime` option on individual routes:
 ```tsx
 // src/routes/posts.$postId.tsx
 export const Route = createFileRoute('/posts/$postId')({
-	loader: async ({params}) => fetchPost(params.postId),
+	loader: async ({ params }) => fetchPost(params.postId),
 	// Preload the route again if the preload cache is older than 10 seconds
 	preloadStaleTime: 10_000,
 })
@@ -10438,7 +10506,7 @@ function Component() {
 			try {
 				const matches = await router.preloadRoute({
 					to: postRoute,
-					params: {id: 1},
+					params: { id: 1 },
 				})
 			} catch (err) {
 				// Failed to preload route
@@ -10448,7 +10516,7 @@ function Component() {
 		preload()
 	}, [router])
 
-	return <div/>
+	return <div />
 }
 ```
 
@@ -10477,7 +10545,7 @@ function Component() {
 		preloadRouteChunks()
 	}, [router])
 
-	return <div/>
+	return <div />
 }
 ```
 
@@ -10512,7 +10580,7 @@ parameters changes, you can use partial subscriptions with the `select` property
 
 ```tsx
 // component won't re-render when `bar` changes
-const foo = Route.useSearch({select: ({foo}) => foo})
+const foo = Route.useSearch({ select: ({ foo }) => foo })
 ```
 
 ### structural sharing with fine-grained selectors
@@ -10882,7 +10950,7 @@ Once you have defined the router context type, you can use it in your route defi
 // src/routes/todos.tsx
 export const Route = createFileRoute('/todos')({
 	component: Todos,
-	loader: ({context}) => fetchTodosByUserId(context.user.id),
+	loader: ({ context }) => fetchTodosByUserId(context.user.id),
 })
 ```
 
@@ -10913,7 +10981,7 @@ Then, in your route:
 // src/routes/todos.tsx
 export const Route = createFileRoute('/todos')({
 	component: Todos,
-	loader: ({context}) => context.fetchTodosByUserId(context.userId),
+	loader: ({ context }) => context.fetchTodosByUserId(context.userId),
 })
 ```
 
@@ -10949,9 +11017,9 @@ Then, in your route:
 // src/routes/todos.tsx
 export const Route = createFileRoute('/todos')({
 	component: Todos,
-	loader: async ({context}) => {
+	loader: async ({ context }) => {
 		await context.queryClient.ensureQueryData({
-			queryKey: ['todos', {userId: user.id}],
+			queryKey: ['todos', { userId: user.id }],
 			queryFn: fetchTodos,
 		})
 	},
@@ -11019,7 +11087,7 @@ import { useNetworkStrength } from '@/hooks/useNetworkStrength'
 function App() {
 	const networkStrength = useNetworkStrength()
 	// Inject the returned value from the hook into the router context
-	return <RouterProvider router={router} context={{networkStrength}}/>
+	return <RouterProvider router={router} context={{networkStrength}} />
 }
 
 // ...
@@ -11035,7 +11103,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/posts')({
 	component: Posts,
-	loader: ({context}) => {
+	loader: ({ context }) => {
 		if (context.networkStrength === 'STRONG') {
 			// Do something
 		}
@@ -11090,7 +11158,7 @@ export const Route = createFileRoute('/todos')({
 			bar: true,
 		}
 	},
-	loader: ({context}) => {
+	loader: ({ context }) => {
 		context.foo // true
 		context.bar // true
 	},
@@ -11107,11 +11175,11 @@ use all of the matched route contexts to generate a breadcrumb trail:
 // src/routes/__root.tsx
 export const Route = createRootRoute({
 	component: () => {
-		const matches = useRouterState({select: (s) => s.matches})
+		const matches = useRouterState({ select: (s) => s.matches })
 
 		const breadcrumbs = matches
 			.filter((match) => match.context.getTitle)
-			.map(({pathname, context}) => {
+			.map(({ pathname, context }) => {
 				return {
 					title: context.getTitle(),
 					path: pathname,
@@ -11129,7 +11197,7 @@ Using that same route context, we could also generate a title tag for our page's
 // src/routes/__root.tsx
 export const Route = createRootRoute({
 	component: () => {
-		const matches = useRouterState({select: (s) => s.matches})
+		const matches = useRouterState({ select: (s) => s.matches })
 
 		const matchWithTitle = [...matches]
 			.reverse()
@@ -11693,7 +11761,10 @@ function which retains the types but provides a `fallback` value when validation
 
 ```tsx
 import { createFileRoute } from '@tanstack/react-router'
-import { fallback, zodValidator } from '@tanstack/zod-adapter'
+import {
+	fallback,
+	zodValidator
+} from '@tanstack/zod-adapter'
 import { z } from 'zod'
 
 const productSearchSchema = z.object({
@@ -11870,7 +11941,7 @@ export const Route = createFileRoute('/shop/products')({
 
 ```tsx
 export const Route = createFileRoute('/shop/products/$productId')({
-	beforeLoad: ({search}) => {
+	beforeLoad: ({ search }) => {
 		search
 		// ^? ProductSearch ✅
 	},
@@ -11890,7 +11961,7 @@ export const Route = createFileRoute('/shop/products')({
 })
 
 const ProductList = () => {
-	const {page, filter, sort} = Route.useSearch()
+	const { page, filter, sort } = Route.useSearch()
 
 	return <div>...</div>
 }
@@ -11898,7 +11969,8 @@ const ProductList = () => {
 
 > [!TIP]
 > If your component is code-split, you can use
-> the [getRouteApi function](../code-splitting.md#manually-accessing-route-apis-in-other-files-with-the-getrouteapi-helper)
+>
+the [getRouteApi function](../code-splitting.md#manually-accessing-route-apis-in-other-files-with-the-getrouteapi-helper)
 > to avoid having to import the `Route` configuration to get access to the typed
 `useSearch()` hook.
 
@@ -11925,7 +11997,7 @@ const ProductList = () => {
 
 	// OR
 
-	const {page, filter, sort} = useSearch({
+	const { page, filter, sort } = useSearch({
 		from: Route.fullPath,
 	})
 
@@ -11975,7 +12047,7 @@ export const Route = createFileRoute('/shop/products')({
 const ProductList = () => {
 	return (
 		<div>
-			<Link from={Route.fullPath} search={(prev) => ({page: prev.page + 1})}>
+			<Link from={Route.fullPath} search={(prev) => ({ page: prev.page + 1 })}>
 				Next Page
 			</Link>
 		</div>
@@ -11995,7 +12067,7 @@ Here is an example that illustrates this:
 const PageSelector = () => {
 	return (
 		<div>
-			<Link to="." search={(prev) => ({...prev, page: prev.page + 1})}>
+			<Link to="." search={(prev) => ({ ...prev, page: prev.page + 1 })}>
 				Next Page
 			</Link>
 		</div>
@@ -12014,7 +12086,7 @@ const PageSelector = () => {
 			<Link
 				from="/posts"
 				to="."
-				search={(prev) => ({...prev, page: prev.page + 1})}
+				search={(prev) => ({ ...prev, page: prev.page + 1 })}
 			>
 				Next Page
 			</Link>
@@ -12034,14 +12106,14 @@ export const Route = createFileRoute('/shop/products/$productId')({
 })
 
 const ProductList = () => {
-	const navigate = useNavigate({from: Route.fullPath})
+	const navigate = useNavigate({ from: Route.fullPath })
 
 	return (
 		<div>
 			<button
 				onClick={() => {
 					navigate({
-						search: (prev) => ({page: prev.page + 1}),
+						search: (prev) => ({ page: prev.page + 1 }),
 					})
 				}}
 			>
@@ -12093,7 +12165,7 @@ export const Route = createRootRoute({
 	validateSearch: zodValidator(searchSchema),
 	search: {
 		middlewares: [
-			({search, next}) => {
+			({ search, next }) => {
 				const result = next(search)
 				return {
 					rootValue: search.rootValue,
@@ -12110,7 +12182,10 @@ implementation to retain search params via `retainSearchParams`:
 
 ```tsx
 import { z } from 'zod'
-import { createFileRoute, retainSearchParams } from '@tanstack/react-router'
+import {
+	createFileRoute,
+	retainSearchParams
+} from '@tanstack/react-router'
 import { zodValidator } from '@tanstack/zod-adapter'
 
 const searchSchema = z.object({
@@ -12131,7 +12206,10 @@ is set. TanStack Router provides a generic implementation for this use case via
 
 ```tsx
 import { z } from 'zod'
-import { createFileRoute, stripSearchParams } from '@tanstack/react-router'
+import {
+	createFileRoute,
+	stripSearchParams
+} from '@tanstack/react-router'
 import { zodValidator } from '@tanstack/zod-adapter'
 
 const defaultValues = {
@@ -12179,7 +12257,7 @@ export const Route = createFileRoute('/search')({
 	search: {
 		middlewares: [
 			retainSearchParams(['retainMe']),
-			stripSearchParams({arrayWithDefaults: defaultValues}),
+			stripSearchParams({ arrayWithDefaults: defaultValues }),
 		],
 	},
 })
@@ -12271,7 +12349,7 @@ import { createRouter as createTanstackRouter } from '@tanstack/react-router'
 import { routeTree } from './routeTree.gen'
 
 export function createRouter() {
-	return createTanstackRouter({routeTree})
+	return createTanstackRouter({ routeTree })
 }
 
 declare module '@tanstack/react-router' {
@@ -12691,7 +12769,11 @@ application routes. The code in this file will wrap all other routes in the appl
 
 ```tsx
 // app/routes/__root.tsx
-import { createRootRoute, HeadContent, Scripts } from '@tanstack/react-router'
+import {
+	createRootRoute,
+	HeadContent,
+	Scripts
+} from '@tanstack/react-router'
 import { Outlet } from '@tanstack/react-router'
 import * as React from 'react'
 
@@ -12716,20 +12798,20 @@ export const Route = createRootRoute({
 function RootComponent() {
 	return (
 		<RootDocument>
-			<Outlet/>
+			<Outlet />
 		</RootDocument>
 	)
 }
 
-function RootDocument({children}: { children: React.ReactNode }) {
+function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
 		<html>
 		<head>
-			<HeadContent/>
+			<HeadContent />
 		</head>
 		<body>
 		{children}
-		<Scripts/>
+		<Scripts />
 		</body>
 		</html>
 	)
@@ -12744,7 +12826,10 @@ by creating a new file in the `app/routes` directory.
 ```tsx
 // app/routes/index.tsx
 import * as fs from 'fs'
-import { createFileRoute, useRouter } from '@tanstack/react-router'
+import {
+	createFileRoute,
+	useRouter
+} from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 
 const filePath = 'count.txt'
@@ -12761,9 +12846,9 @@ const getCount = createServerFn({
 	return readCount()
 })
 
-const updateCount = createServerFn({method: 'POST'})
+const updateCount = createServerFn({ method: 'POST' })
 	.validator((d: number) => d)
-	.handler(async ({data}) => {
+	.handler(async ({ data }) => {
 		const count = await readCount()
 		await fs.promises.writeFile(filePath, `${count + data}`)
 	})
@@ -12780,7 +12865,7 @@ function Home() {
 	return (
 		<button
 			onClick={() => {
-				updateCount({data: 1}).then(() => {
+				updateCount({ data: 1 }).then(() => {
 					router.invalidate()
 				})
 			}}
@@ -12871,7 +12956,7 @@ function PostsComponent() {
 
 	// Some hooks require context from the *entire* router, not just the current route. To achieve type-safety here,
 	// we must pass the `from` param to tell the hook our relative position in the route hierarchy.
-	const navigate = useNavigate({from: Route.fullPath})
+	const navigate = useNavigate({ from: Route.fullPath })
 	// ... etc
 }
 ```
@@ -12880,7 +12965,8 @@ Every hook and component that requires a context hint will have a `from` param w
 can pass the ID or path of the route you are rendering within.
 
 > 🧠 Quick tip: If your component is code-split, you can use
-> the [getRouteApi function](../code-splitting.md#manually-accessing-route-apis-in-other-files-with-the-getrouteapi-helper)
+>
+the [getRouteApi function](../code-splitting.md#manually-accessing-route-apis-in-other-files-with-the-getrouteapi-helper)
 > to avoid having to pass in the `Route.fullPath` to get access to the typed `useParams()`
 > and `useSearch()` hooks.
 
@@ -12957,7 +13043,7 @@ For example with TanStack Query you might have a route which calls
 
 ```tsx
 export const Route = createFileRoute('/posts/$postId/deep')({
-	loader: ({context: {queryClient}, params: {postId}}) =>
+	loader: ({ context: { queryClient }, params: { postId } }) =>
 		queryClient.ensureQueryData(postQueryOptions(postId)),
 	component: PostDeepComponent,
 })
@@ -12978,7 +13064,7 @@ quite simple and let typescript infer Promise<void>.
 
 ```tsx
 export const Route = createFileRoute('/posts/$postId/deep')({
-	loader: async ({context: {queryClient}, params: {postId}}) => {
+	loader: async ({ context: { queryClient }, params: { postId } }) => {
 		await queryClient.ensureQueryData(postQueryOptions(postId))
 	},
 	component: PostDeepComponent,
@@ -13015,8 +13101,8 @@ other API's such as `useSearch`, `useParams`, `useNavigate` etc.
 Instead you should try to narrow to relevant routes with `from` or `to`.
 
 ```tsx
-<Link from={Route.fullPath} to=".." search={{page: 0}}/>
-<Link from="/posts" to=".." search={{page: 0}}/>
+<Link from={Route.fullPath} to=".." search={{ page: 0 }} />
+<Link from="/posts" to=".." search={{ page: 0 }} />
 ```
 
 Remember you can always pass a union to `to` or `from` to narrow the routes you're
@@ -13437,7 +13523,10 @@ routes/
 And here is a summarized code-based version:
 
 ```tsx
-import { createRootRoute, createRoute } from '@tanstack/react-router'
+import {
+	createRootRoute,
+	createRoute
+} from '@tanstack/react-router'
 
 const rootRoute = createRootRoute()
 
@@ -13694,7 +13783,8 @@ function PostComponent() {
 
 > [!TIP]
 > If your component is code-split, you can use
-> the [getRouteApi function](../../guide/code-splitting.md#manually-accessing-route-apis-in-other-files-with-the-getrouteapi-helper)
+>
+the [getRouteApi function](../../guide/code-splitting.md#manually-accessing-route-apis-in-other-files-with-the-getrouteapi-helper)
 > to avoid having to import the `postIdRoute` configuration to get access to the typed
 `useParams()` hook.
 
@@ -13742,7 +13832,7 @@ function PostsLayoutComponent() {
 	return (
 		<div>
 			<h1>Posts</h1>
-			<Outlet/>
+			<Outlet />
 		</div>
 	)
 }
@@ -13797,7 +13887,7 @@ function PathlessLayoutComponent() {
 	return (
 		<div>
 			<h1>Pathless Layout</h1>
-			<Outlet/>
+			<Outlet />
 		</div>
 	)
 }
@@ -13825,12 +13915,12 @@ Now both `/route-a` and `/route-b` will render their contents inside of the
 ```tsx
 // URL: /route-a
 <PathlessLayoutComponent>
-	<RouteAComponent/>
+	<RouteAComponent />
 </PathlessLayoutComponent>
 
 // URL: /route-b
 <PathlessLayoutComponent>
-	<RouteBComponent/>
+	<RouteBComponent />
 </PathlessLayoutComponent>
 ```
 
@@ -14131,6 +14221,7 @@ shouldn't be changed by your linter or formatter.
 Here are some resources to help you ignore the generated route tree file:
 
 -
+
 Prettier - [https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore](https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore)
 -
 ESLint - [https://eslint.org/docs/latest/use/configure/ignore#ignoring-files](https://eslint.org/docs/latest/use/configure/ignore#ignoring-files)
@@ -14252,6 +14343,7 @@ shouldn't be changed by your linter or formatter.
 Here are some resources to help you ignore the generated route tree file:
 
 -
+
 Prettier - [https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore](https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore)
 -
 ESLint - [https://eslint.org/docs/latest/use/configure/ignore#ignoring-files](https://eslint.org/docs/latest/use/configure/ignore#ignoring-files)
@@ -14360,6 +14452,7 @@ shouldn't be changed by your linter or formatter.
 Here are some resources to help you ignore the generated route tree file:
 
 -
+
 Prettier - [https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore](https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore)
 -
 ESLint - [https://eslint.org/docs/latest/use/configure/ignore#ignoring-files](https://eslint.org/docs/latest/use/configure/ignore#ignoring-files)
@@ -14468,6 +14561,7 @@ shouldn't be changed by your linter or formatter.
 Here are some resources to help you ignore the generated route tree file:
 
 -
+
 Prettier - [https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore](https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore)
 -
 ESLint - [https://eslint.org/docs/latest/use/configure/ignore#ignoring-files](https://eslint.org/docs/latest/use/configure/ignore#ignoring-files)
@@ -14565,6 +14659,7 @@ shouldn't be changed by your linter or formatter.
 Here are some resources to help you ignore the generated route tree file:
 
 -
+
 Prettier - [https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore](https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore)
 -
 ESLint - [https://eslint.org/docs/latest/use/configure/ignore#ignoring-files](https://eslint.org/docs/latest/use/configure/ignore#ignoring-files)
@@ -14924,14 +15019,14 @@ import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/posts/$postId')({
 	// In a loader
-	loader: ({params}) => fetchPost(params.postId),
+	loader: ({ params }) => fetchPost(params.postId),
 	// Or in a component
 	component: PostComponent,
 })
 
 function PostComponent() {
 	// In a component!
-	const {postId} = Route.useParams()
+	const { postId } = Route.useParams()
 	return <div>Post ID: {postId}</div>
 }
 ```
@@ -14980,7 +15075,7 @@ export const Route = createFileRoute('/posts/{-$category}')({
 })
 
 function PostsComponent() {
-	const {category} = Route.useParams()
+	const { category } = Route.useParams()
 
 	return <div>{category ? `Posts in ${category}` : 'All Posts'}</div>
 }
@@ -15031,7 +15126,10 @@ In the tree above, `app.tsx` is a layout route that wraps two child routes,
 This tree structure is used to wrap the child routes with a layout component:
 
 ```tsx
-import { Outlet, createFileRoute } from '@tanstack/react-router'
+import {
+	Outlet,
+	createFileRoute
+} from '@tanstack/react-router'
 
 export const Route = createFileRoute('/app')({
 	component: AppLayoutComponent,
@@ -15041,7 +15139,7 @@ function AppLayoutComponent() {
 	return (
 		<div>
 			<h1>App Layout</h1>
-			<Outlet/>
+			<Outlet />
 		</div>
 	)
 }
@@ -15112,7 +15210,10 @@ The `_pathlessLayout.tsx` route is used to wrap the child routes with a Pathless
 component:
 
 ```tsx
-import { Outlet, createFileRoute } from '@tanstack/react-router'
+import {
+	Outlet,
+	createFileRoute
+} from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_pathlessLayout')({
 	component: PathlessLayoutComponent,
@@ -15122,7 +15223,7 @@ function PathlessLayoutComponent() {
 	return (
 		<div>
 			<h1>Pathless layout</h1>
-			<Outlet/>
+			<Outlet />
 		</div>
 	)
 }
@@ -15232,9 +15333,9 @@ function PostComponent() {
 
 	return (
 		<div>
-			<PostsHeader/>
-			<PostsTable posts={posts}/>
-			<PostsFooter/>
+			<PostsHeader />
+			<PostsTable posts={posts} />
+			<PostsFooter />
 		</div>
 	)
 }
@@ -15366,7 +15467,7 @@ const routes = rootRoute('root.tsx', [
 ])
 
 export default defineConfig({
-	plugins: [tanstackRouter({virtualRouteConfig: routes}), react()],
+	plugins: [tanstackRouter({ virtualRouteConfig: routes }), react()],
 })
 ```
 
@@ -15624,56 +15725,56 @@ routes and passing the resulting JSON that is generated by calling the actual`ro
 ```json
 // tsr.config.json
 {
-  "virtualRouteConfig": {
-	"type": "root",
-	"file": "root.tsx",
-	"children": [
-	  {
-		"type": "index",
-		"file": "home.tsx"
-	  },
-	  {
-		"type": "route",
-		"file": "posts/posts.tsx",
-		"path": "/posts",
+	"virtualRouteConfig": {
+		"type": "root",
+		"file": "root.tsx",
 		"children": [
-		  {
-			"type": "index",
-			"file": "posts/posts-home.tsx"
-		  },
-		  {
-			"type": "route",
-			"file": "posts/posts-detail.tsx",
-			"path": "$postId"
-		  }
-		]
-	  },
-	  {
-		"type": "layout",
-		"id": "first",
-		"file": "layout/first-pathless-layout.tsx",
-		"children": [
-		  {
-			"type": "layout",
-			"id": "second",
-			"file": "layout/second-pathless-layout.tsx",
-			"children": [
-			  {
+			{
+				"type": "index",
+				"file": "home.tsx"
+			},
+			{
 				"type": "route",
-				"file": "a.tsx",
-				"path": "/route-a"
-			  },
-			  {
-				"type": "route",
-				"file": "b.tsx",
-				"path": "/route-b"
-			  }
-			]
-		  }
+				"file": "posts/posts.tsx",
+				"path": "/posts",
+				"children": [
+					{
+						"type": "index",
+						"file": "posts/posts-home.tsx"
+					},
+					{
+						"type": "route",
+						"file": "posts/posts-detail.tsx",
+						"path": "$postId"
+					}
+				]
+			},
+			{
+				"type": "layout",
+				"id": "first",
+				"file": "layout/first-pathless-layout.tsx",
+				"children": [
+					{
+						"type": "layout",
+						"id": "second",
+						"file": "layout/second-pathless-layout.tsx",
+						"children": [
+							{
+								"type": "route",
+								"file": "a.tsx",
+								"path": "/route-a"
+							},
+							{
+								"type": "route",
+								"file": "b.tsx",
+								"path": "/route-b"
+							}
+						]
+					}
+				]
+			}
 		]
-	  }
-	]
-  }
+	}
 }
 ```
 
@@ -16006,7 +16107,11 @@ Create the following files:
 #### `src/routes/__root.tsx`
 
 ```tsx
-import { createRootRoute, Link, Outlet } from '@tanstack/react-router'
+import {
+	createRootRoute,
+	Link,
+	Outlet
+} from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
 export const Route = createRootRoute({
@@ -16020,9 +16125,9 @@ export const Route = createRootRoute({
 					About
 				</Link>
 			</div>
-			<hr/>
-			<Outlet/>
-			<TanStackRouterDevtools/>
+			<hr />
+			<Outlet />
+			<TanStackRouterDevtools />
 		</>
 	),
 })
@@ -16072,13 +16177,16 @@ Import the generated route tree and create a new router instance:
 ```tsx
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
-import { RouterProvider, createRouter } from '@tanstack/react-router'
+import {
+	RouterProvider,
+	createRouter
+} from '@tanstack/react-router'
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
 
 // Create a new router instance
-const router = createRouter({routeTree})
+const router = createRouter({ routeTree })
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
@@ -16093,7 +16201,7 @@ if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement)
 	root.render(
 		<StrictMode>
-			<RouterProvider router={router}/>
+			<RouterProvider router={router} />
 		</StrictMode>,
 	)
 }
@@ -16135,9 +16243,9 @@ const rootRoute = createRootRoute({
 					About
 				</Link>
 			</div>
-			<hr/>
-			<Outlet/>
-			<TanStackRouterDevtools/>
+			<hr />
+			<Outlet />
+			<TanStackRouterDevtools />
 		</>
 	),
 })
@@ -16164,7 +16272,7 @@ const aboutRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([indexRoute, aboutRoute])
 
-const router = createRouter({routeTree})
+const router = createRouter({ routeTree })
 
 declare module '@tanstack/react-router' {
 	interface Register {
@@ -16177,7 +16285,7 @@ if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement)
 	root.render(
 		<StrictMode>
-			<RouterProvider router={router}/>
+			<RouterProvider router={router} />
 		</StrictMode>,
 	)
 }
@@ -16404,6 +16512,7 @@ function App() {
 # Migration from React Router Checklist
 
 *
+
 *_If your UI is blank, open the console, and you will probably have some errors that read
 something along the lines of `cannot use 'useNavigate' outside of context` . This means
 there are React Router api’s that are still imported and referenced that you need to find
@@ -16565,7 +16674,11 @@ mkdir src/routes
 
 ```tsx
 // src/routes/__root.tsx
-import { createRootRoute, Outlet, Link } from '@tanstack/react-router'
+import {
+	createRootRoute,
+	Outlet,
+	Link
+} from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 
 export const Route = createRootRoute({
@@ -16573,14 +16686,14 @@ export const Route = createRootRoute({
 		return (
 			<>
 				<div>
-					<Link to="/" activeOptions={{exact: true}}>
+					<Link to="/" activeOptions={{ exact: true }}>
 						Home
 					</Link>
 					<Link to="/posts">Posts</Link>
 				</div>
-				<hr/>
-				<Outlet/>
-				<TanStackRouterDevtools/>
+				<hr />
+				<Outlet />
+				<TanStackRouterDevtools />
 			</>
 		)
 	},
@@ -16605,7 +16718,11 @@ export const Route = createFileRoute('/')({
 
 ```tsx
 // src/routes/posts.tsx
-import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
+import {
+	createFileRoute,
+	Link,
+	Outlet
+} from '@tanstack/react-router'
 
 export const Route = createFileRoute('/posts')({
 	component: Posts,
@@ -16618,7 +16735,7 @@ export const Route = createFileRoute('/posts')({
 })
 
 function Posts() {
-	const {posts} = Route.useLoaderData()
+	const { posts } = Route.useLoaderData()
 	return (
 		<div>
 			<nav>
@@ -16626,13 +16743,13 @@ function Posts() {
 					<Link
 						key={post.id}
 						to={`/posts/$postId`}
-						params={{postId: post.id}}
+						params={{ postId: post.id }}
 					>
 						{post.title}
 					</Link>
 				))}
 			</nav>
-			<Outlet/>
+			<Outlet />
 		</div>
 	)
 }
@@ -16663,7 +16780,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/posts/$postId')({
 	component: PostsId,
-	loader: async ({params: {postId}}) => {
+	loader: async ({ params: { postId } }) => {
 		const post = await fetchPost(postId)
 		return {
 			post,
@@ -16672,7 +16789,7 @@ export const Route = createFileRoute('/posts/$postId')({
 })
 
 function PostsId() {
-	const {post} = Route.useLoaderData()
+	const { post } = Route.useLoaderData()
 	// ...
 }
 ```
@@ -16701,13 +16818,16 @@ create the router instance and render it.
 // src/index.tsx
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createRouter, RouterProvider } from '@tanstack/react-router'
+import {
+	createRouter,
+	RouterProvider
+} from '@tanstack/react-router'
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
 
 // Create a new router instance
-const router = createRouter({routeTree})
+const router = createRouter({ routeTree })
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
@@ -16726,7 +16846,7 @@ if (!rootElement) {
 
 ReactDOM.createRoot(rootElement).render(
 	<React.StrictMode>
-		<RouterProvider router={router}/>
+		<RouterProvider router={router} />
 	</React.StrictMode>,
 )
 ```
@@ -16792,7 +16912,10 @@ function of the route.
 
 ```tsx
 // src/routes/_pathless-layout.tsx
-import { createFileRoute, Outlet } from '@tanstack/react-router'
+import {
+	createFileRoute,
+	Outlet
+} from '@tanstack/react-router'
 import { isAuthenticated } from '../utils/auth'
 
 export const Route = createFileRoute('/_pathless-layout', {
@@ -16812,7 +16935,7 @@ function PathlessLayoutRouteComponent() {
 	return (
 		<div>
 			<h1>You are authed</h1>
-			<Outlet/>
+			<Outlet />
 		</div>
 	)
 }

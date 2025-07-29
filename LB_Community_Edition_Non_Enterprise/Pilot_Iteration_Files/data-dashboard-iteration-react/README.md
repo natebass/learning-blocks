@@ -83,7 +83,10 @@ appear in the JSX where you use the `<Outlet />` component.
 Here is an example layout that includes a header:
 
 ```tsx
-import { Outlet, createRootRoute } from '@tanstack/react-router'
+import {
+	Outlet,
+	createRootRoute
+} from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
 import { Link } from "@tanstack/react-router";
@@ -97,8 +100,8 @@ export const Route = createRootRoute({
 					<Link to="/about">About</Link>
 				</nav>
 			</header>
-			<Outlet/>
-			<TanStackRouterDevtools/>
+			<Outlet />
+			<TanStackRouterDevtools />
 		</>
 	),
 })
