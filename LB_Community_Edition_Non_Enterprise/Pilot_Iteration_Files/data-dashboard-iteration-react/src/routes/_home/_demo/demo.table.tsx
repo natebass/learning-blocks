@@ -326,11 +326,11 @@ function Filter({ column }: { column: Column<any, unknown> }) {
 
 // A typical debounced input react component
 function DebouncedInput({
-	                        value: initialValue,
-	                        onChange,
-	                        debounce = 500,
-	                        ...props
-                        }: {
+	value: initialValue,
+	onChange,
+	debounce = 500,
+	...props
+}: {
 	value: string | number;
 	onChange: (value: string | number) => void;
 	debounce?: number;

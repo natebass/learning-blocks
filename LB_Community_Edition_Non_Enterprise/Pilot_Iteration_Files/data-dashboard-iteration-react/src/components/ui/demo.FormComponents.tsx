@@ -19,8 +19,8 @@ export function SubscribeButton({ label }: { label: string }) {
 }
 
 function ErrorMessages({
-	                       errors,
-                       }: {
+	errors,
+}: {
 	errors: Array<string | { message: string }>;
 }) {
 	return (
@@ -38,9 +38,9 @@ function ErrorMessages({
 }
 
 export function TextField({
-	                          label,
-	                          placeholder,
-                          }: {
+	label,
+	placeholder,
+}: {
 	label: string;
 	placeholder?: string;
 }) {
@@ -65,9 +65,9 @@ export function TextField({
 }
 
 export function TextArea({
-	                         label,
-	                         rows = 3,
-                         }: {
+	label,
+	rows = 3,
+}: {
 	label: string;
 	rows?: number;
 }) {
@@ -92,9 +92,9 @@ export function TextArea({
 }
 
 export function Select({
-	                       label,
-	                       values,
-                       }: {
+	label,
+	values,
+}: {
 	label: string;
 	values: Array<{ label: string; value: string }>;
 	placeholder?: string;

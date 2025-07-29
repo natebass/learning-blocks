@@ -35,9 +35,9 @@ export interface AuthContext {
 export const AuthContext = React.createContext<AuthContext | null>(null);
 
 export function AuthProvider({
-	                             children,
-	                             router,
-                             }: {
+	children,
+	router,
+}: {
 	children: React.ReactNode;
 	router: RegisteredRouter;
 }) {
