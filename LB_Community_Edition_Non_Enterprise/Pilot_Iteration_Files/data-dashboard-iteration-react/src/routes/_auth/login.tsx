@@ -21,8 +21,10 @@ function LoginComponent() {
 		},
 	});
 	return (
-		<div className="flex min-h-screen items-center justify-center p-4 bg-gray-50 dark:bg-gray-900">
-			<div className="w-full max-w-md rounded-lg border border-gray-200 bg-white p-6 shadow-md dark:border-gray-700 dark:bg-gray-800">
+		<div
+			className="flex min-h-screen items-center justify-center p-4 bg-gray-50 dark:bg-gray-900">
+			<div
+				className="w-full max-w-md rounded-lg border border-gray-200 bg-white p-6 shadow-md dark:border-gray-700 dark:bg-gray-800">
 				<h2 className="mb-6 text-center text-2xl font-bold text-gray-900 dark:text-white">
 					Login
 				</h2>

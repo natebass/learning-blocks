@@ -1,9 +1,4 @@
-import {
-	createFileRoute,
-	Link,
-	Outlet,
-	redirect,
-} from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, redirect, } from "@tanstack/react-router";
 import AppH5A from "@/components/layout/AppH5A";
 import { useAuth } from "@/hooks/use-auth";
 
