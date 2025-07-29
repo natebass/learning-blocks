@@ -5,17 +5,17 @@ import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import viteReact from '@vitejs/plugin-react'
 
 export default defineConfig({
-  plugins: [
-    tanstackRouter({
-      target: 'react',
-      autoCodeSplitting: true,
-    }),
-    viteReact(),
-    tailwindcss(),
-  ],
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, './src'),
-    },
-  },
+	plugins: [
+		tanstackRouter({
+			target: 'react',
+			autoCodeSplitting: true,
+		}),
+		viteReact(),
+		tailwindcss(),
+	],
+	resolve: {
+		alias: {
+			'@': resolve(__dirname, './src'),
+		},
+	},
 })

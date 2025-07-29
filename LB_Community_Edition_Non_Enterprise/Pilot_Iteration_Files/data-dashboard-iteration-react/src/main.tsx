@@ -10,6 +10,7 @@ import reportWebVitals from "./reportWebVitals.ts";
 const router = createRouter({
 	routeTree,
 	context: {
+		// biome-ignore lint: auth will initially be undefined. we will be passing down the auth state from within a React component.
 		auth: undefined!,
 	},
 	defaultPreload: "intent",
@@ -19,6 +20,7 @@ const router = createRouter({
 });
 
 declare module "@tanstack/react-router" {
+	// biome-ignore lint: Register the router instance for type safety
 	interface Register {
 		router: typeof router;
 	}
@@ -36,6 +38,7 @@ function App() {
 		</AuthProvider>
 	);
 }
+
 const rootElement = document.getElementById("app");
 if (rootElement && !rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
@@ -48,7 +51,4 @@ if (rootElement && !rootElement.innerHTML) {
 	);
 }
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
