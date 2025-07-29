@@ -72,8 +72,7 @@ export default function DistrictSelector() {
 					aria-label="District selector"
 				>
 					<optgroup label="Recent">
-						<option value="northstop">Northstop Unified School District
-						</option>
+						<option value="northstop">Northstop Unified School District</option>
 						<option value="another">Another District</option>
 					</optgroup>
 				</select>

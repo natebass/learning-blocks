@@ -3,8 +3,22 @@
 import type { RankingInfo } from "@tanstack/match-sorter-utils";
 import { compareItems, rankItem } from "@tanstack/match-sorter-utils";
 import { createFileRoute } from "@tanstack/react-router";
-import type { Column, ColumnDef, ColumnFiltersState, FilterFn, SortingFn, } from "@tanstack/react-table";
-import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, sortingFns, useReactTable, } from "@tanstack/react-table";
+import type {
+	Column,
+	ColumnDef,
+	ColumnFiltersState,
+	FilterFn,
+	SortingFn,
+} from "@tanstack/react-table";
+import {
+	flexRender,
+	getCoreRowModel,
+	getFilteredRowModel,
+	getPaginationRowModel,
+	getSortedRowModel,
+	sortingFns,
+	useReactTable,
+} from "@tanstack/react-table";
 import React from "react";
 import type { Person } from "../../../data/demo-table-data";
 import { makeData } from "../../../data/demo-table-data";
@@ -137,78 +151,75 @@ function TableDemo() {
 				/>
 			</div>
 			<div className="h-4" />
-			<div
-				className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
+			<div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
 				<table className="w-full text-sm text-gray-800 dark:text-gray-200">
-					<thead
-						className="bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-100">
-					{table.getHeaderGroups().map((headerGroup) => (
-						<tr key={headerGroup.id}>
-							{headerGroup.headers.map((header) => {
-								return (
-									<th
-										key={header.id}
-										colSpan={header.colSpan}
-										className="px-4 py-3 text-left"
-									>
-										{header.isPlaceholder ? null : (
-											<>
-												<div
-													{...{
-														className: header.column.getCanSort()
-															? "cursor-pointer select-none hover:text-blue-400 transition-colors"
-															: "",
-														onClick: header.column.getToggleSortingHandler(),
-													}}
-												>
-													{flexRender(
-														header.column.columnDef.header,
-														header.getContext(),
-													)}
-													{{
-														asc: " 🔼",
-														desc: " 🔽",
-													}[header.column.getIsSorted() as string] ?? null}
-												</div>
-												{header.column.getCanFilter() ? (
-													<div className="mt-2">
-														<Filter column={header.column} />
-													</div>
-												) : null}
-											</>
-										)}
-									</th>
-								);
-							})}
-						</tr>
-					))}
-					</thead>
-					<tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-					{table.getRowModel().rows.map((row) => {
-						return (
-							<tr
-								key={row.id}
-								className="hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-							>
-								{row.getVisibleCells().map((cell) => {
+					<thead className="bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-100">
+						{table.getHeaderGroups().map((headerGroup) => (
+							<tr key={headerGroup.id}>
+								{headerGroup.headers.map((header) => {
 									return (
-										<td key={cell.id} className="px-4 py-3">
-											{flexRender(
-												cell.column.columnDef.cell,
-												cell.getContext(),
+										<th
+											key={header.id}
+											colSpan={header.colSpan}
+											className="px-4 py-3 text-left"
+										>
+											{header.isPlaceholder ? null : (
+												<>
+													<div
+														{...{
+															className: header.column.getCanSort()
+																? "cursor-pointer select-none hover:text-blue-400 transition-colors"
+																: "",
+															onClick: header.column.getToggleSortingHandler(),
+														}}
+													>
+														{flexRender(
+															header.column.columnDef.header,
+															header.getContext(),
+														)}
+														{{
+															asc: " 🔼",
+															desc: " 🔽",
+														}[header.column.getIsSorted() as string] ?? null}
+													</div>
+													{header.column.getCanFilter() ? (
+														<div className="mt-2">
+															<Filter column={header.column} />
+														</div>
+													) : null}
+												</>
 											)}
-										</td>
+										</th>
 									);
 								})}
 							</tr>
-						);
-					})}
+						))}
+					</thead>
+					<tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+						{table.getRowModel().rows.map((row) => {
+							return (
+								<tr
+									key={row.id}
+									className="hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+								>
+									{row.getVisibleCells().map((cell) => {
+										return (
+											<td key={cell.id} className="px-4 py-3">
+												{flexRender(
+													cell.column.columnDef.cell,
+													cell.getContext(),
+												)}
+											</td>
+										);
+									})}
+								</tr>
+							);
+						})}
 					</tbody>
 				</table>
 			</div>
 			<div className="h-4" />
-			<div
-				className="flex flex-wrap items-center gap-2 text-gray-800 dark:text-gray-200">
+			<div className="flex flex-wrap items-center gap-2 text-gray-800 dark:text-gray-200">
 				<button
 					type="button"
 					className="px-3 py-1 bg-gray-200 dark:bg-gray-800 rounded-md hover:bg-gray-300 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -295,8 +306,7 @@ function TableDemo() {
 					Refresh Data
 				</button>
 			</div>
-			<pre
-				className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-700 dark:text-gray-300 overflow-auto">
+			<pre className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-700 dark:text-gray-300 overflow-auto">
 				{JSON.stringify(
 					{
 						columnFilters: table.getState().columnFilters,

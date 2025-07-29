@@ -1,4 +1,7 @@
-import { useFieldContext, useFormContext, } from ".../.../hooks/demo.form-context";
+import {
+	useFieldContext,
+	useFormContext,
+} from ".../.../hooks/demo.form-context";
 import { useStore } from "@tanstack/react-form";
 
 export function SubscribeButton({ label }: { label: string }) {

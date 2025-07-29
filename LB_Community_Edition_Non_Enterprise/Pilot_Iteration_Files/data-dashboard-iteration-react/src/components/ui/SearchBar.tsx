@@ -73,8 +73,7 @@ export default function SearchBar({ className }: { className?: string }) {
 				<div className="searchbar-dropdown">
 					{filteredResults.map((cat) => (
 						<div key={cat.category} className="searchbar-category-block">
-							<div
-								className="searchbar-category-heading">{cat.category}</div>
+							<div className="searchbar-category-heading">{cat.category}</div>
 							{cat.items.map((item) => (
 								<button
 									key={item.id}

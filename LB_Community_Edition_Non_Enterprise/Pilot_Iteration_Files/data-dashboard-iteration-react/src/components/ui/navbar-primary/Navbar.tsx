@@ -7,8 +7,7 @@ export default function Navbar() {
 		shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]
 		"
 		>
-			<nav
-				className="h-full flex items-center max-w-[82.5rem] mx-auto px-6 gap-2 justify-between">
+			<nav className="h-full flex items-center max-w-[82.5rem] mx-auto px-6 gap-2 justify-between">
 				<div className="flex items-center h-full py-2">
 					<Link
 						className="pr-8 h-full rounded font-bold gap-[13px] text-[#013148] flex items-center leading-none tracking-wide"
