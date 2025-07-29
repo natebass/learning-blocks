@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
+import { useAuth } from "@/hooks/use-auth";
 
 export default function DistrictSelector() {
 	const [open, setOpen] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement>(null);
+	const auth = useAuth();
 
 	useEffect(() => {
 		function handleClickOutside(event: MouseEvent) {
@@ -23,6 +25,10 @@ export default function DistrictSelector() {
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
 	}, [open]);
+
+	if (!auth.currentOrg) {
+		return null;
+	}
 
 	return (
 		<div className="relative flex items-center" ref={dropdownRef}>
@@ -48,7 +54,7 @@ export default function DistrictSelector() {
 				aria-haspopup="listbox"
 				aria-expanded={open}
 			>
-				Northstop Unified School District
+				{auth.currentOrg}
 				<svg
 					width="16"
 					height="16"
@@ -72,8 +78,12 @@ export default function DistrictSelector() {
 					aria-label="District selector"
 				>
 					<optgroup label="Recent">
-						<option value="northstop">Northstop Unified School District</option>
-						<option value="another">Another District</option>
+						<option value={auth.currentOrg}>{auth.currentOrg}</option>
+						{auth.previousOrgs?.map((org) => (
+							<option key={org} value={org}>
+								{org}
+							</option>
+						))}
 					</optgroup>
 				</select>
 			)}

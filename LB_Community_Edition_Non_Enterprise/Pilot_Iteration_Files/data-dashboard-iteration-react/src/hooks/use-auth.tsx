@@ -28,6 +28,8 @@ const parseMockJwt = (token: string) => {
 export interface AuthContext {
 	isAuthenticated: boolean;
 	user?: string;
+	currentOrg?: string;
+	previousOrgs?: string[];
 	login: (user: string) => Promise<void>;
 	logout: () => void;
 }
@@ -50,6 +52,13 @@ export function AuthProvider({
 		return undefined;
 	});
 
+	const [currentOrg, setCurrentOrg] = React.useState<string | undefined>(
+		undefined,
+	);
+	const [previousOrgs, setPreviousOrgs] = React.useState<string[] | undefined>(
+		undefined,
+	);
+
 	const isAuthenticated = !!user;
 
 	const login = async (newUser: string) => {
@@ -70,7 +79,16 @@ export function AuthProvider({
 	};
 
 	return (
-		<AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
+		<AuthContext.Provider
+			value={{
+				isAuthenticated,
+				user,
+				login,
+				logout,
+				currentOrg,
+				previousOrgs,
+			}}
+		>
 			{children}
 		</AuthContext.Provider>
 	);

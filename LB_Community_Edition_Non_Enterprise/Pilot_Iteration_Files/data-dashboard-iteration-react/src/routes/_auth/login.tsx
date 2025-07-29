@@ -1,9 +1,16 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, redirect } from "@tanstack/react-router";
 import { z } from "zod";
 import { loginSchema, useLoginForm } from "@/forms/auth";
 import { useAuth } from "../../hooks/use-auth";
 
 export const Route = createFileRoute("/_auth/login")({
+	beforeLoad: ({ context }) => {
+		if (context.auth.isAuthenticated) {
+			throw redirect({
+				to: "/",
+			});
+		}
+	},
 	component: LoginComponent,
 	validateSearch: z.object({
 		redirect: z.string().optional(),
@@ -17,7 +24,7 @@ function LoginComponent() {
 	const form = useLoginForm({
 		onSubmit: async (value) => {
 			await auth.login(value.user);
-			navigate({ to: redirect || "/" });
+			navigate({ to: redirect || "/", replace: true });
 		},
 	});
 	return (

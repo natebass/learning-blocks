@@ -25,13 +25,13 @@ export const Route = createFileRoute("/_home/_demo")({
 function DemoLayout() {
 	const auth = useAuth();
 	return (
-		<AppH5A>
+		<>
 			<div>
 				<p>Welcome, {auth.user}!</p>
 				<Link to="/logout">Logout</Link>
 			</div>
 			<hr />
 			<Outlet />
-		</AppH5A>
+		</>
 	);
 }
