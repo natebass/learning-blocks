@@ -1,4 +1,6 @@
 import { useForm } from "@tanstack/react-form";
+import React from "react";
+import { ComboBox } from "../ui/input/ComboBox";
 
 // Mock API call for async validation
 const checkDistrictExists = async (
@@ -22,8 +24,6 @@ export function useSearchHomepageForm(opts?: {
 			location: "",
 		},
 		onSubmit: async ({ value }) => {
-			// Here you would typically handle the form submission,
-			// e.g., navigate to a search results page.
 			console.log("Form submitted with:", value);
 			alert(`Searching for ${value.schoolOrDistrict} in ${value.location}`);
 			opts?.onSubmit?.(value);
@@ -33,26 +33,18 @@ export function useSearchHomepageForm(opts?: {
 	return form;
 }
 
-// Reusable Field Component for better structure
-function FieldInfo({
-	field,
-}: {
-	field: {
-		state: { meta: { touchedErrors: string[]; isValidating: boolean } };
-	};
-}) {
-	return (
-		<>
-			{field.state.meta.touchedErrors ? (
-				<em>{field.state.meta.touchedErrors}</em>
-			) : null}
-			{field.state.meta.isValidating ? <em>Validating...</em> : null}
-		</>
-	);
-}
-
 export default function SearchHomepageForm() {
 	const form = useSearchHomepageForm();
+	const schoolOptions = [
+		"Springfield Elementary",
+		"Shelbyville Middle School",
+		"Ogdenville High",
+	];
+	const locationOptions = [
+		"Springfield, IL",
+		"Shelbyville, TN",
+		"Ogdenville, OH",
+	];
 
 	return (
 		<form
@@ -61,76 +53,53 @@ export default function SearchHomepageForm() {
 				e.stopPropagation();
 				form.handleSubmit();
 			}}
-			className="flex w-full"
+			className="flex w-4xl items-end gap-4 pb-40"
 		>
-			<div>
-				<form.Field
-					name="schoolOrDistrict"
-					validators={{
-						onChange: ({ value }) =>
-							!value || value.length < 2
-								? "Please enter at least 2 characters."
-								: undefined,
-						onChangeAsyncDebounceMs: 500,
-						onChangeAsync: async ({ value }) => {
-							if (value.length < 2) return;
-							return checkDistrictExists(value);
-						},
-					}}
-				>
-					{(field) => (
-						<div>
-							<label htmlFor={field.name}>School or District</label>
-							<input
-								id={field.name}
-								name={field.name}
-								value={field.state.value}
-								onBlur={field.handleBlur}
-								onChange={(e) => field.handleChange(e.target.value)}
-								placeholder="e.g., Springfield Elementary"
-							/>
-							<FieldInfo field={field} />
-						</div>
-					)}
-				</form.Field>
-
-				<form.Field
-					name="location"
-					validators={{
-						onChange: ({ value }) =>
-							!value || value.length < 2
-								? "Please enter a valid location."
-								: undefined,
-					}}
-				>
-					{(field) => (
-						<div>
-							<label htmlFor={field.name}>Location</label>
-							<input
-								id={field.name}
-								name={field.name}
-								value={field.state.value}
-								onBlur={field.handleBlur}
-								onChange={(e) => field.handleChange(e.target.value)}
-								placeholder="e.g., City, State, or ZIP Code"
-							/>
-							<FieldInfo field={field} />
-						</div>
-					)}
-				</form.Field>
-			</div>
-
-			<div>
-				<form.Subscribe
-					selector={(state) => [state.canSubmit, state.isSubmitting]}
-				>
-					{([canSubmit, isSubmitting]) => (
-						<button type="submit" disabled={!canSubmit}>
-							{isSubmitting ? "Searching..." : "Search"}
-						</button>
-					)}
-				</form.Subscribe>
-			</div>
+			<form.Field
+				name="schoolOrDistrict"
+				validators={{
+					onChange: ({ value }) =>
+						!value ? "Please enter a school or district." : undefined,
+				}}
+			>
+				{(field) => (
+					<ComboBox
+						field={field}
+						options={schoolOptions}
+						placeholder="Enter a school or district"
+						label="School or District"
+					/>
+				)}
+			</form.Field>
+			<form.Field
+				name="location"
+				validators={{
+					onChange: ({ value }) =>
+						!value ? "Please enter a location." : undefined,
+				}}
+			>
+				{(field) => (
+					<ComboBox
+						field={field}
+						options={locationOptions}
+						placeholder="Enter a location"
+						label="Location"
+					/>
+				)}
+			</form.Field>
+			<form.Subscribe
+				selector={(state) => [state.canSubmit, state.isSubmitting]}
+			>
+				{([canSubmit, isSubmitting]) => (
+					<button
+						className="flex-shrink rounded-md bg-cool2-500 px-4 py-2 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cool2-500 disabled:opacity-50"
+						type="submit"
+						disabled={!canSubmit}
+					>
+						{isSubmitting ? "Searching..." : "Search"}
+					</button>
+				)}
+			</form.Subscribe>
 		</form>
 	);
 }

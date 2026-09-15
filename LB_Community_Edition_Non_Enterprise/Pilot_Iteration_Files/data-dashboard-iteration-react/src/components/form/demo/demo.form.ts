@@ -4,7 +4,7 @@ import {
 	Select,
 	TextArea,
 	TextField,
-} from "../../ui/demo.FormComponents.tsx";
+} from "@/components/other/demo.FormComponents.tsx";
 import { fieldContext, formContext } from "./demo.form-context.ts";
 import { SubscribeButton } from "@/components/ui/button/SubscribeButton.tsx";
 

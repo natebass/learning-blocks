@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import DistrictSelector from "./DistrictSelector.tsx";
-import SearchBar from "../SearchBar.tsx";
+import SearchBar from "./SearchBar.tsx";
 
 export default function Navbar() {
 	return (
