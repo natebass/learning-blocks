@@ -5,6 +5,29 @@
 
 ## Welcome to this open-source project dedicated to helping developers make API tools for student support service providers. The educational data ecosysem comprises primarily of SFTP servers and API calls to databases. The goal is to help student support service providers to gain access ecosystems and make sense of them all the data. 
 
+## Apps
+
+Learning Blocks Community Edition is always free and open source.
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <a href="screenshots/edgenuity_aeries_screenshot.png"><img src="screenshots/edgenuity_aeries_screenshot.png" alt="Edgenuity to Aeries Gradebook Passback"></a><br>
+      <sub><strong>Edgenuity to Aeries Gradebook Passback</strong> — Sync Edgenuity grades to the Aeries student information system.</sub>
+    </td>
+    <td width="50%" align="center">
+      <a href="screenshots/dashboard_screenshot.png"><img src="screenshots/dashboard_screenshot.png" alt="California Dashboard"></a><br>
+      <sub><strong>California Dashboard</strong> — View statewide dashboard data from CDE and ELPAC and add projections.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <a href=""><img src="" alt="More to come"></a><br>
+      <sub><strong>More to come</strong> — Stay tuned.</sub>
+    </td>
+  </tr>
+</table>
+
 ## Because people looking at this repo has different levels of skill, this repository has a couple of ways to do that depending on your level of expertise and depending on your intended use.
 
 ### If you are a student support service provider trying to use these tools, please read [this documentation](https://github.com/code4sac/learning-blocks/blob/main/Documentation%20Directory/SSSP_Read_Me.md) However, you will need to reach out to your LEA's Database Coordinator for the following information:
